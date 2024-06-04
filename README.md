@@ -7,6 +7,7 @@ You'll fight an opponent in a restricted arena, filled with opportunity for ambu
 - [ArenaTactics](#arenatactics)
   - [Main Features](#main-features)
   - [Appearance](#appearance)
+  - [Main Feature Technical Design](#main-feature-technical-design)
 
 ## Main Features
 
@@ -35,3 +36,39 @@ You'll fight an opponent in a restricted arena, filled with opportunity for ambu
 ## Appearance
 
 - 3D Low Poly. Doable, not too costly in time.
+
+## Main Feature Technical Design
+
+The game will be developped using Godot.
+
+- Online Multiplayer
+  - Must research more (YOMI)
+  - Client and Server architecture -> MUST RESEARCH MORE BEFORE WRITING ANY CODE
+
+- TBSR
+  - Main idea is to pause processing of nodes and manually count frames.
+  - Must research more (YOMI)
+
+- Full freedom of movement
+  - Must research Pathinding in 3D
+
+- Arena Generation
+  - ServerSide
+  - Multipass Generation (minecraft like)
+  - Wave Function Collapse for defining rules
+  - Research More
+
+- Fog of War + Hiding
+  - Handled ServerSide
+  - Research More
+
+- Sound Design and visual subtitles
+  - Client Side visual options
+  - Signals + UI
+
+- Class & Spell system
+  - Data Driven as much as possible
+    - Factory pattern ?
+  - Will make balancing and iterating faster
+  - Will make modding possible
+  - Research More
