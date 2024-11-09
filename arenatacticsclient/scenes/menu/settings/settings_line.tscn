@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://eumbs2kuhj63"]
+
+[ext_resource type="Script" path="res://scenes/menu/settings/settings_line.gd" id="1_tf1xw"]
+
+[node name="SettingsLine" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = -1
+script = ExtResource("1_tf1xw")
+
+[node name="NameContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingName" type="Label" parent="NameContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+
+[node name="Control2" type="Control" parent="NameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3

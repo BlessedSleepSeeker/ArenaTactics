@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://chgfq0kn0onbo"]
+
+[ext_resource type="Theme" uid="uid://srf2bpfdjwwr" path="res://assets/theme/menu_ui_theme.tres" id="1_w8hiq"]
+[ext_resource type="PackedScene" uid="uid://dg2lu8hd15uey" path="res://scenes/menu/main_menu_background.tscn" id="2_0xe1w"]
+[ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="2_20ujx"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_w8hiq")
+script = ExtResource("2_20ujx")
+
+[node name="MainMenuBg" parent="." instance=ExtResource("2_0xe1w")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="MainMenu" type="CenterContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MainMenu/VBox"]
+layout_mode = 2
+text = "Online"
+
+[node name="Settings" type="Button" parent="MainMenu/VBox"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="MainMenu/VBox"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Exit" type="Button" parent="MainMenu/VBox"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="MainMenu/VBox/Play" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenu/VBox/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/VBox/Credits" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MainMenu/VBox/Exit" to="." method="_on_quit_button_pressed"]

@@ -1,4 +1,5 @@
 extends Node
+class_name Client
 
 signal player_connected(peer_id)
 signal player_disconnected(peer_id)
@@ -10,7 +11,11 @@ const MAX_CONNEXION = 4
 
 var players = {}
 
-var player_info = {"name": "Client"}
+var player_info: Dictionary = {"name": "Client"}
+
+
+func set_player_info(_player_info: Dictionary):
+	player_info = _player_info
 
 func _ready():
 		multiplayer.peer_connected.connect(_on_player_connected)
@@ -18,12 +23,11 @@ func _ready():
 		multiplayer.connected_to_server.connect(_on_connected_ok)
 		multiplayer.connection_failed.connect(_on_connected_fail)
 		multiplayer.server_disconnected.connect(_on_server_disconnected)
-		join_game()
 
 
-func join_game(adress: String = DEFAULT_SERVER_IP):
+func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
 	var peer := ENetMultiplayerPeer.new()
-	var error = peer.create_client(adress, PORT)
+	var error = peer.create_client(adress, _port)
 	match error:
 		OK:
 			print("Client successfully created!")

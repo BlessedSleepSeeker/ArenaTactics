@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://dalktguxudra8"]
+
+[ext_resource type="Theme" uid="uid://srf2bpfdjwwr" path="res://assets/theme/menu_ui_theme.tres" id="1_87076"]
+[ext_resource type="Script" path="res://scenes/menu/settings/settings_screen.gd" id="2_ehjt7"]
+
+[node name="SettingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_87076")
+script = ExtResource("2_ehjt7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 20
+
+[node name="VB" type="VBoxContainer" parent="MC"]
+layout_mode = 2
+
+[node name="SettingsTab" type="TabContainer" parent="MC/VB"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="HB" type="HBoxContainer" parent="MC/VB"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MC/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Go Back"
+
+[node name="SaveButton" type="Button" parent="MC/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Save"
+
+[node name="SaveDialog" type="ConfirmationDialog" parent="."]
+title = "Save and Apply Settings"
+initial_position = 2
+size = Vector2i(300, 100)
+content_scale_mode = 2
+content_scale_aspect = 1
+content_scale_stretch = 1
+
+[node name="QuitDialog" type="ConfirmationDialog" parent="."]
+title = "You have unsaved settings !"
+initial_position = 2
+size = Vector2i(300, 80)
+unresizable = true
+popup_window = true
+min_size = Vector2i(300, 30)
+content_scale_mode = 2
+content_scale_aspect = 1
+content_scale_stretch = 1
+ok_button_text = "Go Back"
+cancel_button_text = "Stay !"
+
+[connection signal="pressed" from="MC/VB/HB/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MC/VB/HB/SaveButton" to="." method="_on_save_button_pressed"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://s46wqxnh4dnl"]
+
+[ext_resource type="Script" path="res://autoloads/settings/settings.gd" id="1_dbr6m"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/window/Resolution.gd" id="2_g3vyq"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/window/Vsync.gd" id="3_b8qgr"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/window/MaxFrameRate.gd" id="4_07xv1"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/sound/AudioBusVolume.gd" id="5_c4hqd"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/window/Fullscreen.gd" id="5_h84ts"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/sound/MuteInBackground.gd" id="6_dhgul"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/game/Language.gd" id="9_bqloj"]
+[ext_resource type="Script" path="res://autoloads/settings/settings_scripts/UI/scale.gd" id="9_nhd6j"]
+
+[node name="Settings" type="Node"]
+script = ExtResource("1_dbr6m")
+user_settings_file_path = "user://game_settings.cfg"
+
+[node name="Window" type="Node" parent="."]
+
+[node name="WindowType" type="Node" parent="Window"]
+script = ExtResource("5_h84ts")
+key = "WINDOW_TYPE"
+type = 2
+
+[node name="Resolution" type="Node" parent="Window"]
+script = ExtResource("2_g3vyq")
+base_value = "1280x720"
+key = "RESOLUTION"
+tooltip = "Only applied when mode is Windowed"
+type = 2
+
+[node name="Vsync" type="Node" parent="Window"]
+script = ExtResource("3_b8qgr")
+key = "VSYNC"
+
+[node name="MaxFrameRate" type="Node" parent="Window"]
+script = ExtResource("4_07xv1")
+key = "MAX_FRAME_RATE"
+type = 2
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="MasterVolume" type="Node" parent="Sound"]
+script = ExtResource("5_c4hqd")
+key = "MASTER_VOLUME"
+type = 1
+
+[node name="MusicVolume" type="Node" parent="Sound"]
+script = ExtResource("5_c4hqd")
+bus_name = "Music"
+key = "MUSIC_VOLUME"
+type = 1
+
+[node name="SoundEffectVolume" type="Node" parent="Sound"]
+script = ExtResource("5_c4hqd")
+bus_name = "Sound Effect"
+key = "SOUND_EFFECT_VOLUME"
+type = 1
+
+[node name="MuteInBackground" type="Node" parent="Sound"]
+script = ExtResource("6_dhgul")
+key = "MUTE_IN_BACKGROUND"
+tooltip = "Mute the Game when the window isn't focused"
+
+[node name="Game" type="Node" parent="."]
+
+[node name="Language" type="Node" parent="Game"]
+script = ExtResource("9_bqloj")
+key = "LANGUAGE"
+tooltip = "Sorry... Only English for now..."
+type = 2
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Scale" type="Node" parent="UI"]
+script = ExtResource("9_nhd6j")
+key = "UI_SCALE"
+type = 2

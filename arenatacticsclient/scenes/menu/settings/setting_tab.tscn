@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3kwxhhwlgeix"]
+
+[ext_resource type="Script" path="res://scenes/menu/settings/setting_tab.gd" id="1_e2f36"]
+
+[node name="SettingTab" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e2f36")
+
+[node name="SC" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="VB" type="VBoxContainer" parent="SC"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://dg2lu8hd15uey"]
+
+[ext_resource type="FontFile" uid="uid://cmrl2ud2gbcsr" path="res://assets/font/sci-bi.ttf" id="1_j5q1f"]
+[ext_resource type="Texture2D" uid="uid://c73iq8u6bwdgu" path="res://assets/ui/panelcontainer.png" id="2_ssdxp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ndwxm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqt4n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3v54b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3cvge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxhoh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d0tq4"]
+texture = ExtResource("2_ssdxp")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="Theme" id="Theme_wx2v0"]
+default_font = ExtResource("1_j5q1f")
+default_font_size = 20
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_j5q1f")
+Button/styles/disabled = SubResource("StyleBoxEmpty_ndwxm")
+Button/styles/focus = SubResource("StyleBoxEmpty_rqt4n")
+Button/styles/hover = SubResource("StyleBoxEmpty_3v54b")
+Button/styles/normal = SubResource("StyleBoxEmpty_3cvge")
+Button/styles/pressed = SubResource("StyleBoxEmpty_jxhoh")
+GridContainer/constants/h_separation = 2
+GridContainer/constants/v_separation = 2
+Label/fonts/font = ExtResource("1_j5q1f")
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_d0tq4")
+TabBar/font_sizes/font_size = 20
+TabBar/fonts/font = ExtResource("1_j5q1f")
+
+[node name="MainMenuBg" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_wx2v0")
+color = Color(0.133333, 0.129412, 0.14902, 1)

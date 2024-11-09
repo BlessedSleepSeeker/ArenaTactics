@@ -11,12 +11,43 @@ config_version=5
 [application]
 
 config/name="ArenaTacticsClient"
-run/main_scene="res://scenes/network/Client.tscn"
+run/main_scene="res://autoloads/custom_root/root.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/use_filter=false
+
+[autoload]
+
+InputHandler="*res://autoloads/inputhandler.gd"
+NetworkClient="*res://autoloads/network/client.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[editor]
+
+script/icon="res://Assets/Player/portraitNeutral.png"
 
 [file_customization]
 
 folder_colors={
-"res://scenes/": "blue"
+"res://assets/": "purple",
+"res://autoloads/": "green",
+"res://scenes/": "yellow"
 }
+
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="player"
+2d_physics/layer_3="projectile"
+2d_physics/layer_4="area triggers"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
