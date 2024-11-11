@@ -11,9 +11,19 @@ config_version=5
 [application]
 
 config/name="ArenaTacticsServer"
-run/main_scene="res://scenes/network/Server.tscn"
+run/main_scene="res://scenes/UI/ServerUI.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkClient="*res://scenes/network/server.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=1
 
 [file_customization]
 

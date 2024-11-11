@@ -4,12 +4,14 @@ class_name Client
 signal player_connected(peer_id)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal player_list_updated(list)
 
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNEXION = 4
 
 var players = {}
+		
 
 var player_info: Dictionary = {"name": "Client"}
 
@@ -26,6 +28,7 @@ func _ready():
 
 
 func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
+	leave()
 	var peer := ENetMultiplayerPeer.new()
 	var error = peer.create_client(adress, _port)
 	match error:
@@ -42,31 +45,49 @@ func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
 			return false
 
 	multiplayer.multiplayer_peer = peer
-	print("Client connected to %s:%d" % [adress, PORT])
+	print_debug("Client connected to %s:%d" % [adress, PORT])
 
 
-func _on_player_connected(id):
-	print("Connected with id %d" % id)
-	_register_player.rpc_id(id, player_info)
+func leave():
+	players = {}
+	if multiplayer.has_multiplayer_peer():
+		multiplayer.multiplayer_peer = null
 
 
 @rpc("any_peer", "reliable")
-func _register_player(new_player_info):
-	var new_player_id = multiplayer.get_remote_sender_id()
-	players[new_player_id] = new_player_info
-	player_connected.emit(new_player_id, new_player_info)
-	print(players)
+func _register_player(_new_player_info):
+	pass
+
+@rpc("authority", "reliable")
+func _get_player_list(_player_list):
+	players = _player_list
+	player_list_updated.emit()
 
 
+@rpc("any_peer", "reliable")
+func send_chat_message(_message: String):
+	pass
+
+signal chat_message_received(author: String, message: String)
+
+@rpc("authority", "reliable")
+func receive_chat_message(author: String, message: String):
+	chat_message_received.emit(author, message)
+
+
+# when you connect with someone (server or another player)
+func _on_player_connected(id):
+	print_debug("Connected with id %d" % id)
+
+
+# when someone disconnect from server
 func _on_player_disconnected(id):
-		players.erase(id)
-		player_disconnected.emit(id)
+	players.erase(id)
+	player_disconnected.emit(id)
 
 
 func _on_connected_ok():
-	var peer_id = multiplayer.get_unique_id()
-	players[peer_id] = player_info
-	player_connected.emit(peer_id, player_info)
+	_register_player.rpc_id(1, player_info)
 
 
 func _on_connected_fail():

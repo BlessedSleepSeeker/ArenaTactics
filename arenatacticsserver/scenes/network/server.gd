@@ -25,27 +25,37 @@ func create_game():
 		print(error)
 		return error
 	multiplayer.multiplayer_peer = peer
-	print("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
-	print(players)
+	print_debug("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
+
 
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.
 func _on_player_connected(id):
-	print("Peer " + str(id) + " connected to the server!")
-	players[id] = id
-	player_connected.emit(id, id)
-	print(players)
+	print_debug("Peer " + str(id) + " connected to the server!")
+
+@rpc("any_peer", "reliable")
+func _register_player(new_player_info):
+	var new_player_id = multiplayer.get_remote_sender_id()
+	players[new_player_id] = new_player_info
+	player_connected.emit(new_player_id, new_player_info)
+	print_debug(players)
+	_get_player_list.rpc(players)
 
 
+@rpc("authority", "reliable")
+func _get_player_list(_player_list):
+	pass
 
-# Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable")
-func player_loaded():
-	players_loaded += 1
-	if players_loaded == players.size():
-		print("SHOULD START GAME")
-		players_loaded = 0
+@rpc("any_peer", "reliable")
+func send_chat_message(message):
+	var sender_id = multiplayer.get_remote_sender_id()
+	var author = players[sender_id]["name"] + ':' + str(sender_id)
+	print_debug(author, message)
+	receive_chat_message.rpc(author, message)
 
+@rpc("authority", "reliable")
+func receive_chat_message(_author: String, _message: String):
+	pass
 
 func _on_player_disconnected(id):
 	print("Peer " + str(id) + " disconnected from the server!")
