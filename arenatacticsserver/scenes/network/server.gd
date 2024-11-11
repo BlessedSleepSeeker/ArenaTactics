@@ -8,7 +8,10 @@ const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNEXION = 4
 
+var lobby_name = "Tintalabus's Awesome Lobby"
 var players = {}
+
+@onready var chatModule = $ChatModule
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -26,11 +29,9 @@ func create_game():
 	#print_debug("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
 
 
-# When a peer connects, send them my player info.
-# This allows transfer of all desired data for each player, not only the unique ID.
 func _on_player_connected(_id):
-	pass
-	#print_debug("Peer " + str(id) + " connected to the server!")
+	chatModule.receive_chat_message.rpc_id(_id, "[SERVER]", "Joined %s !" % lobby_name)
+	#print_debug("Peer " + str(_id) + " connected to the server!")
 
 @rpc("any_peer", "reliable")
 func register_player(new_player_info):
@@ -38,6 +39,7 @@ func register_player(new_player_info):
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
 	get_player_list.rpc(players)
+	chatModule.receive_chat_message.rpc("[SERVER]", "%s Joined. Welcome !" % new_player_info["name"])
 
 
 @rpc("authority", "reliable")
@@ -46,5 +48,6 @@ func get_player_list(_player_list):
 
 func _on_player_disconnected(id):
 	#print_debug("Peer " + str(id) + " disconnected from the server!")
+	chatModule.receive_chat_message.rpc("[SERVER]", "%s Left... See ya !" % players[id]["name"])
 	players.erase(id)
 	player_disconnected.emit(id)

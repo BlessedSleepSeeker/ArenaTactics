@@ -2,26 +2,31 @@ extends Control
 
 @export var menuScenePath := "res://scenes/menu/main_menu.tscn"
 
-@onready var playerNameLine: LineEdit = $MarginContainer/VBoxContainer/UserIdentity/PlayerName
+@onready var playerNameLine: LineEdit = get_node("%PlayerName")
 
-@onready var serverAdressLine: LineEdit = $MarginContainer/VBoxContainer/ServerConnection/ServerAdress
-@onready var serverPortLine: LineEdit = $MarginContainer/VBoxContainer/ServerConnection/ServerPort
-@onready var connectButton: Button = $MarginContainer/VBoxContainer/ServerConnection/ConnectButton
-@onready var returnButton: Button = $MarginContainer/VBoxContainer/SendChat/HBoxContainer/Button
+@onready var serverAdressLine: LineEdit = get_node("%ServerAdress")
+@onready var serverPortLine: LineEdit = get_node("%ServerPort")
+@onready var connectButton: Button = get_node("%ConnectButton")
+@onready var returnButton: Button = get_node("%ReturnButton")
+@onready var disconnectButton: Button = get_node("%DisconnectButton")
+@onready var launchGameButton: Button = get_node("%LaunchGameButton")
 
-@onready var playerListContainer: VBoxContainer = $MarginContainer/VBoxContainer/ConnectedData/PlayerList/ListContainer
+@onready var playerListContainer: VBoxContainer = get_node("%ListContainer")
 
-@onready var chatContainer: VBoxContainer = $MarginContainer/VBoxContainer/ConnectedData/Chat/ScrollContainer/ChatContainer
-@onready var chatSendButton: Button = $MarginContainer/VBoxContainer/SendChat/HBoxContainer2/SendMessageButton
-@onready var chatMessageLine: LineEdit = $MarginContainer/VBoxContainer/SendChat/HBoxContainer2/MessageLine
+@onready var chatContainer: VBoxContainer = get_node("%ChatContainer") 
+@onready var chatSendButton: Button = get_node("%SendMessageButton")
+@onready var chatMessageLine: LineEdit = get_node("%MessageLine")
+
 
 signal transition(new_scene: PackedScene, animation: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connectButton.pressed.connect(_on_connectButton_pressed)
+	connectButton.pressed.connect(_on_connect_button_pressed)
 	returnButton.pressed.connect(_on_return_button_pressed)
+	disconnectButton.pressed.connect(_on_disconnect_button_pressed)
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
+	launchGameButton.pressed.connect(_on_launch_game_pressed)
 
 	Networker.player_disconnected.connect(_on_player_disconnected)
 	Networker.player_list_updated.connect(_on_player_list_updated)
@@ -29,7 +34,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_connectButton_pressed():
+func _on_connect_button_pressed():
 	var server_adress = serverAdressLine.text
 	var server_port = int(serverPortLine.text)
 	var player_name = playerNameLine.text
@@ -43,12 +48,18 @@ func _on_player_list_updated():
 		child.queue_free()
 	for player in Networker.players:
 		var playerName: Label = Label.new()
-		playerName.text = Networker.players[player]["name"]
+		playerName.text = "- %s (%s)" % [Networker.players[player]["name"], player]
 		playerListContainer.add_child(playerName)
 
 
 func _on_player_disconnected(_id):
 	_on_player_list_updated()
+
+
+func _on_disconnect_button_pressed():
+	Networker.leave()
+	for child in chatContainer.get_children():
+		child.queue_free()
 
 
 func _on_return_button_pressed():
@@ -58,7 +69,7 @@ func _on_return_button_pressed():
 
 
 func _on_chat_send_pressed():
-	if chatMessageLine.text == "":
+	if chatMessageLine.text == "" or not Networker.multiplayer.has_multiplayer_peer():
 		return
 	var message_content = chatMessageLine.text
 	Networker.chatModule.send_chat_message.rpc_id(1, message_content)
@@ -69,3 +80,7 @@ func _on_message_received(author: String, message: String):
 	var msg: Label = Label.new()
 	msg.text = "%s : %s" % [author, message]
 	chatContainer.add_child(msg)
+
+
+func _on_launch_game_pressed():
+	pass

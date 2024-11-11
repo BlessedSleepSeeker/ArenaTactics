@@ -34,7 +34,7 @@ func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
 	var error = peer.create_client(adress, _port)
 	match error:
 		OK:
-			print("Client successfully created!")
+			pass
 		ERR_ALREADY_IN_USE:
 			printerr("(!) ERROR: You created a client already!")
 			return false
