@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NetworkClient="*res://scenes/network/server.gd"
+Networker="*res://scenes/network/Server.tscn"
 
 [display]
 

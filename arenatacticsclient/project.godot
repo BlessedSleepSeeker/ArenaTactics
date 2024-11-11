@@ -18,7 +18,7 @@ boot_splash/use_filter=false
 [autoload]
 
 InputHandler="*res://autoloads/inputhandler.gd"
-NetworkClient="*res://autoloads/network/client.gd"
+Networker="*res://autoloads/network/client.tscn"
 
 [display]
 
