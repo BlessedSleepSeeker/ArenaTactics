@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3aaaue0h4kbp"]
+
+[ext_resource type="PackedScene" uid="uid://b0wbecvwj1xkl" path="res://scenes/world/hex_tile.tscn" id="1_snfx2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3bb6y"]
+
+[sub_resource type="Sky" id="Sky_cwsq0"]
+sky_material = SubResource("ProceduralSkyMaterial_3bb6y")
+
+[sub_resource type="Environment" id="Environment_37koq"]
+background_mode = 2
+background_color = Color(0.566934, 0.426578, 0.744267, 1)
+sky = SubResource("Sky_cwsq0")
+ambient_light_source = 3
+
+[node name="WorldView" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.984059, 0.0348928, -0.174384, -1.28027e-09, 0.980563, 0.196203, 0.17784, 0.193075, -0.964933, 0, 1.16311, -3.18124)
+current = true
+
+[node name="HexTile" parent="." instance=ExtResource("1_snfx2")]
+
+[node name="HexTile2" parent="." instance=ExtResource("1_snfx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944892, 0.598381, 0)
+
+[node name="HexTile3" parent="." instance=ExtResource("1_snfx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.853982, 0.339643, 0)
+
+[node name="HexTile4" parent="." instance=ExtResource("1_snfx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.509001, 0.295363, 0.703117)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_37koq")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.24976, 2.07906, 0)
