@@ -1,0 +1,10 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://b2g2coc0kmovq"]
+
+[ext_resource type="Gradient" uid="uid://bnwijni1ns3ly" path="res://scenes/world/procgen/peaks/peaks_gradient.tres" id="1_aqbdv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gvtna"]
+frequency = 0.0055
+
+[resource]
+color_ramp = ExtResource("1_aqbdv")
+noise = SubResource("FastNoiseLite_gvtna")

@@ -4,3 +4,5 @@
 
 [node name="HexGrid" type="Node3D"]
 script = ExtResource("1_bmqlh")
+grid_size_x = 500
+grid_size_y = 500

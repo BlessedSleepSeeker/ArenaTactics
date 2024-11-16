@@ -1,10 +1,10 @@
-@tool
 extends Node3D
 
 
 @export var tile_size: float = 1.0
 @export var grid_size_x: int = 50 #vertical
 @export var grid_size_y: int = 50 #horizontal
+@export var timer_between_tile: float = 0.001
 
 @export var tile_scene: PackedScene = preload("res://scenes/world/hex_tile.tscn")
 
@@ -23,6 +23,7 @@ func generate_grid():
 			var pos = calculate_tile_position(inst)
 			inst.position = pos
 			self.add_child(inst)
+			#await get_tree().create_timer(timer_between_tile).timeout
 
 
 func calculate_tile_position(hex_tile: HexTile):

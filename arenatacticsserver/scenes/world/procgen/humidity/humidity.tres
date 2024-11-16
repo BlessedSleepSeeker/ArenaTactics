@@ -1,0 +1,10 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://dlgkg3ovi85wg"]
+
+[ext_resource type="Gradient" uid="uid://ccllrkahppvyu" path="res://scenes/world/procgen/humidity/humidity_gradient.tres" id="1_kfsx4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gvtna"]
+frequency = 0.0055
+
+[resource]
+color_ramp = ExtResource("1_kfsx4")
+noise = SubResource("FastNoiseLite_gvtna")

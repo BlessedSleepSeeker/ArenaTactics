@@ -5,8 +5,8 @@ extends Node3D
 @export_group("Camera Speed")
 @export var drag_speed: float = 0.01
 @export var spin_speed: float = 0.003
-@export var zoom_increment: float = 3
-@export var zoom_anim_speed: float = 0.5
+@export var zoom_increment: float = 7
+@export var zoom_anim_speed: float = 0.3
 
 @export_group("Camera Limits")
 @export var camera_max_zoom: float = 50.0

@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="ArenaTacticsServer"
-run/main_scene="res://scenes/world/world_view.tscn"
+run/main_scene="res://scenes/UI/ServerUI.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Networker="*res://scenes/network/Server.tscn"
+RngHandler="*res://scenes/autoloads/RNGHandler.gd"
 
 [display]
 
