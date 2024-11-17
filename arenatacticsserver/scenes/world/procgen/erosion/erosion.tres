@@ -9,5 +9,6 @@ offset = Vector3(10000, 10000, 0)
 fractal_octaves = 7
 
 [resource]
+invert = true
 color_ramp = ExtResource("1_uj3pt")
 noise = SubResource("FastNoiseLite_gvtna")

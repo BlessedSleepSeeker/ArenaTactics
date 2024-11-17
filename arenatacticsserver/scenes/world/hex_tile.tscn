@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0wbecvwj1xkl"]
+[gd_scene load_steps=5 format=3 uid="uid://b0wbecvwj1xkl"]
 
 [ext_resource type="Script" path="res://scenes/world/hex_tile.gd" id="1_s76cv"]
 
@@ -6,7 +6,10 @@
 height = 1.0
 radius = 0.45
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ocu4"]
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_ivhaw"]
+material = SubResource("StandardMaterial3D_2ocu4")
 height = 1.0
 radial_segments = 6
 cap_bottom = false

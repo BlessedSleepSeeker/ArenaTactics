@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3aaaue0h4kbp"]
+[gd_scene load_steps=7 format=3 uid="uid://c3aaaue0h4kbp"]
 
+[ext_resource type="Script" path="res://scenes/world/world_view.gd" id="1_uuclo"]
 [ext_resource type="Script" path="res://scenes/world/camera/CameraMovement.gd" id="2_1xfm4"]
 [ext_resource type="PackedScene" uid="uid://dtqhtix57d8by" path="res://scenes/world/hex_grid.tscn" id="2_ywiqq"]
 
@@ -15,6 +16,7 @@ sky = SubResource("Sky_cwsq0")
 ambient_light_source = 3
 
 [node name="WorldView" type="Node3D"]
+script = ExtResource("1_uuclo")
 
 [node name="HexGrid" parent="." instance=ExtResource("2_ywiqq")]
 grid_size_x = 100
@@ -27,7 +29,11 @@ environment = SubResource("Environment_37koq")
 script = ExtResource("2_1xfm4")
 
 [node name="Freecam" type="Camera3D" parent="CamAnchor"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 30, 10)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 100, 200, 100)
 projection = 1
 current = true
 size = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.21064, 0)
+light_color = Color(0.72, 0.906667, 1, 1)

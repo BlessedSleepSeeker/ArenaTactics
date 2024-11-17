@@ -9,7 +9,7 @@ extends Node3D
 @export var zoom_anim_speed: float = 0.3
 
 @export_group("Camera Limits")
-@export var camera_max_zoom: float = 50.0
+@export var camera_max_zoom: float = 100.0
 @export var camera_min_zoom: float = 1.0
 
 var dragging: bool = false
