@@ -3,8 +3,9 @@
 [ext_resource type="Gradient" uid="uid://dyyovgfsoen32" path="res://scenes/world/procgen/temperature/temperature_gradient.tres" id="1_xvstw"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_83e7a"]
-frequency = 0.0051
-fractal_octaves = 1
+frequency = 0.004
+fractal_octaves = 3
+fractal_gain = 0.2
 
 [resource]
 color_ramp = ExtResource("1_xvstw")

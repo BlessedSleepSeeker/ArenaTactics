@@ -1,3 +1,11 @@
-[gd_resource type="NoiseTexture2D" format=3 uid="uid://dkomdlc3vxjfk"]
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://dkomdlc3vxjfk"]
+
+[ext_resource type="Gradient" uid="uid://chls0gs76oqsd" path="res://scenes/world/procgen/continentalness/continentalness_gradient.tres" id="1_u7xvi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_crn60"]
+frequency = 0.0016
+fractal_octaves = 7
 
 [resource]
+color_ramp = ExtResource("1_u7xvi")
+noise = SubResource("FastNoiseLite_crn60")

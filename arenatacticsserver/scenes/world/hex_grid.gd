@@ -8,6 +8,8 @@ extends Node3D
 
 @export var tile_scene: PackedScene = preload("res://scenes/world/hex_tile.tscn")
 
+@onready var procgen: ProceduralGenerator = $ProceduralGenerator
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_grid()

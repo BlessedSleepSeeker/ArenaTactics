@@ -1,6 +1,7 @@
 extends Control
 
-@onready var gen_btn: Button = $MarginContainer/VBoxContainer/Button
+@onready var gen_btn: Button = $"%RandomiseBtn"
+@onready var seed_display: Label = $"%SeedDisplay"
 @onready var procgen: ProceduralGenerator = $ProceduralGenerator
 @onready var continentalnessTexture: TextureRect = $"%Continentalness"
 @onready var erosionTexture: TextureRect = $"%Erosion"
@@ -21,3 +22,4 @@ func _ready():
 
 func _gen_button_pressed():
 	procgen.generate_noise()
+	seed_display.text = RngHandler.MAIN_SEED
