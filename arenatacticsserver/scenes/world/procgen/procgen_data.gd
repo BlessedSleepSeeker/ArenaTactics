@@ -8,11 +8,19 @@ class_name ProceduralGenerator
 @onready var temperature: NoiseTexture2D = preload("res://scenes/world/procgen/temperature/temperature.tres")
 @onready var humidity: NoiseTexture2D = preload("res://scenes/world/procgen/humidity/humidity.tres")
 
-var continentalness_data: PackedByteArray
-var erosion_data: PackedByteArray
-var peaks_valley_data: PackedByteArray
-var temperature_data: PackedByteArray
-var humidity_data: PackedByteArray
+@onready var c_curve: Curve = preload("res://scenes/world/procgen/continentalness/continentalness_curve.tres")
+@onready var e_curve: Curve = preload("res://scenes/world/procgen/erosion/erosion_curve.tres")
+@onready var p_curve: Curve = preload("res://scenes/world/procgen/peaks/peaks_curve.tres")
+@onready var t_curve: Curve = preload("res://scenes/world/procgen/temperature/temperature_curve.tres")
+@onready var h_curve: Curve = preload("res://scenes/world/procgen/humidity/humidity_curve.tres")
+
+var continentalness_data: Image
+var erosion_data: Image
+var peaks_valley_data: Image
+var temperature_data: Image
+var humidity_data: Image
+
+signal finished_setup
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,12 +38,29 @@ func generate_noise() -> void:
 
 func set_seed_noise(texture: NoiseTexture2D) -> void:
 	texture.noise.seed = int(RngHandler.MAIN_SEED)
-	print_debug(texture.noise.seed)
 
 
 func setup_elevation():
-	var cont_image = continentalness.get_image()
-	var cont_data = cont_image.get_data()
+	await continentalness.changed
+	continentalness_data = continentalness.get_image()
 
-func get_elevation_for_point():
-	pass
+	await erosion.changed
+	erosion_data = erosion.get_image()
+
+	await peaks_valley.changed
+	peaks_valley_data = peaks_valley.get_image()
+
+	await temperature.changed
+	temperature_data = temperature.get_image()
+
+	await humidity.changed
+	humidity_data = humidity.get_image()
+
+	finished_setup.emit()
+
+
+func get_elevation_for_point(x: int, y: int) -> float:
+	var base = c_curve.sample(continentalness_data.get_pixel(x, y).v)
+	var eroded = e_curve.sample(erosion_data.get_pixel(x, y).v) * -1
+	var peaks = p_curve.sample(peaks_valley_data.get_pixel(x, y).v)
+	return abs(base + eroded + peaks)

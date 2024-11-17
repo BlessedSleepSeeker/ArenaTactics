@@ -17,6 +17,8 @@ ambient_light_source = 3
 [node name="WorldView" type="Node3D"]
 
 [node name="HexGrid" parent="." instance=ExtResource("2_ywiqq")]
+grid_size_x = 100
+grid_size_y = 100
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_37koq")
@@ -25,7 +27,7 @@ environment = SubResource("Environment_37koq")
 script = ExtResource("2_1xfm4")
 
 [node name="Freecam" type="Camera3D" parent="CamAnchor"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 20, 10)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 30, 10)
 projection = 1
 current = true
 size = 50.0

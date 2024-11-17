@@ -16,12 +16,14 @@ func _ready():
 
 
 func generate_grid():
+	procgen.setup_elevation()
+	await procgen.finished_setup
 	for i in range(grid_size_x):
 		for j in range(grid_size_y):
 			var inst: HexTile = tile_scene.instantiate()
 			inst.grid_pos_x = i
 			inst.grid_pos_y = j
-			inst.height = randi() % 1 + randf()
+			inst.height = procgen.get_elevation_for_point(i, j)#randi() % 1 + randf()
 			var pos = calculate_tile_position(inst)
 			inst.position = pos
 			self.add_child(inst)
