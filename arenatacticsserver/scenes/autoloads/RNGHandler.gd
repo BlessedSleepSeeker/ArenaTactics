@@ -1,11 +1,17 @@
 extends Node
 
-var MAIN_SEED: String = ''
+signal main_seed_changed(new_value: String)
+
+var MAIN_SEED: String = '':
+	set(value):
+		if value != '':
+			main_seed_changed.emit(value)
+
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generate_seeds()
+	pass#generate_seeds()
 
 func generate_seeds():
 	if (MAIN_SEED == ''):

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctfqdpyjct3nc"]
+
+[ext_resource type="Script" path="res://scenes/game_spectating/game_spectating.gd" id="1_0uyv1"]
+[ext_resource type="PackedScene" uid="uid://d0scscdx4lonm" path="res://scenes/UI/ServerUI.tscn" id="1_3sw70"]
+[ext_resource type="PackedScene" uid="uid://c3aaaue0h4kbp" path="res://scenes/world/world_view.tscn" id="2_784fh"]
+
+[node name="GameSpectating" type="Node"]
+script = ExtResource("1_0uyv1")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="ServerUi" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_3sw70")]
+unique_name_in_owner = true
+mouse_filter = 1
+
+[node name="WorldView" parent="." instance=ExtResource("2_784fh")]
+unique_name_in_owner = true

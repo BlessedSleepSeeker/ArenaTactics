@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtqhtix57d8by"]
+[gd_scene load_steps=2 format=3 uid="uid://dtqhtix57d8by"]
 
 [ext_resource type="Script" path="res://scenes/world/hex_grid.gd" id="1_bmqlh"]
-[ext_resource type="PackedScene" uid="uid://6y1gl1eydw8j" path="res://scenes/world/procgen/ProceduralGenerator.tscn" id="2_7ld8i"]
 
 [node name="HexGrid" type="Node3D"]
 script = ExtResource("1_bmqlh")
-
-[node name="ProceduralGenerator" parent="." instance=ExtResource("2_7ld8i")]

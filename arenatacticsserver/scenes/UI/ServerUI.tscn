@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0scscdx4lonm"]
+[gd_scene load_steps=7 format=3 uid="uid://d0scscdx4lonm"]
 
 [ext_resource type="Script" path="res://scenes/UI/server_ui.gd" id="1_86eu2"]
-[ext_resource type="PackedScene" uid="uid://6y1gl1eydw8j" path="res://scenes/world/procgen/ProceduralGenerator.tscn" id="2_a3jue"]
 [ext_resource type="Texture2D" uid="uid://de6pipgcs2rky" path="res://scenes/world/procgen/erosion/erosion.tres" id="2_c3eyd"]
 [ext_resource type="Texture2D" uid="uid://dkomdlc3vxjfk" path="res://scenes/world/procgen/continentalness/continentalness.tres" id="2_pctw1"]
 [ext_resource type="Texture2D" uid="uid://b2g2coc0kmovq" path="res://scenes/world/procgen/peaks/peaks.tres" id="4_kyqxo"]
@@ -44,37 +43,42 @@ text = "Generate Noise"
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ShowHideUIButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Toggle Textures"
+
+[node name="NoiseTextureContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/NoiseTextureContainer"]
 layout_mode = 2
 columns = 3
 
-[node name="Continentalness" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Continentalness" type="TextureRect" parent="MarginContainer/VBoxContainer/NoiseTextureContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("2_pctw1")
 
-[node name="Erosion" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Erosion" type="TextureRect" parent="MarginContainer/VBoxContainer/NoiseTextureContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("2_c3eyd")
 
-[node name="Peaks" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Peaks" type="TextureRect" parent="MarginContainer/VBoxContainer/NoiseTextureContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("4_kyqxo")
 
-[node name="Temperature" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Temperature" type="TextureRect" parent="MarginContainer/VBoxContainer/NoiseTextureContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("5_5w08l")
 
-[node name="Humidity" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Humidity" type="TextureRect" parent="MarginContainer/VBoxContainer/NoiseTextureContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("6_rnsfq")
-
-[node name="ProceduralGenerator" parent="." instance=ExtResource("2_a3jue")]

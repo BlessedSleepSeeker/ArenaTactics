@@ -9,22 +9,22 @@ class_name HexGrid
 
 @export var tile_scene: PackedScene = preload("res://scenes/world/hex_tile.tscn")
 
-@onready var procgen: ProceduralGenerator = $ProceduralGenerator
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generate_grid()
+	ProcGen.finished_setup.connect(generate_new_grid)
 
 
-func generate_grid():
-	procgen.setup_elevation()
-	await procgen.finished_setup
+func free_grid() -> void:
+	for child in self.get_children():
+		child.queue_free()
+
+func generate_new_grid() -> void:
 	for i in range(grid_size_x):
 		for j in range(grid_size_y):
 			var inst: HexTile = tile_scene.instantiate()
 			inst.grid_pos_x = i
 			inst.grid_pos_y = j
-			inst.height = procgen.set_elevation_for_tile(inst, grid_size_x, grid_size_y)
+			inst.height = ProcGen.set_elevation_for_tile(inst, grid_size_x, grid_size_y)
 			var pos = calculate_tile_position(inst)
 			inst.position = pos
 			self.add_child(inst)

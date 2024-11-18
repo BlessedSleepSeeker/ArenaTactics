@@ -27,39 +27,37 @@ signal finished_setup
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generate_noise()
+	continentalness.changed.connect(_changed)
+	RngHandler.main_seed_changed.connect(_on_main_seed_changed)
 
 
-func generate_noise() -> void:
-	RngHandler.reset_seeds()
-	set_seed_noise(continentalness)
-	set_seed_noise(erosion)
-	set_seed_noise(peaks_valley)
-	set_seed_noise(temperature)
-	set_seed_noise(humidity)
-	print_debug("set seed to %s" % RngHandler.MAIN_SEED)
-
-func set_seed_noise(texture: NoiseTexture2D) -> void:
-	texture.noise.seed = int(RngHandler.MAIN_SEED)
-
-
-func setup_elevation():
+func update_seeds(new_value: int) -> void:
+	set_noise_seed(continentalness, new_value)
 	await continentalness.changed
 	continentalness_data = continentalness.get_image()
 
+	set_noise_seed(erosion, new_value)
 	await erosion.changed
 	erosion_data = erosion.get_image()
 
+	set_noise_seed(peaks_valley, new_value)
 	await peaks_valley.changed
 	peaks_valley_data = peaks_valley.get_image()
 
+	set_noise_seed(temperature, new_value)
 	await temperature.changed
 	temperature_data = temperature.get_image()
 
+	set_noise_seed(humidity, new_value)
 	await humidity.changed
 	humidity_data = humidity.get_image()
 
 	finished_setup.emit()
+	#print_debug("set seed to %s" % RngHandler.MAIN_SEED)
+
+
+func set_noise_seed(texture: NoiseTexture2D, new_value: int) -> void:
+	texture.noise.seed = new_value
 
 
 func set_elevation_for_tile(hex_tile: HexTile, full_size_x: int, full_size_y: int) -> float:
@@ -74,5 +72,13 @@ func set_elevation_for_tile(hex_tile: HexTile, full_size_x: int, full_size_y: in
 	hex_tile.distance = 1 - (1 - nx) * (1 - ny)
 	hex_tile.islandism = islandism_curve.sample(hex_tile.distance)
 	#print_debug("%d:%d = %f" % [hex_tile.grid_pos_x, hex_tile.grid_pos_y, distance])
-	var algo = (hex_tile.continentalness - hex_tile.erosion)
+	var algo = (hex_tile.continentalness - hex_tile.erosion) + hex_tile.peaks_valley
 	return clampi(int(algo), WORLD_MIN_HEIGHT, WORLD_MAX_HEIGHT)
+
+
+func _changed():
+	print_debug("something changed !")
+
+
+func _on_main_seed_changed(new_value):
+	update_seeds(int(new_value))

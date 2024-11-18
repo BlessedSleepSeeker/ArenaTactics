@@ -45,7 +45,7 @@ func _ready():
 	cylinder.height = height
 	cylinder.radius = 0.45
 	collision.shape = cylinder
-	
+
 
 # if islandism is high = you should be (visually) at the same elevation but with a smaller model height.
 # if islandism is low = you should be (visually) at the same elevation but with a taller model height.
