@@ -9,6 +9,11 @@ class_name HexGrid
 
 @export var tile_scene: PackedScene = preload("res://scenes/world/hex_tile.tscn")
 
+signal tile_hovered(hex_tile: HexTile)
+signal tile_clicked(hex_tile: HexTile)
+
+var selected_tile: HexTile = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ProcGen.finished_setup.connect(generate_new_grid)
@@ -27,6 +32,7 @@ func generate_new_grid() -> void:
 			inst.height = ProcGen.set_elevation_for_tile(inst, grid_size_x, grid_size_y)
 			var pos = calculate_tile_position(inst)
 			inst.position = pos
+			inst.hover_enter.connect(_on_tile_hovered)
 			self.add_child(inst)
 			if inst.distance >= 0.8:
 				inst.queue_free()
@@ -41,3 +47,12 @@ func calculate_tile_position(hex_tile: HexTile):
 	var vert_offset: float = vertical_spacing / 2.0 if hex_tile.grid_pos_y % 2 == 1 else 0.0
 
 	return Vector3(vertical_pos + vert_offset, 0, horizontal_pos)
+
+
+func _on_tile_hovered(hex_tile: HexTile):
+	tile_hovered.emit(hex_tile)
+
+
+func set_selected_tile(hex_tile: HexTile):
+	self.selected_tile = hex_tile
+	tile_clicked.emit(hex_tile)

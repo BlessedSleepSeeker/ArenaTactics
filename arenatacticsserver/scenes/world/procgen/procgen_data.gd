@@ -27,7 +27,6 @@ signal finished_setup
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	continentalness.changed.connect(_changed)
 	RngHandler.main_seed_changed.connect(_on_main_seed_changed)
 
 
@@ -71,13 +70,8 @@ func set_elevation_for_tile(hex_tile: HexTile, full_size_x: int, full_size_y: in
 	var ny = pow(2 * float(hex_tile.grid_pos_y) / full_size_y - 1, 2)
 	hex_tile.distance = 1 - (1 - nx) * (1 - ny)
 	hex_tile.islandism = islandism_curve.sample(hex_tile.distance)
-	#print_debug("%d:%d = %f" % [hex_tile.grid_pos_x, hex_tile.grid_pos_y, distance])
 	var algo = (hex_tile.continentalness - hex_tile.erosion) + hex_tile.peaks_valley
 	return clampi(int(algo), WORLD_MIN_HEIGHT, WORLD_MAX_HEIGHT)
-
-
-func _changed():
-	print_debug("something changed !")
 
 
 func _on_main_seed_changed(new_value):

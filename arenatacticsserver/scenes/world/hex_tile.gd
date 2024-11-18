@@ -25,6 +25,8 @@ var humidity: float = 0.0
 var distance: float = 0.0
 var islandism: float = 0.0
 
+var selected: bool = false
+
 func _ready():
 	mouse_entered.connect(on_mouse_entered)
 	mouse_exited.connect(on_mouse_exited)
@@ -46,7 +48,6 @@ func _ready():
 	cylinder.radius = 0.45
 	collision.shape = cylinder
 
-
 # if islandism is high = you should be (visually) at the same elevation but with a smaller model height.
 # if islandism is low = you should be (visually) at the same elevation but with a taller model height.
 func set_vertical_position():
@@ -66,3 +67,24 @@ func on_mouse_entered():
 func on_mouse_exited():
 	self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
 	hover_exit.emit(self)
+
+
+func serialize_debug_data() -> Dictionary:
+	var data = {
+		"X": self.grid_pos_x,
+		"Height": self.height,
+		"Y": self.grid_pos_y,
+		"Distance": self.distance,
+		"Continentalness": self.continentalness,
+		"Erosion": self.erosion,
+		"Peaks & Valley": self.peaks_valley,
+		"Temperature": self.temperature,
+		"Humidity": self.humidity,
+		"Islandism": self.islandism
+	}
+	
+	return data
+
+
+func set_selected():
+	self.mesh_inst.mesh.material.albedo_color = Color(Color.ORANGE_RED)

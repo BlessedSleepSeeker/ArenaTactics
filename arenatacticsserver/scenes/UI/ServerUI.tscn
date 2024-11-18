@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0scscdx4lonm"]
+[gd_scene load_steps=8 format=3 uid="uid://d0scscdx4lonm"]
 
 [ext_resource type="Script" path="res://scenes/UI/server_ui.gd" id="1_86eu2"]
 [ext_resource type="Texture2D" uid="uid://de6pipgcs2rky" path="res://scenes/world/procgen/erosion/erosion.tres" id="2_c3eyd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b2g2coc0kmovq" path="res://scenes/world/procgen/peaks/peaks.tres" id="4_kyqxo"]
 [ext_resource type="Texture2D" uid="uid://b2of5828deq2i" path="res://scenes/world/procgen/temperature/temperature.tres" id="5_5w08l"]
 [ext_resource type="Texture2D" uid="uid://dlgkg3ovi85wg" path="res://scenes/world/procgen/humidity/humidity.tres" id="6_rnsfq"]
+[ext_resource type="Script" path="res://scenes/UI/debug_data.gd" id="7_gtdt6"]
 
 [node name="ServerUi" type="Control"]
 layout_mode = 3
@@ -37,7 +38,7 @@ layout_mode = 2
 [node name="RandomiseBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Generate Noise"
+text = "Randomize"
 
 [node name="SeedDisplay" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -46,7 +47,7 @@ layout_mode = 2
 [node name="ShowHideUIButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Toggle Textures"
+text = "Toggle Noise Textures"
 
 [node name="NoiseTextureContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -82,3 +83,13 @@ texture = ExtResource("5_5w08l")
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("6_rnsfq")
+
+[node name="HoveredTileContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("7_gtdt6")
+
+[node name="SelectedTileContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("7_gtdt6")

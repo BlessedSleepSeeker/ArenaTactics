@@ -18,7 +18,7 @@ func generate_seeds():
 		rng.randomize()
 		rng.seed = hash(rng.randi())
 		MAIN_SEED = str(rng.seed)
-		print_debug(MAIN_SEED)
+		print_debug("Main Seed : ", MAIN_SEED)
 	else:
 		rng.seed = int(MAIN_SEED)
 

@@ -12,6 +12,9 @@ class_name ServerUI
 @onready var temperatureTexture: TextureRect = $"%Temperature"
 @onready var humidityTexture: TextureRect = $"%Humidity"
 
+@onready var hovered_tile_container: TileDebugContainer = $"%HoveredTileContainer"
+@onready var selected_tile_container: TileDebugContainer = $"%SelectedTileContainer"
+
 signal generate_world
 
 # Called when the node enters the scene tree for the first time.
@@ -38,3 +41,9 @@ func _showhide_noise():
 
 func _update_seed_number(new_value: String):
 	seed_display.text = new_value
+
+
+func _unhandled_input(event):
+	if event.is_action_pressed("debug_ui_toggle"):
+		hovered_tile_container.visible = !hovered_tile_container.visible
+		selected_tile_container.visible = !selected_tile_container.visible
