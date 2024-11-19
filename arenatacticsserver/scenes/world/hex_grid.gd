@@ -52,7 +52,10 @@ func calculate_tile_position(hex_tile: HexTile):
 func _on_tile_hovered(hex_tile: HexTile):
 	tile_hovered.emit(hex_tile)
 
-
+# unselect the old tile first
 func set_selected_tile(hex_tile: HexTile):
+	if self.selected_tile && is_instance_valid(self.selected_tile):
+		self.selected_tile.set_unselected()
 	self.selected_tile = hex_tile
+	hex_tile.set_selected()
 	tile_clicked.emit(hex_tile)

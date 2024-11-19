@@ -65,8 +65,9 @@ func on_mouse_entered():
 
 
 func on_mouse_exited():
-	self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
-	hover_exit.emit(self)
+	if not selected:
+		self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
+		hover_exit.emit(self)
 
 
 func serialize_debug_data() -> Dictionary:
@@ -87,4 +88,10 @@ func serialize_debug_data() -> Dictionary:
 
 
 func set_selected():
+	selected = true
 	self.mesh_inst.mesh.material.albedo_color = Color(Color.ORANGE_RED)
+
+
+func set_unselected():
+	selected = false
+	self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)

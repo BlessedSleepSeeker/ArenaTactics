@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3aaaue0h4kbp"]
+[gd_scene load_steps=9 format=3 uid="uid://c3aaaue0h4kbp"]
 
 [ext_resource type="Script" path="res://scenes/world/world_view.gd" id="1_uuclo"]
 [ext_resource type="Script" path="res://scenes/world/camera/CameraMovement.gd" id="2_1xfm4"]
 [ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_qb5pj"]
+[ext_resource type="PackedScene" uid="uid://dwhutxwedvdub" path="res://scenes/world/character/ranger/Ranger.tscn" id="4_8f8rr"]
+[ext_resource type="Script" path="res://scenes/world/character_manager.gd" id="4_u3uc7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3bb6y"]
 
@@ -31,3 +33,8 @@ transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -
 projection = 1
 current = true
 size = 50.0
+
+[node name="CharacterManager" type="Node3D" parent="."]
+script = ExtResource("4_u3uc7")
+
+[node name="Ranger" parent="CharacterManager" instance=ExtResource("4_8f8rr")]

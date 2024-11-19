@@ -1,0 +1,2 @@
+extends BaseCharacter
+class_name Ranger
