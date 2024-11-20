@@ -9,6 +9,7 @@ class_name CharacterInstance
 @export var player_id: String = ""
 @export var character_class: String = ""
 
+@onready var module_container: Node = $"%ModuleContainer"
 @onready var mesh_instance: MeshInstance3D = $"%MeshInstance"
 @onready var hitbox: CollisionShape3D = $"%Hitbox"
 @export var portrait: Texture2D = null
@@ -54,18 +55,24 @@ func parse_data(file_name: String, data: Dictionary) -> void:
 	if file_name == self.character_class.to_lower():
 		return parse_class_data(data)
 	var module_path: String = self.module_path_template % file_name
+	var module_class_name: String = self.module_class_name_template % file_name.capitalize()
+	
+	for script in ProjectSettings.get_global_class_list():
+		if script["class"] == module_class_name:
+			module_path = script["path"]
 	if not FileAccess.file_exists(module_path):
 		print_debug("File not found at %s" % module_path)
 		return
-	var module = load(module_path).new()
-	print_debug(module)
+
+	var module: Module = load(module_path).new()
+	module.module_name = module_class_name
 	# if not module is Module:
 	# 	print_debug("Is not module")
 	# 	return
 	for child: StringName in data:
 		if child in module:
 			module.set(child, data[child])
-	self.add_child(module)
+	module_container.add_child(module)
 
 
 # Where we load most visuals. 3D Mesh, textures, hitboxes...
@@ -83,3 +90,15 @@ func parse_class_data(class_data: Dictionary) -> void:
 
 func check_if_match_and_path_exist(match: String, key, value) -> bool:
 	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
+
+
+func get_module_by_name(value: String) -> Module:
+	for child: Module in module_container.get_children():
+		if child.module_name == value:
+			return child
+	return null
+
+
+func modules_start_game():
+	for module: Module in self.module_container.get_children():
+		module.start_game()

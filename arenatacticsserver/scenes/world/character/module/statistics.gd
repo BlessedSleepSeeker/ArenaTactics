@@ -1,4 +1,4 @@
-extends Node
+extends Module
 class_name StatisticsModule
 
 @export var actor: CharacterInstance
@@ -14,8 +14,13 @@ class_name StatisticsModule
 
 
 func _ready():
-    self.print_data()
+    pass
 
 
 func print_data():
-    print_debug("%d %d %d %d %d %d" % [max_health, starting_health, current_health, max_shield, starting_shield, current_shield])
+    print_debug("%s %d %d %d %d %d %d" % [module_name, max_health, starting_health, current_health, max_shield, starting_shield, current_shield])
+
+
+func start_game():
+    current_health = starting_health
+    current_shield = starting_shield

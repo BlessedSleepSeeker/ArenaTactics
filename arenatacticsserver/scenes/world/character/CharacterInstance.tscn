@@ -10,3 +10,6 @@ unique_name_in_owner = true
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
+
+[node name="ModuleContainer" type="Node" parent="."]
+unique_name_in_owner = true
