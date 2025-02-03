@@ -1,5 +1,5 @@
 {
-    "mesh_path": "aaa",
+    "model_path": "res://scenes/character/class_definitions/ranger/assets/ranger.gltf",
     "hitbox_path": "bbb",
     "icon_path": "ccc",
     "portrait_path": "ddd"

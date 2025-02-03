@@ -44,9 +44,10 @@ func _ready():
 	mesh_inst.mesh = hexagon_prism
 
 	var cylinder: CylinderShape3D = CylinderShape3D.new()
-	cylinder.height = height
+	cylinder.height = 0.5
 	cylinder.radius = 0.45
 	collision.shape = cylinder
+	collision.position.y = height / 2 - (cylinder.height / 2)
 
 # if islandism is high = you should be (visually) at the same elevation but with a smaller model height.
 # if islandism is low = you should be (visually) at the same elevation but with a taller model height.
@@ -60,8 +61,9 @@ func set_vertical_position():
 	self.position.y = (height / 2)
 
 func on_mouse_entered():
-	self.mesh_inst.mesh.material.albedo_color = Color(Color.WHITE)
-	hover_enter.emit(self)
+	if not selected:
+		self.mesh_inst.mesh.material.albedo_color = Color(Color.WHITE)
+		hover_enter.emit(self)
 
 
 func on_mouse_exited():

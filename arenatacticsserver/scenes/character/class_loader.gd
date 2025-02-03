@@ -91,8 +91,8 @@ func parse_data(instance: CharacterInstance, file_name: String, data: Dictionary
 # Where we load most visuals. 3D Mesh, textures, hitboxes...
 func parse_class_data(instance, class_data: Dictionary) -> void:
 	for data in class_data:
-		if check_if_match_and_path_exist("mesh", data, class_data[data]):
-			instance.mesh_instance.mesh = load(class_data[data])
+		if check_if_match_and_path_exist("model", data, class_data[data]):
+			instance.load_model(class_data[data])
 		elif check_if_match_and_path_exist("hitbox", data, class_data[data]):
 			instance.hitbox.shape = load(class_data[data])
 		elif check_if_match_and_path_exist("portrait", data, class_data[data]):
@@ -103,6 +103,7 @@ func parse_class_data(instance, class_data: Dictionary) -> void:
 
 func check_if_match_and_path_exist(match: String, key, value) -> bool:
 	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
+
 
 func get_class_instance(_class_name: String) -> CharacterInstance:
 	# for instance: CharacterInstance in class_base_instances:
