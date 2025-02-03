@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcvho024kiqga"]
 
-[ext_resource type="Script" path="res://scenes/world/character/character_instance.gd" id="1_m0v3v"]
+[ext_resource type="Script" path="res://scenes/character/character_instance.gd" id="1_vgy44"]
 
 [node name="CharacterInstance" type="CharacterBody3D"]
-script = ExtResource("1_m0v3v")
+script = ExtResource("1_vgy44")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true

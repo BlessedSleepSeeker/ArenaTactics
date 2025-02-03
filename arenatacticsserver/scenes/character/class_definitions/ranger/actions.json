@@ -1,0 +1,18 @@
+{
+    "Offense": {
+
+    },
+    "Defense": {
+
+    },
+    "Movement": {
+        "Walk": {
+            "priority": 3,
+            "animation_path": "",
+            "type": "walk"
+        }
+    },
+    "Utility": {
+
+    }
+}

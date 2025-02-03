@@ -3,7 +3,7 @@ extends Node
 @export var world_view_scene: PackedScene = preload("res://scenes/world/world_view.tscn")
 @onready var server_ui: ServerUI = $"%ServerUi"
 @onready var world_view: WorldView = $"%WorldView"
-@onready var character_manager: CharacterManager = $"%CharacterManager"
+#@onready var character_manager: CharacterManager = $"%CharacterManager"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
