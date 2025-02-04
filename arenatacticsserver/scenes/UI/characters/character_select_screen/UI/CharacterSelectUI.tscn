@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtodgpoqsjj8s"]
+[gd_scene load_steps=6 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://scenes/UI/base_ui_theme.tres" id="1_auudq"]
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
 [ext_resource type="PackedScene" uid="uid://bsbinym0w5is4" path="res://scenes/UI/characters/character_select_screen/UI/CSSHexagonGrid.tscn" id="3_1a6kn"]
-[ext_resource type="PackedScene" uid="uid://dertr1qpkmo2i" path="res://scenes/UI/characters/character_select_screen/UI/HexagonButton.tscn" id="4_ipraf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bsis1"]
 font_size = 60
@@ -80,8 +79,6 @@ theme_override_constants/margin_right = 0
 [node name="CSSHexagonGrid" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterPortraits" instance=ExtResource("3_1a6kn")]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 2
-hex_button_scene = ExtResource("4_ipraf")
 
 [node name="CharacterData" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer"]
 layout_mode = 2

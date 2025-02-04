@@ -6,6 +6,7 @@ class_name HexGrid
 @export var grid_size_x: int = 50 #vertical
 @export var grid_size_y: int = 50 #horizontal
 @export var timer_between_tile: float = 0.001
+@export var flat_world: bool = false
 
 @export var tile_scene: PackedScene = preload("res://scenes/world/HexTile.tscn")
 
@@ -16,7 +17,13 @@ var selected_tile: HexTile = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ProcGen.finished_setup.connect(generate_new_grid)
+	if not flat_world:
+		if ProcGen.setup_is_finished:
+			generate_new_grid()
+		else:
+			ProcGen.finished_setup.connect(generate_new_grid)
+	else:
+		generate_flat_world()
 
 
 func free_grid() -> void:
@@ -36,6 +43,17 @@ func generate_new_grid() -> void:
 			self.add_child(inst)
 			if inst.distance >= 0.8:
 				inst.queue_free()
+			#await get_tree().create_timer(timer_between_tile).timeout
+
+func generate_flat_world() -> void:
+	for i in range(grid_size_x):
+		for j in range(grid_size_y):
+			var inst: HexTile = tile_scene.instantiate()
+			inst.grid_pos_x = i
+			inst.grid_pos_y = j
+			var pos = calculate_tile_position(inst)
+			inst.position = pos
+			self.add_child(inst)
 			#await get_tree().create_timer(timer_between_tile).timeout
 
 

@@ -23,6 +23,7 @@ var peaks_valley_data: Image
 var temperature_data: Image
 var humidity_data: Image
 
+var setup_is_finished: bool = false
 signal finished_setup
 
 # Called when the node enters the scene tree for the first time.
@@ -31,6 +32,7 @@ func _ready():
 
 
 func update_seeds(new_value: int) -> void:
+	setup_is_finished = false
 	set_noise_seed(continentalness, new_value)
 	await continentalness.changed
 	continentalness_data = continentalness.get_image()
@@ -52,6 +54,7 @@ func update_seeds(new_value: int) -> void:
 	humidity_data = humidity.get_image()
 
 	finished_setup.emit()
+	setup_is_finished = true
 	#print_debug("set seed to %s" % RngHandler.MAIN_SEED)
 
 

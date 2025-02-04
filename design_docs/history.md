@@ -22,3 +22,4 @@
 
 - Started Work on CSS UI - 9-10
 - Progress on the CSS HexGrid 12-13 14-15 15-16 16-17
+- CSS 3D HexTiles and camera/shadows improvements

@@ -1,8 +1,83 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5vx7mnmf36g2"]
+[gd_scene load_steps=10 format=3 uid="uid://b5vx7mnmf36g2"]
 
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/3d_scene/character_select_3d.gd" id="1_7l5iv"]
+[ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_f2eke"]
+[ext_resource type="PackedScene" uid="uid://p6flf0evxv38" path="res://scenes/world/Tiles/FakeHexTile.tscn" id="3_h47aj"]
+
+[sub_resource type="Animation" id="Animation_qh7id"]
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HexGridPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4kne3"]
+resource_name = "hex_spin"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HexGridPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dvc0q"]
+_data = {
+"RESET": SubResource("Animation_qh7id"),
+"hex_spin": SubResource("Animation_4kne3")
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ij4vb"]
+sky_top_color = Color(0.513141, 0.380324, 0.633362, 1)
+
+[sub_resource type="Sky" id="Sky_ns6si"]
+sky_material = SubResource("ProceduralSkyMaterial_ij4vb")
+
+[sub_resource type="Environment" id="Environment_3p17i"]
+background_mode = 2
+sky = SubResource("Sky_ns6si")
 
 [node name="CharacterSelect3d" type="Node3D"]
 script = ExtResource("1_7l5iv")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dvc0q")
+}
+autoplay = "hex_spin"
+
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.955742, -0.112242, 0.271955, 0, 0.924366, 0.381506, -0.294207, -0.364621, 0.883455, 4.2355, 1.63888, 2.56134)
+environment = SubResource("Environment_3p17i")
+projection = 1
+current = true
+size = 6.0
+far = 20.0
+
+[node name="HexGridPivot" type="Node3D" parent="."]
+
+[node name="HexGrid" parent="HexGridPivot" instance=ExtResource("2_f2eke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0, -0.7)
+grid_size_x = 2
+grid_size_y = 3
+flat_world = true
+tile_scene = ExtResource("3_h47aj")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.856758, -0.319057, 0.405178, 0.14389, 0.902343, 0.406291, -0.495239, -0.289792, 0.818999, 0, 2.05214, 1.2392)
+shadow_enabled = true
+shadow_blur = 0.0
