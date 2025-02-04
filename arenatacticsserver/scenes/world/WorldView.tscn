@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3aaaue0h4kbp"]
 
-[ext_resource type="Script" path="res://scenes/world/world_view.gd" id="1_uuclo"]
-[ext_resource type="Script" path="res://scenes/world/camera/CameraMovement.gd" id="2_1xfm4"]
-[ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_qb5pj"]
+[ext_resource type="Script" path="res://scenes/world/world_view.gd" id="1_qqpp8"]
+[ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_fwjfj"]
+[ext_resource type="Script" path="res://scenes/world/camera/CameraMovement.gd" id="3_nwcck"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_23qwn"]
 sky_top_color = Color(0.1302, 0.71672, 0.93, 1)
@@ -20,7 +20,7 @@ tonemap_mode = 3
 glow_enabled = true
 
 [node name="WorldView" type="Node3D"]
-script = ExtResource("1_uuclo")
+script = ExtResource("1_qqpp8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_80hqc")
@@ -30,10 +30,10 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
 shadow_enabled = true
 shadow_blur = 0.0
 
-[node name="HexGrid" parent="." instance=ExtResource("2_qb5pj")]
+[node name="HexGrid" parent="." instance=ExtResource("2_fwjfj")]
 
 [node name="CamAnchor" type="Node3D" parent="."]
-script = ExtResource("2_1xfm4")
+script = ExtResource("3_nwcck")
 
 [node name="Freecam" type="Camera3D" parent="CamAnchor"]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 100, 200, 100)

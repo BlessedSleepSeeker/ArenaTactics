@@ -7,7 +7,7 @@ class_name HexGrid
 @export var grid_size_y: int = 50 #horizontal
 @export var timer_between_tile: float = 0.001
 
-@export var tile_scene: PackedScene = preload("res://scenes/world/hex_tile.tscn")
+@export var tile_scene: PackedScene = preload("res://scenes/world/HexTile.tscn")
 
 signal tile_hovered(hex_tile: HexTile)
 signal tile_clicked(hex_tile: HexTile)

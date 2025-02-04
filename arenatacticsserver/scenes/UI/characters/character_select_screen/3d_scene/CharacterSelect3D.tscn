@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5vx7mnmf36g2"]
+
+[ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/3d_scene/character_select_3d.gd" id="1_7l5iv"]
+
+[node name="CharacterSelect3d" type="Node3D"]
+script = ExtResource("1_7l5iv")
+
+[node name="Camera3D" type="Camera3D" parent="."]

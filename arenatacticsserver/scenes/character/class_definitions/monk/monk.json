@@ -2,5 +2,7 @@
     "mesh_path": "aaa",
     "hitbox_path": "bbb",
     "icon_path": "ccc",
-    "portrait_path": "ddd"
+    "portrait_path": "ddd",
+    "subtitle": "The Blessed Bald",
+    "description": "An iron fist in a golden soul. Resilience for him, Repentance for them."
 }

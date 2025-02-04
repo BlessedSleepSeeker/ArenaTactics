@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dertr1qpkmo2i"]
+
+[ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/hexagon_button.gd" id="1_7wiub"]
+[ext_resource type="Texture2D" uid="uid://caps7pquwv37h" path="res://scenes/UI/characters/character_select_screen/UI/assets/grass_hexagon.png" id="3_try0m"]
+
+[node name="HexagonButton" type="MarginContainer"]
+offset_right = 110.0
+offset_bottom = 85.0
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -60
+script = ExtResource("1_7wiub")
+
+[node name="CharaPortrait" type="TextureRect" parent="."]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HexButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Missing Class Data"
+texture_normal = ExtResource("3_try0m")

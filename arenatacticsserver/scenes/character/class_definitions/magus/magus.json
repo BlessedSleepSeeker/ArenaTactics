@@ -2,5 +2,7 @@
     "mesh_path": "aaa",
     "hitbox_path": "bbb",
     "icon_path": "ccc",
-    "portrait_path": "ddd"
+    "portrait_path": "ddd",
+    "subtitle": "The Whimsy Wizard",
+    "description": "A Magical Mastermind this one ! Ahhh, to bend the elements to your command..."
 }

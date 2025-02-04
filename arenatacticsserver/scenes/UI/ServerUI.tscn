@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0scscdx4lonm"]
+[gd_scene load_steps=9 format=3 uid="uid://d0scscdx4lonm"]
 
 [ext_resource type="Script" path="res://scenes/UI/server_ui.gd" id="1_86eu2"]
+[ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://scenes/UI/base_ui_theme.tres" id="1_l3d55"]
 [ext_resource type="Texture2D" uid="uid://de6pipgcs2rky" path="res://scenes/world/procgen/erosion/erosion.tres" id="2_c3eyd"]
 [ext_resource type="Texture2D" uid="uid://dkomdlc3vxjfk" path="res://scenes/world/procgen/continentalness/continentalness.tres" id="2_pctw1"]
 [ext_resource type="Texture2D" uid="uid://b2g2coc0kmovq" path="res://scenes/world/procgen/peaks/peaks.tres" id="4_kyqxo"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_l3d55")
 script = ExtResource("1_86eu2")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -24,10 +26,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

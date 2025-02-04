@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game_spectating/game_spectating.gd" id="1_0uyv1"]
 [ext_resource type="PackedScene" uid="uid://d0scscdx4lonm" path="res://scenes/UI/ServerUI.tscn" id="1_3sw70"]
-[ext_resource type="PackedScene" uid="uid://c3aaaue0h4kbp" path="res://scenes/world/world_view.tscn" id="2_784fh"]
+[ext_resource type="PackedScene" uid="uid://c3aaaue0h4kbp" path="res://scenes/world/WorldView.tscn" id="2_784fh"]
 
 [node name="GameSpectating" type="Node"]
 script = ExtResource("1_0uyv1")

@@ -6,7 +6,10 @@ extends Node
 @export var module_class_name_template: String = "%sModule"
 @export var character_scene = preload("res://scenes/character/CharacterInstance.tscn")
 
-var class_base_instances: Dictionary
+var classes: Dictionary
+
+var setup_is_finished: bool = false
+signal finished_setup
 
 func _ready() -> void:
 	load_all_classes()
@@ -23,7 +26,10 @@ func load_all_classes() -> void:
 			print_debug("Found directory: " + file_name)
 			load_class(file_name)
 		file_name = dir.get_next()
-	print_debug(class_base_instances)
+	#print_debug(classes)
+	#add_testing_classes(10)
+	setup_is_finished = true
+	finished_setup.emit()
 	# TODO : add cleaning up null class
 
 func load_class(_class_name: String) -> void:
@@ -40,7 +46,7 @@ func load_class(_class_name: String) -> void:
 	self.add_child(instance)
 	while file_name != "":
 		if dir.current_is_dir():
-			print_debug("Found directory: " + file_name)
+			pass#print_debug("Found directory: " + file_name)
 		else:
 			var data = read_file(folder_path + "/%s" % file_name)
 			if data.has("Error"):
@@ -48,11 +54,13 @@ func load_class(_class_name: String) -> void:
 				continue
 			parse_data(instance, file_name.trim_suffix(".json"), data)
 		file_name = dir.get_next()
-	class_base_instances[_class_name] = instance
+	## Setting node name to character class + class template to make debug prints clearer
+	instance.name = "%s Class Template" % [instance.character_class.to_pascal_case()]
+	classes[_class_name] = instance
 
 
 func read_file(path) -> Dictionary:
-	print_debug("Accessing %s..." % path)
+	#print_debug("Accessing %s..." % path)
 	var json_as_text = FileAccess.get_file_as_string(path)
 	if json_as_text == "":
 		return { "Error": "open error %d at %s" % [FileAccess.get_open_error(), path] }
@@ -89,24 +97,42 @@ func parse_data(instance: CharacterInstance, file_name: String, data: Dictionary
 
 
 # Where we load most visuals. 3D Mesh, textures, hitboxes...
-func parse_class_data(instance, class_data: Dictionary) -> void:
+func parse_class_data(instance: CharacterInstance, class_data: Dictionary) -> void:
 	for data in class_data:
 		if check_if_match_and_path_exist("model", data, class_data[data]):
 			instance.load_model(class_data[data])
 		elif check_if_match_and_path_exist("hitbox", data, class_data[data]):
 			instance.hitbox.shape = load(class_data[data])
 		elif check_if_match_and_path_exist("portrait", data, class_data[data]):
-			instance.portrait = load(class_data[data])
+			instance.load_portrait(class_data[data])
 		elif check_if_match_and_path_exist("icon", data, class_data[data]):
-			instance.icon = load(class_data[data])
-
+			instance.load_icon(class_data[data])
+		else:
+			add_string_data_to_var(instance, data, class_data[data])
 
 func check_if_match_and_path_exist(match: String, key, value) -> bool:
 	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
 
+func add_string_data_to_var(instance: CharacterInstance, var_name: String, var_value: String):
+	if var_name in instance:
+		instance.set(var_name, var_value)
+	print_debug("%s: %s = %s" % [var_name, var_value, instance.get(var_name)])
+
 
 func get_class_instance(_class_name: String) -> CharacterInstance:
-	# for instance: CharacterInstance in class_base_instances:
+	# for instance: CharacterInstance in classes:
 	#     if instance.character_class == _class_name:
 	#         return instance.copy()
 	return null
+
+
+func add_testing_classes(numbers_to_add: int) -> void:
+	for i in numbers_to_add:
+		var fake_class = character_scene.instantiate()
+		self.add_child(fake_class)
+		fake_class.character_class = str(i)
+		fake_class.load_model("class_data[data]")
+		fake_class.hitbox.shape = null
+		fake_class.load_portrait("aaa")
+		fake_class.load_icon("class_data[data]")
+		classes[i] = fake_class

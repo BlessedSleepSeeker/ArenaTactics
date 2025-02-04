@@ -1,6 +1,6 @@
 extends Node
 
-@export var world_view_scene: PackedScene = preload("res://scenes/world/world_view.tscn")
+@export var world_view_scene: PackedScene = preload("res://scenes/world/WorldView.tscn")
 @onready var server_ui: ServerUI = $"%ServerUi"
 @onready var world_view: WorldView = $"%WorldView"
 #@onready var character_manager: CharacterManager = $"%CharacterManager"
