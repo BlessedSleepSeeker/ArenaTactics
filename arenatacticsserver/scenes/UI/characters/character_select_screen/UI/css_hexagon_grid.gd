@@ -4,7 +4,7 @@ class_name CSSHexagonGrid
 @export var columns: int = 2
 @export var hex_button_scene: PackedScene = preload("res://scenes/UI/characters/character_select_screen/UI/HexagonButton.tscn")
 
-signal class_selected(selected_class: CharacterInstance)
+signal class_selected(selected_class: ClassDefinition)
 
 func _ready():
 	pass
@@ -55,5 +55,5 @@ func reset_grid():
 
 
 ## Throw signals from the buttons back to the CSS
-func button_clicked(_selected_class: CharacterInstance):
+func button_clicked(_selected_class: ClassDefinition):
 	class_selected.emit(_selected_class)
