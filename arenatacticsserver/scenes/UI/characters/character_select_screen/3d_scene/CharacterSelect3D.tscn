@@ -61,12 +61,16 @@ libraries = {
 autoplay = "hex_spin"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.955742, -0.112242, 0.271955, 0, 0.924366, 0.381506, -0.294207, -0.364621, 0.883455, 4.2355, 1.63888, 2.56134)
+transform = Transform3D(0.955742, -0.112242, 0.271955, 0, 0.924366, 0.381506, -0.294207, -0.364621, 0.883456, 4.2355, 3.24854, 2.56134)
 environment = SubResource("Environment_3p17i")
 projection = 1
 current = true
 size = 6.0
 far = 20.0
+
+[node name="CharacterSpawnPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5655, 0)
 
 [node name="HexGridPivot" type="Node3D" parent="."]
 

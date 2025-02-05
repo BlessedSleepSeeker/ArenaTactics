@@ -4,6 +4,7 @@
   - [November 24](#november-24)
   - [03/02/2025](#03022025)
   - [04/02/2025](#04022025)
+  - [05/02/2025](#05022025)
 
 ## November 24
 
@@ -22,4 +23,8 @@
 
 - Started Work on CSS UI - 9-10
 - Progress on the CSS HexGrid 12-13 14-15 15-16 16-17
-- CSS 3D HexTiles and camera/shadows improvements
+- CSS 3D HexTiles and camera/shadows improvements 16-17
+
+## 05/02/2025
+
+- Class Character Instanciation 9-10

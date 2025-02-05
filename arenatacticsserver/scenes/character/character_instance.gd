@@ -6,7 +6,6 @@ class_name CharacterInstance
 @export var character_class: String = ""
 
 @export var subtitle: String = ""
-
 ## Supports BBCODE
 @export var description: String = ""
 
@@ -72,3 +71,19 @@ func load_hitbox_shape(hitbox_path: String) -> void:
 		cylinder.height = 2
 		cylinder.radius = 0.35
 		hitbox.shape = cylinder
+
+
+func clone_from(original: CharacterInstance):
+	var og_data = original.export_data()
+	import_data(og_data)
+
+func export_data() -> Dictionary:
+	var data = {}
+
+
+	return data
+
+
+func import_data(source: Dictionary) -> void:
+	for key in source:
+		pass

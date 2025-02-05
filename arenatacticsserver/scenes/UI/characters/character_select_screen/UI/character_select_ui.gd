@@ -1,4 +1,5 @@
 extends Control
+class_name CharacterSelectUI
 
 var selected_class: CharacterInstance = null
 var selected_skin: String = "default"
@@ -8,15 +9,11 @@ var selected_skin: String = "default"
 @onready var char_subtitle: Label = $"%CharacterSubtitle"
 @onready var char_description: RichTextLabel = $"%CharacterDescription"
 
-func _ready():
-	if ClassLoader.setup_is_finished == false:
-		ClassLoader.finished_setup.connect(build_css())
-	else:
-		build_css()
+signal class_selected(selected_class: CharacterInstance)
 
-func build_css():
+func build():
 	css_hex_grid.build_grid(ClassLoader.classes)
-	css_hex_grid.selected_class.connect(select_class)
+	css_hex_grid.class_selected.connect(select_class)
 	select_random_class()
 
 
@@ -25,9 +22,9 @@ func select_class(_selected_class: CharacterInstance):
 		select_random_class()
 		return
 	selected_class = _selected_class
-	print_debug("Class selected : %s" % selected_class)
-	build_3d()
+	#print_debug("Class selected : %s" % selected_class)
 	fill_data()
+	class_selected.emit(_selected_class)
 
 
 ## Get a random key from keys() then use that
@@ -41,9 +38,6 @@ func select_random_class():
 		if i > 4:
 			break
 	select_class(rando_class)
-
-func build_3d():
-	pass
 
 func fill_data():
 	char_title.text = selected_class.character_class.to_pascal_case()

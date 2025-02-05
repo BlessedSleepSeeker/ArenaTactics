@@ -23,7 +23,7 @@ func load_all_classes() -> void:
 	var file_name = dir.get_next()
 	while file_name != "":
 		if dir.current_is_dir():
-			print_debug("Found directory: " + file_name)
+			#print_debug("Found directory: " + file_name)
 			load_class(file_name)
 		file_name = dir.get_next()
 	#print_debug(classes)
@@ -116,15 +116,26 @@ func check_if_match_and_path_exist(match: String, key, value) -> bool:
 func add_string_data_to_var(instance: CharacterInstance, var_name: String, var_value: String):
 	if var_name in instance:
 		instance.set(var_name, var_value)
-	print_debug("%s: %s = %s" % [var_name, var_value, instance.get(var_name)])
+	#print_debug("%s: %s = %s" % [var_name, var_value, instance.get(var_name)])
 
 
 func get_class_instance(_class_name: String) -> CharacterInstance:
-	# for instance: CharacterInstance in classes:
-	#     if instance.character_class == _class_name:
-	#         return instance.copy()
+	for instance_key: String in classes:
+		var class_template = classes[instance_key]
+		if class_template.character_class == _class_name:
+			return clone_character(class_template)
+	push_error("Error while instancing class %s : Class not found" % _class_name)
 	return null
 
+
+func clone_character(original: CharacterInstance) -> CharacterInstance:
+	var clone: CharacterInstance = original.duplicate()#character_scene.instantiate()
+	self.add_child(clone)
+
+	#original.clone_data(clone)
+
+	self.remove_child(clone)
+	return clone
 
 func add_testing_classes(numbers_to_add: int) -> void:
 	for i in numbers_to_add:
