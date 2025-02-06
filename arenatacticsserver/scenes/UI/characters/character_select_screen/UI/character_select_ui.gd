@@ -8,6 +8,7 @@ var selected_skin: String = "default"
 @onready var char_title: Label = $"%CharacterTitle"
 @onready var char_subtitle: Label = $"%CharacterSubtitle"
 @onready var char_description: RichTextLabel = $"%CharacterDescription"
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 signal class_selected(selected_class: ClassDefinition)
 
@@ -21,10 +22,13 @@ func select_class(_selected_class: ClassDefinition) -> void:
 	if _selected_class == null:
 		select_random_class()
 		return
+	anim_player.play_backwards("fade_in")
 	selected_class = _selected_class
 	#print_debug("Class selected : %s" % selected_class)
-	fill_data()
 	class_selected.emit(_selected_class)
+	await anim_player.animation_finished
+	fill_data()
+	anim_player.play("fade_in")
 
 
 ## Get a random key from keys() then use that

@@ -1,10 +1,11 @@
-@tool
 extends HexTile
 class_name FakeHexTile
 
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+
 func _ready():
 	var hexagon_prism := CylinderMesh.new()
-	set_vertical_position()
+	#set_vertical_position()
 	hexagon_prism.height = height
 	hexagon_prism.top_radius = radius
 	hexagon_prism.bottom_radius = radius
@@ -13,13 +14,17 @@ func _ready():
 
 	hexagon_prism.material = StandardMaterial3D.new()
 	hexagon_prism.material.albedo_color = Color(Color.SEA_GREEN)
+	hexagon_prism.material.albedo_color.a = 0
+	hexagon_prism.material.transparency = 1
 	mesh_inst.mesh = hexagon_prism
 
-	var cylinder: CylinderShape3D = CylinderShape3D.new()
-	cylinder.height = 0.5
-	cylinder.radius = 0.45
-	collision.shape = cylinder
-	collision.position.y = height / 2 - (cylinder.height / 2)
+	# var cylinder: CylinderShape3D = CylinderShape3D.new()
+	# cylinder.height = 0.5
+	# cylinder.radius = 0.45
+	# collision.shape = cylinder
+	# collision.position.y = height / 2 - (cylinder.height / 2)
+
+	anim_player.play("fade_in")
 
 func set_vertical_position():
 	#print_debug("%d:%d : %f, %d" % [grid_pos_x, grid_pos_y, distance, height])

@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dehbydr6dp22t"
+path="res://.godot/imported/hex_button_click_mask.png-99b7a422b6134ee9384495a60732eaf0.res"
+
+[deps]
+
+source_file="res://scenes/UI/characters/character_select_screen/UI/assets/hex_button_click_mask.png"
+dest_files=["res://.godot/imported/hex_button_click_mask.png-99b7a422b6134ee9384495a60732eaf0.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

@@ -3,22 +3,50 @@ class_name CharacterSelect3D
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var chara_spawn: Node3D = $"%CharacterSpawnPoint"
+@onready var grid_spawn: Node3D = $"%GridSpawnPoint"
+
+@export var hex_grid_scene: PackedScene = preload("res://scenes/world/HexGrid.tscn")
+@export var hex_grid_tile: PackedScene = preload("res://scenes/world/Tiles/FakeHexTile.tscn")
+@export var hex_grid_size_x: int = 2
+@export var hex_grid_size_y: int = 3
+@export var hex_grid_timer: float = 0.1
+@export var hex_grid_flatworld: bool = true
+
+signal fade_finished
 
 func _ready():
 	pass
 
 func build(class_def: ClassDefinition):
 	reset_diorama()
+	await fade_finished
 	spawn_diorama(class_def)
 
 func reset_diorama():
 	# fade anim here
 	# camera movement/blur ?
-	for child in chara_spawn.get_children():
-		child.queue_free()
+	await get_tree().create_timer(0.01).timeout	
+	if chara_spawn.get_child_count() > 0 && grid_spawn.get_child_count() > 0:
+		for hex_grid: HexGrid in grid_spawn.get_children():
+			hex_grid.fade_out()
+		for hex_grid: HexGrid in grid_spawn.get_children():
+			await hex_grid.fade_finished
+			hex_grid.queue_free()
+
+		for chara: CharacterInstance in chara_spawn.get_children():
+			chara.queue_free()
+	fade_finished.emit()
+		
 
 func spawn_diorama(class_def: ClassDefinition):
-	# fade in here/play fade out in reverse
-	var new_instance = class_def.instantiate()
-	print_debug("Spawing %s on Diorama" % new_instance.character_class)
+	var new_instance: CharacterInstance = class_def.instantiate()
+	new_instance.play_animation("Idle")
 	chara_spawn.add_child(new_instance)
+
+	var grid_instance: HexGrid = hex_grid_scene.instantiate()
+	grid_instance.tile_scene = hex_grid_tile
+	grid_instance.grid_size_x = hex_grid_size_x
+	grid_instance.grid_size_y = hex_grid_size_y
+	grid_instance.timer_between_tile = hex_grid_timer
+	grid_instance.flat_world = hex_grid_flatworld
+	grid_spawn.add_child(grid_instance)

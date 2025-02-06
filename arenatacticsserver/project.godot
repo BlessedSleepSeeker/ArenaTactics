@@ -34,6 +34,12 @@ folder_colors={
 "res://scenes/": "blue"
 }
 
+[importer_defaults]
+
+scene={
+"fbx/embedded_image_handling": 3
+}
+
 [input]
 
 debug_ui_toggle={

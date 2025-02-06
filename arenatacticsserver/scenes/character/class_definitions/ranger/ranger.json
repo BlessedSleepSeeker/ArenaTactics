@@ -2,7 +2,7 @@
     "model_path": "res://scenes/character/class_definitions/ranger/assets/ranger.gltf",
     "hitbox_path": "bbb",
     "icon_path": "ccc",
-    "portrait_path": "ddd",
+    "portrait_path": "res://scenes/character/class_definitions/ranger/assets/icon.png",
     "subtitle": "The Deceitful Dagger",
     "description": "Sneaky, Crafty and Resourceful, the Ranger versatility will satisfy you, my lord..."
 }

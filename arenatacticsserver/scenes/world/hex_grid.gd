@@ -12,6 +12,8 @@ class_name HexGrid
 
 signal tile_hovered(hex_tile: HexTile)
 signal tile_clicked(hex_tile: HexTile)
+signal generation_finished
+signal fade_finished
 
 var selected_tile: HexTile = null
 
@@ -43,7 +45,8 @@ func generate_new_grid() -> void:
 			self.add_child(inst)
 			if inst.distance >= 0.8:
 				inst.queue_free()
-			#await get_tree().create_timer(timer_between_tile).timeout
+			if timer_between_tile > 0:
+				await get_tree().create_timer(timer_between_tile).timeout
 
 func generate_flat_world() -> void:
 	for i in range(grid_size_x):
@@ -54,7 +57,20 @@ func generate_flat_world() -> void:
 			var pos = calculate_tile_position(inst)
 			inst.position = pos
 			self.add_child(inst)
-			#await get_tree().create_timer(timer_between_tile).timeout
+			if timer_between_tile > 0:
+				await get_tree().create_timer(timer_between_tile).timeout
+	generation_finished.emit()
+
+
+func fade_out():
+	for tile: HexTile in get_children():
+		if tile.has_node("AnimationPlayer"):
+			var node_anim_player: AnimationPlayer = tile.get_node("AnimationPlayer")
+			node_anim_player.play_backwards("fade_in")
+			if timer_between_tile > 0:
+				await get_tree().create_timer(timer_between_tile).timeout
+	await get_tree().create_timer(0.2).timeout
+	fade_finished.emit()
 
 
 func calculate_tile_position(hex_tile: HexTile):

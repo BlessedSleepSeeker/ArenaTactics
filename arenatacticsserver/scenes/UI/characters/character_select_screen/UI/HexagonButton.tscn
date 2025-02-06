@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dertr1qpkmo2i"]
+[gd_scene load_steps=6 format=3 uid="uid://dertr1qpkmo2i"]
 
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/hexagon_button.gd" id="1_7wiub"]
+[ext_resource type="Texture2D" uid="uid://bypu4t7njx625" path="res://scenes/UI/characters/character_select_screen/UI/assets/hex_button_clicked.png" id="3_fdu04"]
+[ext_resource type="BitMap" uid="uid://dehbydr6dp22t" path="res://scenes/UI/characters/character_select_screen/UI/assets/hex_button_click_mask.png" id="3_ifoti"]
 [ext_resource type="Texture2D" uid="uid://caps7pquwv37h" path="res://scenes/UI/characters/character_select_screen/UI/assets/grass_hexagon.png" id="3_try0m"]
+[ext_resource type="Texture2D" uid="uid://cxigto4qnquxs" path="res://scenes/UI/characters/character_select_screen/UI/assets/hex_button_hover.png" id="4_fj2a7"]
 
 [node name="HexagonButton" type="MarginContainer"]
 offset_right = 110.0
-offset_bottom = 85.0
+offset_bottom = 80.0
 theme_override_constants/margin_left = -5
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = -5
@@ -24,3 +27,6 @@ unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Missing Class Data"
 texture_normal = ExtResource("3_try0m")
+texture_pressed = ExtResource("3_fdu04")
+texture_hover = ExtResource("4_fj2a7")
+texture_click_mask = ExtResource("3_ifoti")

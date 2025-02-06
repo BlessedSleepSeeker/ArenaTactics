@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtodgpoqsjj8s"]
+[gd_scene load_steps=10 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://scenes/UI/base_ui_theme.tres" id="1_auudq"]
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
@@ -9,6 +9,69 @@ font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_6mp1h"]
 font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_q573x"]
+
+[sub_resource type="Animation" id="Animation_tgogt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8xnvm"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o8ffg"]
+_data = {
+"RESET": SubResource("Animation_tgogt"),
+"fade_in": SubResource("Animation_8xnvm")
+}
 
 [node name="CharacterSelectUI" type="Control"]
 layout_mode = 3
@@ -90,7 +153,14 @@ theme_override_constants/margin_bottom = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData"]
 layout_mode = 2
 
-[node name="CharacterDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="CharacterDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -100,7 +170,175 @@ bbcode_enabled = true
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-columns = 3
+columns = 6
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel2" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel2/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel3" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel3/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel4" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel4/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel5" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel5"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel5/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel6" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel6/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel7" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel7"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel7/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel8" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel8"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel8/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel9" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel9"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel9/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel10" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel10"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel10/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel11" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel11"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel11/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
+
+[node name="Panel12" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel12"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterData/VBoxContainer/SpellsIconsGrid/Panel12/MarginContainer"]
+layout_mode = 2
+text = "Spell"
+label_settings = SubResource("LabelSettings_q573x")
+horizontal_alignment = 1
 
 [node name="Buttons" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -122,3 +360,8 @@ size_flags_horizontal = 3
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
 layout_mode = 2
 text = "Lock In"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o8ffg")
+}

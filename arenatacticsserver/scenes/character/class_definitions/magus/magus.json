@@ -1,8 +1,8 @@
 {
-    "mesh_path": "aaa",
+    "model_path": "res://scenes/character/class_definitions/magus/assets/magus.gltf",
     "hitbox_path": "bbb",
     "icon_path": "ccc",
-    "portrait_path": "ddd",
+    "portrait_path": "res://scenes/character/class_definitions/magus/assets/icon.png",
     "subtitle": "The Whimsy Wizard",
     "description": "A Magical Mastermind this one ! Ahhh, to bend the elements to your command..."
 }

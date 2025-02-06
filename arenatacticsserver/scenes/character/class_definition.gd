@@ -64,8 +64,8 @@ func instantiate_module(instance: CharacterInstance, file_name: String, data: Di
 	instance.module_container.add_child(module)
 
 func load_model(model_path: String) -> void:
-	var gltf_document_load = GLTFDocument.new()
-	var gltf_state_load = GLTFState.new()
+	var gltf_document_load := GLTFDocument.new()
+	var gltf_state_load := GLTFState.new()
 	var error = gltf_document_load.append_from_file(model_path, gltf_state_load)
 	if error == OK:
 		var gltf_scene_root_node = gltf_document_load.generate_scene(gltf_state_load)
