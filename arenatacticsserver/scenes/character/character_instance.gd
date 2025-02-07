@@ -12,6 +12,7 @@ class_name CharacterInstance
 @export var fallback_portrait_texture_path: String = "res://scenes/UI/characters/character_select_screen/assets/base_drawing_area_portrait.png"
 @export var fallback_icon_texture_path: String = "res://icon.svg"
 
+@onready var state_machine: StateMachine = $StateMachine
 @onready var module_container: Node = $"%ModuleContainer"
 @onready var model_container: Node3D = $"%ModelContainer"
 @onready var hitbox: CollisionShape3D = $"%Hitbox"
@@ -33,7 +34,15 @@ func set_model(model: PackedScene) -> void:
 		var inst = model.instantiate()
 		if inst.has_node("AnimationPlayer"):
 			model_animation_player = inst.get_node("AnimationPlayer")
+			model_animation_player.animation_finished.connect(prout)
 		model_container.add_child(inst)
+
+
+func prout():
+	print_debug("prout")
+
+func transition_state(state_name: String, msg: Dictionary = {}):
+	state_machine.transition_to(state_name, msg)
 
 
 func play_animation(animation_name: String, reverse: bool = false):

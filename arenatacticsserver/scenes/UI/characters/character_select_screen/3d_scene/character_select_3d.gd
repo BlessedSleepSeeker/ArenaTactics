@@ -40,7 +40,7 @@ func reset_diorama():
 
 func spawn_diorama(class_def: ClassDefinition):
 	var new_instance: CharacterInstance = class_def.instantiate()
-	new_instance.play_animation("Idle")
+	new_instance.transition_state("Idle")
 	chara_spawn.add_child(new_instance)
 
 	var grid_instance: HexGrid = hex_grid_scene.instantiate()

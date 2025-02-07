@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcvho024kiqga"]
+[gd_scene load_steps=6 format=3 uid="uid://bcvho024kiqga"]
 
 [ext_resource type="Script" path="res://scenes/character/character_instance.gd" id="1_vgy44"]
+[ext_resource type="Script" path="res://scenes/character/state_machine/state_machine.gd" id="2_g3qjf"]
+[ext_resource type="Script" path="res://scenes/character/state_machine/states/idle_state.gd" id="3_aav34"]
 
 [sub_resource type="Animation" id="Animation_gsina"]
 resource_name = "fade_in"
@@ -26,3 +28,11 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_1srf5")
 }
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_g3qjf")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_aav34")
+loop_anim = null

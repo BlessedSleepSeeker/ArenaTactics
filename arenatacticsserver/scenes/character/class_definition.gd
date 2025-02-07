@@ -93,6 +93,6 @@ func load_hitbox_shape(hitbox_path: String) -> void:
 		hitbox_shape = load(hitbox_path)
 	else:
 		var cylinder: CylinderShape3D = CylinderShape3D.new()
-		cylinder.height = 2
+		cylinder.height = 0.01
 		cylinder.radius = 0.35
 		hitbox_shape = cylinder
