@@ -3,8 +3,6 @@ class_name State
 
 var state_machine = null
 
-@export var loop_anim: bool = false
-
 func handle_input(_event: InputEvent) -> void:
 	pass
 

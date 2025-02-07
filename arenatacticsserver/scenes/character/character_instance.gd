@@ -34,12 +34,7 @@ func set_model(model: PackedScene) -> void:
 		var inst = model.instantiate()
 		if inst.has_node("AnimationPlayer"):
 			model_animation_player = inst.get_node("AnimationPlayer")
-			model_animation_player.animation_finished.connect(prout)
 		model_container.add_child(inst)
-
-
-func prout():
-	print_debug("prout")
 
 func transition_state(state_name: String, msg: Dictionary = {}):
 	state_machine.transition_to(state_name, msg)

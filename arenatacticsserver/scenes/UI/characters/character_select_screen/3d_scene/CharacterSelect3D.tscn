@@ -72,10 +72,6 @@ current = true
 size = 5.0
 far = 10.0
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.792553, -0.363439, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365551, 0.707545, 0, 2.05214, 1.2392)
-shadow_enabled = true
-
 [node name="ScenePivot" type="Node3D" parent="."]
 
 [node name="CharacterSpawnPoint" type="Node3D" parent="ScenePivot"]
@@ -85,3 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="GridSpawnPoint" type="Node3D" parent="ScenePivot"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0, -0.7)
+
+[node name="Sun" type="DirectionalLight3D" parent="ScenePivot"]
+transform = Transform3D(0.792553, -0.363438, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365552, 0.707545, 0, 2.05214, 1.2392)
+shadow_enabled = true
