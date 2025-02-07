@@ -20,8 +20,9 @@ func _ready():
 
 func setup_hex_button():
 	#print_debug("Setting up %s button" % class_instance.character_class)
-	button.tooltip_text = class_instance.title
-	portrait_rect.texture = class_instance.portrait
+	if class_instance:
+		button.tooltip_text = class_instance.title
+		portrait_rect.texture = class_instance.portrait
 
 
 func _on_button_clicked():

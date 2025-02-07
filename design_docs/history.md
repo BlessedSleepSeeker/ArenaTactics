@@ -6,6 +6,7 @@
   - [04/02/2025](#04022025)
   - [05/02/2025](#05022025)
   - [06/02/2025](#06022025)
+  - [07/02/2025](#07022025)
 
 ## November 24
 
@@ -38,3 +39,8 @@
 - Modeling : Monk Model & Anims 14-15
 - Modeling : Magus Model 15-16 16-17
 - GLTF Debugging 17-18
+
+## 07/02/2025
+
+- Animation via StateMachine : 9-10
+- HexMenu via TileMapLayer : 10-11

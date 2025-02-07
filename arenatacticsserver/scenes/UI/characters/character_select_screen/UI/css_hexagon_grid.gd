@@ -1,8 +1,11 @@
-extends VBoxContainer
+extends CenterContainer
 class_name CSSHexagonGrid
 
 @export var columns: int = 2
+@export var pos_x_offset: int = -2
+@export var pos_y_offset: int = -2
 @export var hex_button_scene: PackedScene = preload("res://scenes/UI/characters/character_select_screen/UI/HexagonButton.tscn")
+@onready var hex_tilemap: TileMapLayer = $"%HexTile"
 
 signal class_selected(selected_class: ClassDefinition)
 
@@ -12,46 +15,44 @@ func _ready():
 
 func build_grid(classes: Dictionary):
 	reset_grid()
-	var buttons_in_column: int = 0
-	var current_row_nbr: int = 0
-	var active_row: HBoxContainer = create_row(0)
+	var x: int = 0
+	var y: int = 0
 	for classe in classes:
-		if buttons_in_column >= columns:
-			buttons_in_column = 0
-			current_row_nbr += 1
-			active_row = create_row(current_row_nbr)
-		var new_button: HexagonButton = hex_button_scene.instantiate()
-		new_button.class_instance = classes[classe]
-		new_button.class_selected.connect(button_clicked)
-		active_row.add_child(new_button)
-		buttons_in_column += 1
-	active_row.add_child(create_rando_button())
+		if x >= columns:
+			x = 0
+			y += 1
+		hex_tilemap.set_cell(Vector2i(x + pos_x_offset, y + pos_y_offset), 0, Vector2i(0, 0), 1)
+		x += 1
+	# random button
+	if x >= columns:
+			x = 0
+			y += 1
+	hex_tilemap.set_cell(Vector2i(x + pos_x_offset, y + pos_y_offset), 0, Vector2i(0, 0), 1)
+	
+	# one frame delay for the childs to appear in the tilemaplayer
+	get_tree().process_frame.connect(fill_buttons.bind(classes), CONNECT_ONE_SHOT)
+	
+	
 
+func fill_buttons(classes: Dictionary) -> void:
+	var hex_buttons = hex_tilemap.get_children()
+	var i = 0
+	for classe in classes:
+		var hex_button: HexagonButton = hex_buttons[i]
+		hex_button.class_instance = classes[classe]
+		hex_button.class_selected.connect(button_clicked)
+		hex_button.setup_hex_button()
+		i += 1
+	fill_rando_button(hex_buttons[i])
+	hex_buttons[i].setup_hex_button()
 
-func create_row(row_number: int) -> HBoxContainer:
-	var new_row := HBoxContainer.new()
-	# Even row are normal
-	if row_number % 2 == 0:
-		self.add_child(new_row)
-	# # Odds row must be padded to the right so we get that sweet sweet hexagon pattern
-	else:
-		var padding := MarginContainer.new()
-		padding.add_theme_constant_override("margin_left", 58)
-		padding.add_child(new_row)
-		self.add_child(padding)
-	return new_row
-
-
-func create_rando_button() -> HexagonButton:
-	var new_button: HexagonButton = hex_button_scene.instantiate()
-	new_button.class_instance = null
-	new_button.class_selected.connect(button_clicked)
-	return new_button
+func fill_rando_button(rando_button: HexagonButton) -> void:
+	rando_button.class_instance = null
+	rando_button.class_selected.connect(button_clicked)
 
 
 func reset_grid():
-	for child in get_children():
-		child.free()
+	hex_tilemap.clear()
 
 
 ## Throw signals from the buttons back to the CSS
