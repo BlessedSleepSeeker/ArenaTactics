@@ -7,7 +7,7 @@ class_name HexTile
 @export var height: float = 1.0
 @export var sides: int = 6
 
-var interactive: bool:
+var interactive: bool = true:
 	set(value):
 		set_interaction(value)
 
@@ -65,14 +65,45 @@ func set_vertical_position():
 func set_color(color: Color) -> void:
 	mesh_inst.mesh.material.albedo_color = color
 
+## Clockwise order starting from right, we get all 6 neighbors
 func get_neighbors_position() -> Array[Vector2i]:
 	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
 	var down_right = Vector2i(grid_pos_x, grid_pos_y + 1)
 	var down_left = Vector2i(grid_pos_x - 1, grid_pos_y + 1)
 	var left = Vector2i(grid_pos_x - 1, grid_pos_y)
-	var up_left = Vector2i(grid_pos_x - 1, grid_pos_y - 1)
+	var up_left = Vector2i(grid_pos_x -1 , grid_pos_y - 1)
 	var up_right = Vector2i(grid_pos_x, grid_pos_y - 1)
+	if grid_pos_y % 2 == 1:
+		# same right
+		down_right = Vector2i(grid_pos_x + 1, grid_pos_y + 1)
+		down_left = Vector2i(grid_pos_x, grid_pos_y + 1)
+		# same left
+		up_left = Vector2i(grid_pos_x, grid_pos_y - 1)
+		up_right = Vector2i(grid_pos_x + 1, grid_pos_y - 1)
 	return [right, down_right, down_left, left, up_left, up_right]
+
+## Clockwise order starting from right, we only get the first 3
+func get_first_neighbors_position() -> Array[Vector2i]:
+	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
+	var down_right = Vector2i(grid_pos_x, grid_pos_y + 1)
+	var down_left = Vector2i(grid_pos_x - 1, grid_pos_y + 1)
+	if grid_pos_y % 2 == 1:
+		# same right
+		down_right = Vector2i(grid_pos_x + 1, grid_pos_y + 1)
+		down_left = Vector2i(grid_pos_x, grid_pos_y + 1)
+	return [right, down_right, down_left]
+
+## Clockwise order starting from left this time
+func get_last_neighbors_position() -> Array[Vector2i]:
+	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
+	var left = Vector2i(grid_pos_x - 1, grid_pos_y)
+	var up_left = Vector2i(grid_pos_x -1 , grid_pos_y - 1)
+	var up_right = Vector2i(grid_pos_x, grid_pos_y - 1)
+	if grid_pos_y % 2 == 1:
+		# same left
+		up_left = Vector2i(grid_pos_x, grid_pos_y - 1)
+		up_right = Vector2i(grid_pos_x + 1, grid_pos_y - 1)
+	return [left, up_left, up_right, right]
 
 func set_interaction(value: bool):
 	if value:

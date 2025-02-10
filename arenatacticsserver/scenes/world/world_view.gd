@@ -12,7 +12,7 @@ signal tile_selected(hex_tile: HexTile)
 func _ready():
 	hex_grid.tile_hovered.connect(_on_tile_hovered)
 	hex_grid.tile_clicked.connect(_on_tile_selected)
-	var cam_start_point = Vector3(hex_grid.grid_size_x / 2.0, 0, hex_grid.grid_size_y / 2.0)
+	var cam_start_point = hex_grid.get_camera_start_point()
 	cam_anchor.position = cam_start_point
 	regenerate_world()
 

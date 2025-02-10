@@ -39,7 +39,7 @@ func _ready():
 #region Grid Generation
 func free_grid() -> void:
 	for child in self.get_children():
-		child.queue_free()
+		child.free()
 
 func generate_grid() -> void:
 	if not flat_world:
@@ -65,6 +65,10 @@ func generate_square_grid() -> void:
 			if timer_between_tile > 0:
 				await get_tree().create_timer(timer_between_tile).timeout
 
+## Create the original tile at the center of the circle
+## Find all its neighbors.
+## Create all neighbors necessary.
+## Repeat with the new neighbors.
 func generate_circle_grid() -> void:
 	if grid_size_x <= 0:
 		push_error("HexGrid size X can't be under 0 when generating a circle")
@@ -78,24 +82,37 @@ func generate_circle_grid() -> void:
 			if timer_between_tile > 0:
 				await get_tree().create_timer(timer_between_tile).timeout
 			continue
-		prev_circle_tiles = await generate_circle(prev_circle_tiles, Color(255, 255, 10 * i))
+		prev_circle_tiles = await generate_circle(i, prev_circle_tiles)
 
 func get_circle_starting_position():
-	return Vector2i(ceil(float(grid_size_x) / 2), ceil(float(grid_size_y) / 2))
+	return Vector2i(grid_size_x, grid_size_y)
 
-func generate_circle(prev_circle_tiles: Array[HexTile], tile_color: Color) -> Array[HexTile]:
+func generate_circle(circle_number: int, prev_circle_tiles: Array[HexTile]) -> Array[HexTile]:
 	var new_tiles: Array[HexTile] = []
+	
 	if prev_circle_tiles.is_empty():
 		return []
+	var potential_positions: Array[Vector2i] = []
+	var unique_positions: Array[Vector2i] = []
+	var i: int = 0
 	for prev_tile in prev_circle_tiles:
-		var potentials_position = prev_tile.get_neighbors_position()
-		for potential_position in potentials_position:
-			if not does_tile_exist_at_position(potential_position):
-				var new_tile = generate_tile(potential_position)
-				new_tile.set_color(tile_color)
-				new_tiles.append(new_tile)
-				if timer_between_tile > 0:
-					await get_tree().create_timer(timer_between_tile).timeout
+		if circle_number >= 2 && i == 0:
+			potential_positions.append_array(prev_tile.get_first_neighbors_position())
+		elif circle_number >= 2 && i == prev_circle_tiles.size() - (circle_number - 1):
+			potential_positions.append_array(prev_tile.get_last_neighbors_position())
+		else:
+			potential_positions.append_array(prev_tile.get_neighbors_position())
+		i += 1
+	## Clear any duplicates && remove existing tile positions
+	for potential_position in potential_positions:
+		if not unique_positions.has(potential_position) && not does_tile_exist_at_position(potential_position):
+			unique_positions.append(potential_position)
+	## Now that our pos are cleaned, we can generate tiles at the right spots
+	for unique_pos in unique_positions:
+		var new_tile = generate_tile(unique_pos)
+		new_tiles.append(new_tile)
+		if timer_between_tile > 0:
+			await get_tree().create_timer(timer_between_tile).timeout
 	return new_tiles
 
 func does_tile_exist_at_position(grid_pos: Vector2i) -> bool:
@@ -124,19 +141,18 @@ func generate_tile(grid_pos: Vector2i) -> HexTile:
 	self.add_child(inst)
 	return inst
 
+## Does not handle well negative X
 func calculate_tile_distribution(hex_tile: HexTile) -> Vector3:
-	var vertical_spacing: float =  hex_tile.radius * sqrt(3)
-	var vertical_pos: float = vertical_spacing * hex_tile.grid_pos_x
-	var horizontal_spacing: float = (3.0/4.0 * hex_tile.radius)
-	var horizontal_pos: float = 2 * horizontal_spacing * hex_tile.grid_pos_y
-	var vert_offset: float = vertical_spacing / 2.0 if hex_tile.grid_pos_y % 2 == 1 else 0.0
+	var y_spacing: float = (3.0/4.0 * hex_tile.radius)
+	var y_pos: float = 2 * y_spacing * hex_tile.grid_pos_y
+	
+	var x_spacing: float =  hex_tile.radius * sqrt(3)
+	var x_pos: float = x_spacing * hex_tile.grid_pos_x
+	var x_offset: float = x_spacing / 2.0 if abs(hex_tile.grid_pos_y) % 2 == 1 else 0.0
 
-	var vert_result = vertical_pos + vert_offset if hex_tile.grid_pos_y >= 0 else vertical_pos - vert_offset
+	var x_result = x_pos + x_offset #if hex_tile.grid_pos_y >= 0 else x_pos - x_offset
 
-	return Vector3(vert_result, 0, horizontal_pos)
-
-func calculate_tile_number(x: int, y: int) -> int:
-	return y + (x * grid_size_y)
+	return Vector3(x_result, 0, y_pos)
 
 #endregion
 
@@ -169,11 +185,20 @@ func queue_grid_anim(anim_name: String, wait_mult: float = 1) -> void:
 				await get_tree().create_timer(timer_between_tile * wait_mult).timeout
 #endregion
 
+func get_camera_start_point() -> Vector3:
+	match generation_algorithm:
+		GenerationAlgorithm.CIRCLE:
+			return Vector3(grid_size_x, 0, grid_size_x)
+		_:
+			return Vector3(float(grid_size_x) / 2, 0, float(grid_size_y) / 2)
+
 func _on_tile_hovered(hex_tile: HexTile):
 	tile_hovered.emit(hex_tile)
 
 # unselect the old tile first
 func set_selected_tile(hex_tile: HexTile):
+	if not self.interactive_grid:
+		return
 	if self.selected_tile && is_instance_valid(self.selected_tile):
 		self.selected_tile.set_unselected()
 	self.selected_tile = hex_tile
