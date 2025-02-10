@@ -43,4 +43,11 @@
 ## 07/02/2025
 
 - Animation via StateMachine : 9-10
-- HexMenu via TileMapLayer : 10-11
+- HexMenu via TileMapLayer : 10-11, 11-12
+- HexMenu Juicing with HexGrid animations : 14-15
+- HexGrid work : Circle Generation 15-16
+
+10/02/25
+
+- HexGrid work : Refactored Gen + Circle Algorithm 9-10
+- HexGrid Circle Algorithm 10-11

@@ -7,6 +7,10 @@ class_name HexTile
 @export var height: float = 1.0
 @export var sides: int = 6
 
+var interactive: bool:
+	set(value):
+		set_interaction(value)
+
 @onready var mesh_inst: MeshInstance3D = $MeshInstance3D
 @onready var collision: CollisionShape3D = $CollisionShape3D
 
@@ -28,9 +32,7 @@ var islandism: float = 0.0
 var selected: bool = false
 
 func _ready():
-	mouse_entered.connect(on_mouse_entered)
-	mouse_exited.connect(on_mouse_exited)
-
+	self.set_interaction(interactive)
 	var hexagon_prism := CylinderMesh.new()
 	set_vertical_position()
 	hexagon_prism.height = height
@@ -60,15 +62,40 @@ func set_vertical_position():
 	# all flat bottom
 	self.position.y = (height / 2)
 
+func set_color(color: Color) -> void:
+	mesh_inst.mesh.material.albedo_color = color
+
+func get_neighbors_position() -> Array[Vector2i]:
+	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
+	var down_right = Vector2i(grid_pos_x, grid_pos_y + 1)
+	var down_left = Vector2i(grid_pos_x - 1, grid_pos_y + 1)
+	var left = Vector2i(grid_pos_x - 1, grid_pos_y)
+	var up_left = Vector2i(grid_pos_x - 1, grid_pos_y - 1)
+	var up_right = Vector2i(grid_pos_x, grid_pos_y - 1)
+	return [right, down_right, down_left, left, up_left, up_right]
+
+func set_interaction(value: bool):
+	if value:
+		if not mouse_entered.is_connected(on_mouse_entered):
+			mouse_entered.connect(on_mouse_entered)
+		if not mouse_exited.is_connected(on_mouse_exited):
+			mouse_exited.connect(on_mouse_exited)
+	else:
+		if mouse_entered.is_connected(on_mouse_entered):
+			mouse_entered.disconnect(on_mouse_entered)
+		if mouse_exited.is_connected(on_mouse_exited):
+			mouse_exited.disconnect(on_mouse_exited)
+
+
 func on_mouse_entered():
 	if not selected:
-		self.mesh_inst.mesh.material.albedo_color = Color(Color.WHITE)
+		set_color(Color(Color.WHITE))
 		hover_enter.emit(self)
 
 
 func on_mouse_exited():
 	if not selected:
-		self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
+		set_color(Color(Color.SEA_GREEN))
 		hover_exit.emit(self)
 
 

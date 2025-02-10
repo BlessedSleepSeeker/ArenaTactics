@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://p6flf0evxv38"]
+[gd_scene load_steps=9 format=3 uid="uid://p6flf0evxv38"]
 
 [ext_resource type="Script" path="res://scenes/world/Tiles/fake_hex_tile.gd" id="1_wm651"]
 [ext_resource type="Material" uid="uid://bgqndcbtxbp7w" path="res://scenes/world/Tiles/tile_base_material.tres" id="2_h8gyp"]
@@ -66,7 +66,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_x6gcg"]
 resource_name = "fade_in"
-length = 0.4
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -77,11 +77,11 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [0.5, 1.0]
+"values": [-10.0, 1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
@@ -92,10 +92,28 @@ tracks/1/keys = {
 "values": [Color(0.1815, 0.55, 0.341183, 0), Color(0.1815, 0.55, 0.341183, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_qgy6h"]
+resource_name = "idle"
+length = 6.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.53333, 4.63333, 5.2),
+"transitions": PackedFloat32Array(2, 1, -2, 2),
+"update": 0,
+"values": [1.0, 0.8, 1.1, 1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mf3fg"]
 _data = {
 "RESET": SubResource("Animation_mlhqw"),
-"fade_in": SubResource("Animation_x6gcg")
+"fade_in": SubResource("Animation_x6gcg"),
+"idle": SubResource("Animation_qgy6h")
 }
 
 [node name="FakeHexTile" type="StaticBody3D"]

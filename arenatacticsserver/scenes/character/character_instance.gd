@@ -12,6 +12,7 @@ class_name CharacterInstance
 @export var fallback_portrait_texture_path: String = "res://scenes/UI/characters/character_select_screen/assets/base_drawing_area_portrait.png"
 @export var fallback_icon_texture_path: String = "res://icon.svg"
 
+@onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var state_machine: StateMachine = $StateMachine
 @onready var module_container: Node = $"%ModuleContainer"
 @onready var model_container: Node3D = $"%ModelContainer"

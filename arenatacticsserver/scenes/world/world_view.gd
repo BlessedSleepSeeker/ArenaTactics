@@ -20,6 +20,7 @@ func _ready():
 func regenerate_world():
 	hex_grid.free_grid()
 	RngHandler.reset_seeds()
+	hex_grid.generate_grid()
 
 
 func _on_tile_hovered(hex_tile: HexTile):

@@ -15,4 +15,5 @@ func _ready():
 
 
 func on_class_selected(selected_class: ClassDefinition):
+	css_ui.update_selected_class(selected_class)
 	css_3d.build(selected_class)

@@ -16,6 +16,7 @@ func enter(_msg := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	if physics_on:
+		character.velocity.y += _delta * character.gravity
 		character.move_and_slide()
 
 func exit() -> void:

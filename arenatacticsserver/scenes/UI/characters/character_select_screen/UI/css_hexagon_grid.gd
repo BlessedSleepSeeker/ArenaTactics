@@ -31,8 +31,7 @@ func build_grid(classes: Dictionary):
 	
 	# one frame delay for the childs to appear in the tilemaplayer
 	get_tree().process_frame.connect(fill_buttons.bind(classes), CONNECT_ONE_SHOT)
-	
-	
+
 
 func fill_buttons(classes: Dictionary) -> void:
 	var hex_buttons = hex_tilemap.get_children()
