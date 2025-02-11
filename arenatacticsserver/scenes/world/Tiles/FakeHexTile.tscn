@@ -108,6 +108,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.0, 0.8, 1.1, 1.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.53333, 4.63333, 6.5),
+"transitions": PackedFloat32Array(2, 0.5, 1, 1),
+"update": 0,
+"values": [Color(0.1815, 0.55, 0.341183, 1), Color(0.1815, 0.55, 0.341183, 0.654902), Color(0.1815, 0.51315, 0.55, 1), Color(0.1815, 0.55, 0.341183, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mf3fg"]
 _data = {

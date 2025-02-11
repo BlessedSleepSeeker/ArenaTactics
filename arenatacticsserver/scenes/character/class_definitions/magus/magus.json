@@ -4,5 +4,9 @@
     "icon_path": "ccc",
     "portrait_path": "res://scenes/character/class_definitions/magus/assets/icon.png",
     "subtitle": "The Whimsy Wizard",
-    "description": "A Magical Mastermind this one ! Ahhh, to bend the elements to your command..."
+    "description": "A Magical Mastermind this one ! Ahhh, to bend the elements to your command...",
+    "css_screen": {
+        "base_tile_color": "#0069aa",
+        "idle_tile_popup_color": "#aa0069"
+    }
 }

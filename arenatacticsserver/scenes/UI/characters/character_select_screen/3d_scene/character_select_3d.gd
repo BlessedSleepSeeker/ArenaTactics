@@ -2,6 +2,7 @@ extends Node3D
 class_name CharacterSelect3D
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var scene_pivot: Node3D = $"%ScenePivot"
 @onready var chara_spawn: Node3D = $"%CharacterSpawnPoint"
 @onready var grid_spawn: Node3D = $"%GridSpawnPoint"
 
@@ -38,7 +39,7 @@ func spawn_diorama(class_def: ClassDefinition) -> void:
 	var new_instance: CharacterInstance = class_def.instantiate()
 	new_instance.transition_state("Idle")
 	chara_spawn.add_child(new_instance)
-	play_diorama_animation("idle", 5)
+	play_diorama_animation("idle", 3)
 
 
 func play_diorama_animation(anim_name: String, wait_multiplier: float = 1) -> void:
@@ -56,9 +57,10 @@ func spawn_grid():
 	grid_instance.timer_between_tile = hex_grid_timer
 	grid_instance.flat_world = hex_grid_flatworld
 	grid_instance.generation_algorithm = grid_instance.GenerationAlgorithm.CIRCLE
-	grid_spawn.position = Vector3(-hex_grid_size_x, 0, -hex_grid_size_x)
 	grid_spawn.add_child(grid_instance)
 	grid_instance.generate_grid()
 	var grid_center_global_pos = grid_instance.get_center_tile().global_position
+	grid_spawn.global_position = -grid_center_global_pos
+	grid_center_global_pos = grid_instance.get_center_tile().global_position
 	grid_center_global_pos.y = 10
 	chara_spawn.global_position = grid_center_global_pos

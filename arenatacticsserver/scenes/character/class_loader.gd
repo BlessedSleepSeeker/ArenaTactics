@@ -74,36 +74,10 @@ func read_file(path) -> Dictionary:
 # Otherwise, it's probably a module !
 func parse_data(class_def: ClassDefinition, file_name: String, data: Dictionary) -> void:
 	if file_name == class_def.title.to_lower():
-		parse_class_data(class_def, data)
+		class_def.parse_class_data(data)
 	else:
 		# Module loading/instancing is postponed to the actual class instancing
-		class_def.modules[file_name] = data
-
-
-# Where we load most visuals. 3D Mesh, textures, hitboxes...
-func parse_class_data(class_def: ClassDefinition, class_data: Dictionary) -> void:
-	for data in class_data:
-		if check_if_match_and_path_exist("model", data, class_data[data]):
-			class_def.load_model(class_data[data])
-		elif check_if_match("hitbox", data, class_data[data]):
-			class_def.load_hitbox_shape(class_data[data])
-		elif check_if_match("portrait", data, class_data[data]):
-			class_def.load_portrait(class_data[data])
-		elif check_if_match("icon", data, class_data[data]):
-			class_def.load_icon(class_data[data])
-		else:
-			add_string_data_to_var(class_def, data, class_data[data])
-
-func check_if_match(match: String, key, value):
-	return key is String && key.contains(match) && value is String
-
-func check_if_match_and_path_exist(match: String, key, value) -> bool:
-	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
-
-func add_string_data_to_var(class_def: ClassDefinition, var_name: String, var_value: String):
-	if var_name in class_def:
-		class_def.set(var_name, var_value)
-	#print_debug("%s: %s = %s" % [var_name, var_value, instance.get(var_name)])
+		class_def.register_module(file_name, data)
 
 
 func get_class_instance_by_name(_class_name: String) -> CharacterInstance:

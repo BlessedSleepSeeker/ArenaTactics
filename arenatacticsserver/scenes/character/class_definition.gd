@@ -13,6 +13,9 @@ class_name ClassDefinition
 @export var model: PackedScene = null
 @export var hitbox_shape: Shape3D = null
 
+@export var css_base_tile_color: Color = Color.SEA_GREEN
+@export var css_idle_tile_popup_color: Color = Color.ALICE_BLUE
+
 @export var modules: Dictionary = {}
 @export var module_path_template: String = "res://scenes/character/module/%s.gd"
 @export var module_class_name_template: String = "%sModule"
@@ -30,7 +33,7 @@ func instantiate() -> CharacterInstance:
 	return instance
 
 
-func instantiate_data(instance: CharacterInstance):
+func instantiate_data(instance: CharacterInstance) -> void:
 	instance.character_class = self.title
 	instance.subtitle = self.subtitle
 	instance.portrait = self.portrait
@@ -38,8 +41,13 @@ func instantiate_data(instance: CharacterInstance):
 	instance.set_model(model)
 	instance.set_hitbox_shape(hitbox_shape)
 
+#region Modules
 
-func instantiate_modules(instance: CharacterInstance):
+## Register a module to the module list. Registered modules are instantiated with `instantiate_modules()`
+func register_module(module_name: String, module_data: Dictionary) -> void:
+	self.modules[module_name] = module_data
+
+func instantiate_modules(instance: CharacterInstance) -> void:
 	for file_name in modules:
 		instantiate_module(instance, file_name, modules[file_name])
 
@@ -63,6 +71,33 @@ func instantiate_module(instance: CharacterInstance, file_name: String, data: Di
 			module.set(child, data[child])
 	instance.module_container.add_child(module)
 
+#endregion
+
+#region Data Loading
+
+## Where we load most visuals. 3D Mesh, textures, hitboxes...
+func parse_class_data(class_data: Dictionary) -> void:
+	for data in class_data:
+		if check_if_match_and_path_exist("model", data, class_data[data]):
+			load_model(class_data[data])
+		elif check_if_match("hitbox", data):
+			load_hitbox_shape(class_data[data])
+		elif check_if_match("portrait", data):
+			load_portrait(class_data[data])
+		elif check_if_match("icon", data):
+			load_icon(class_data[data])
+		elif check_if_match("css_screen", data):
+			load_css_data(class_data[data])
+		else:
+			add_string_data_to_var(data, class_data[data])
+
+func load_css_data(css_data: Dictionary):
+	for data in css_data:
+		if check_if_match("base_tile_color", data):
+			css_base_tile_color = Color(str(css_data[data]))
+		elif check_if_match("idle_tile_popup_color", data):
+			css_idle_tile_popup_color = Color(str(css_data[data]))
+
 func load_model(model_path: String) -> void:
 	var gltf_document_load := GLTFDocument.new()
 	var gltf_state_load := GLTFState.new()
@@ -80,13 +115,11 @@ func load_portrait(portrait_path: String) -> void:
 	else:
 		portrait = load(fallback_portrait_texture_path)
 
-
 func load_icon(icon_path: String) -> void:
 	if FileAccess.file_exists(icon_path):
 		icon = load(icon_path)
 	else:
 		icon = load(fallback_portrait_texture_path)
-
 
 func load_hitbox_shape(hitbox_path: String) -> void:
 	if FileAccess.file_exists(hitbox_path):
@@ -96,3 +129,19 @@ func load_hitbox_shape(hitbox_path: String) -> void:
 		cylinder.height = 0.01
 		cylinder.radius = 0.35
 		hitbox_shape = cylinder
+
+#endregion
+
+#region Helpers
+func check_if_match(match: String, key):
+	return key is String && key.contains(match)
+
+func check_if_match_and_path_exist(match: String, key, value) -> bool:
+	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
+
+func add_string_data_to_var(var_name: String, var_value: String):
+	if var_name in self:
+		self.set(var_name, var_value)
+	#print_debug("%s: %s = %s" % [var_name, var_value, instance.get(var_name)])
+
+#endregion

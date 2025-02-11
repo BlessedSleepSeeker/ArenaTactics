@@ -19,16 +19,16 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_4kne3"]
 resource_name = "hex_spin"
-length = 30.0
+length = 60.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("ScenePivot:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30),
+"times": PackedFloat32Array(0, 59.9667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
@@ -58,6 +58,7 @@ sdfgi_enabled = true
 [node name="CharacterSelect3d" type="Node3D"]
 script = ExtResource("1_7l5iv")
 hex_grid_size_x = 3
+hex_grid_timer = 0.05
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -66,14 +67,15 @@ libraries = {
 autoplay = "hex_spin"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.900342, -0.166025, 0.402269, 0.0695927, 0.967399, 0.243507, -0.429583, -0.191245, 0.882544, 3.87232, 4.35178, 2.56134)
+transform = Transform3D(1, 0, 0, 0, 0.915894, 0.40142, 0, -0.40142, 0.915894, 1.91354, 6.82433, 9.24569)
 environment = SubResource("Environment_3p17i")
 projection = 1
 current = true
-size = 10.0
-far = 8.0
+size = 5.0
+far = 20.0
 
 [node name="ScenePivot" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="CharacterSpawnPoint" type="Node3D" parent="ScenePivot"]
 unique_name_in_owner = true
@@ -83,5 +85,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 unique_name_in_owner = true
 
 [node name="Sun" type="DirectionalLight3D" parent="ScenePivot"]
-transform = Transform3D(0.792553, -0.363438, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365552, 0.707545, 0, 2.05214, 1.2392)
+transform = Transform3D(0.792553, -0.363438, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365552, 0.707545, 0, 0, 0)
 shadow_enabled = true

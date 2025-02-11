@@ -5,7 +5,6 @@ class_name FakeHexTile
 
 func _ready():
 	var hexagon_prism := CylinderMesh.new()
-	#set_vertical_position()
 	hexagon_prism.height = height
 	hexagon_prism.top_radius = radius
 	hexagon_prism.bottom_radius = radius
@@ -19,6 +18,3 @@ func _ready():
 	mesh_inst.mesh = hexagon_prism
 
 	anim_player.play("fade_in")
-
-func set_vertical_position():
-	self.position.y = (height / 2)
