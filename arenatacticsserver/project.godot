@@ -21,6 +21,7 @@ Networker="*res://scenes/network/Server.tscn"
 RngHandler="*res://scenes/autoloads/RNGHandler.gd"
 ProcGen="*res://scenes/world/procgen/ProceduralGenerator.tscn"
 ClassLoader="*res://scenes/character/class_loader.gd"
+DebugHelper="*res://scenes/autoloads/debug_printer.gd"
 
 [display]
 

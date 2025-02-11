@@ -2,5 +2,6 @@
     "max_health": 8,
     "starting_health": 8,
     "max_shield": 15,
-    "starting_shield": 5
+    "starting_shield": 5,
+    "max_action_points": 6
 }

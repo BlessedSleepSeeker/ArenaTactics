@@ -145,7 +145,9 @@ This pauses the turn execution and might change the outcome of the remaining act
 ## My Path
 
 I'm going with **Action Sequence** with an **AP System** with added **Reactions** and **Movement** costing AP.  
-Players choose the order of their actions and can do as much as they want if they have points.  
+~~Players choose the order of their actions and can do as much as they want if they have points.~~
+
+Turns play out in state actions -> offensive actions  -> movements actions -> defensive actions.
 
 ### Homework
 

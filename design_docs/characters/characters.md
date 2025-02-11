@@ -2,7 +2,7 @@
 
 - [Characters](#characters)
   - [Design Direction](#design-direction)
-  - [Characters](#characters-1)
+  - [Characterss](#characterss)
 
 ## Design Direction
 
@@ -10,7 +10,7 @@
 2. The game is won if you are the last standing team OR if you complete your team objective first.
 3. Each team can have a variable amount of characters. Default = 1 character per team.
 
-## Characters
+## Characterss
 
 Characters are what the player use to interact with the world. As such, ask yourself theses questions to design a new character :
 

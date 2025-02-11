@@ -21,12 +21,14 @@ class_name ClassDefinition
 
 @export var character_scene = preload("res://scenes/character/CharacterInstance.tscn")
 
-func instantiate() -> CharacterInstance:
+func instantiate(load_data: bool = true, load_modules: bool = true) -> CharacterInstance:
 	var instance = character_scene.instantiate()
 	ClassLoader.add_child(instance)
 
-	instantiate_data(instance)
-	instantiate_modules(instance)
+	if load_data:
+		instantiate_data(instance)
+	if load_modules:
+		instantiate_modules(instance)
 
 	ClassLoader.remove_child(instance)
 	return instance
@@ -66,9 +68,7 @@ func instantiate_module(instance: CharacterInstance, file_name: String, data: Di
 
 	var module: Module = load(module_path).new()
 	module.module_name = module_class_name
-	for child: StringName in data:
-		if child in module:
-			module.set(child, data[child])
+	module.setup(instance, data)
 	instance.module_container.add_child(module)
 
 #endregion
@@ -78,22 +78,22 @@ func instantiate_module(instance: CharacterInstance, file_name: String, data: Di
 ## Where we load most visuals. 3D Mesh, textures, hitboxes...
 func parse_class_data(class_data: Dictionary) -> void:
 	for data in class_data:
-		if check_if_match_and_path_exist("model", data, class_data[data]):
+		if is_match_and_path_exist("model", data, class_data[data]):
 			load_model(class_data[data])
-		elif check_if_match("hitbox", data):
+		elif is_match("hitbox", data):
 			load_hitbox_shape(class_data[data])
-		elif check_if_match("portrait", data):
+		elif is_match("portrait", data):
 			load_portrait(class_data[data])
-		elif check_if_match("icon", data):
+		elif is_match("icon", data):
 			load_icon(class_data[data])
-		elif check_if_match("css_screen", data):
+		elif is_match("css_screen", data):
 			load_css_data(class_data[data])
 		else:
 			add_string_data_to_var(data, class_data[data])
 
 func load_css_data(css_data: Dictionary):
 	for data in css_data:
-		if check_if_match("color", data):
+		if is_match("color", data):
 			colors[data] = Color(str(css_data[data]))
 
 func load_model(model_path: String) -> void:
@@ -131,10 +131,10 @@ func load_hitbox_shape(hitbox_path: String) -> void:
 #endregion
 
 #region Helpers
-func check_if_match(match: String, key):
+func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)
 
-func check_if_match_and_path_exist(match: String, key, value) -> bool:
+func is_match_and_path_exist(match: String, key, value) -> bool:
 	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
 
 func add_string_data_to_var(var_name: String, var_value: String):

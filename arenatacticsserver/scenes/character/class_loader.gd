@@ -53,7 +53,6 @@ func load_class_definition(_class_name: String) -> void:
 		file_name = dir.get_next()
 	
 	## Setting node name to character class + class template to make debug prints clearer
-	## NOT RELEVANT SINCE CLASS DEF ARE NOW RESSOURCES AND NOT NODE
 	class_def.name = "%s Class Template" % [class_def.title.to_pascal_case()]
 	## Adding the class def to the dictionary
 	classes[_class_name] = class_def
