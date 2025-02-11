@@ -42,7 +42,7 @@ timer_between_tile = 0.001
 script = ExtResource("3_nwcck")
 
 [node name="Freecam" type="Camera3D" parent="CamAnchor"]
-transform = Transform3D(0.866025, -0.482963, 0.12941, 0, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, 0, 160, 0)
+transform = Transform3D(0.78801, -0.435338, 0.435338, 0, 0.707107, 0.707107, -0.615661, -0.557208, 0.557208, 80, 160, 80)
 projection = 1
 current = true
 size = 25.0

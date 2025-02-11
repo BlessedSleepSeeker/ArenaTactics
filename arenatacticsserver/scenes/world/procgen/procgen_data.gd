@@ -63,14 +63,14 @@ func set_noise_seed(texture: NoiseTexture2D, new_value: int) -> void:
 
 
 func set_elevation_for_tile(hex_tile: HexTile, full_size_x: int, full_size_y: int) -> float:
-	hex_tile.continentalness = c_curve.sample(continentalness_data.get_pixel(hex_tile.grid_pos_x, hex_tile.grid_pos_y).v)
-	hex_tile.peaks_valley = p_curve.sample(peaks_valley_data.get_pixel(hex_tile.grid_pos_x, hex_tile.grid_pos_y).v)
-	hex_tile.erosion = e_curve.sample(erosion_data.get_pixel(hex_tile.grid_pos_x, hex_tile.grid_pos_y).v)
-	#print_debug("%d:%d = %f %f %f" % [hex_tile.grid_pos_x, hex_tile.grid_pos_y, hex_tile.continentalness, hex_tile.peaks_valley, hex_tile.erosion])
+	hex_tile.continentalness = c_curve.sample(continentalness_data.get_pixel(hex_tile.grid_coordinate.x, hex_tile.grid_coordinate.y).v)
+	hex_tile.peaks_valley = p_curve.sample(peaks_valley_data.get_pixel(hex_tile.grid_coordinate.x, hex_tile.grid_coordinate.y).v)
+	hex_tile.erosion = e_curve.sample(erosion_data.get_pixel(hex_tile.grid_coordinate.x, hex_tile.grid_coordinate.y).v)
+	#print_debug("%d:%d = %f %f %f" % [hex_tile.grid_coordinate.x, hex_tile.grid_coordinate.y, hex_tile.continentalness, hex_tile.peaks_valley, hex_tile.erosion])
 	
 	# Distance from grid edge.
-	var nx = pow(2 * float(hex_tile.grid_pos_x) / full_size_x - 1, 2)
-	var ny = pow(2 * float(hex_tile.grid_pos_y) / full_size_y - 1, 2)
+	var nx = pow(2 * float(hex_tile.grid_coordinate.x) / full_size_x - 1, 2)
+	var ny = pow(2 * float(hex_tile.grid_coordinate.y) / full_size_y - 1, 2)
 	hex_tile.distance = 1 - (1 - nx) * (1 - ny)
 	hex_tile.islandism = islandism_curve.sample(hex_tile.distance)
 	var algo = (hex_tile.continentalness - hex_tile.erosion) + hex_tile.peaks_valley

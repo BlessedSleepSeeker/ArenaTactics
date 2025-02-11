@@ -17,8 +17,7 @@ var interactive: bool = true:
 signal hover_enter(hex_tile: HexTile)
 signal hover_exit(hex_tile: HexTile)
 
-var grid_pos_x: int = 0
-var grid_pos_y: int = 0
+var grid_coordinate: Vector2i = Vector2i(0, 0)
 
 var continentalness: float = 0.0
 var erosion: float = 0.0
@@ -54,7 +53,7 @@ func _ready():
 # if islandism is high = you should be (visually) at the same elevation but with a smaller model height.
 # if islandism is low = you should be (visually) at the same elevation but with a taller model height.
 func set_vertical_position():
-	#print_debug("%d:%d : %f, %d" % [grid_pos_x, grid_pos_y, distance, height])
+	#print_debug("%d:%d : %f, %d" % [grid_coordinate.x, grid_coordinate.y, distance, height])
 	
 	#self.position.y += abs(islandism)
 	# floating island. If you remove 2m of height, you must up the y pos of 1
@@ -67,42 +66,42 @@ func set_color(color: Color) -> void:
 
 ## Clockwise order starting from right, we get all 6 neighbors
 func get_neighbors_position() -> Array[Vector2i]:
-	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
-	var down_right = Vector2i(grid_pos_x, grid_pos_y + 1)
-	var down_left = Vector2i(grid_pos_x - 1, grid_pos_y + 1)
-	var left = Vector2i(grid_pos_x - 1, grid_pos_y)
-	var up_left = Vector2i(grid_pos_x -1 , grid_pos_y - 1)
-	var up_right = Vector2i(grid_pos_x, grid_pos_y - 1)
-	if grid_pos_y % 2 == 1:
+	var right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y)
+	var down_right = Vector2i(grid_coordinate.x, grid_coordinate.y + 1)
+	var down_left = Vector2i(grid_coordinate.x - 1, grid_coordinate.y + 1)
+	var left = Vector2i(grid_coordinate.x - 1, grid_coordinate.y)
+	var up_left = Vector2i(grid_coordinate.x -1 , grid_coordinate.y - 1)
+	var up_right = Vector2i(grid_coordinate.x, grid_coordinate.y - 1)
+	if grid_coordinate.y % 2 == 1:
 		# same right
-		down_right = Vector2i(grid_pos_x + 1, grid_pos_y + 1)
-		down_left = Vector2i(grid_pos_x, grid_pos_y + 1)
+		down_right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y + 1)
+		down_left = Vector2i(grid_coordinate.x, grid_coordinate.y + 1)
 		# same left
-		up_left = Vector2i(grid_pos_x, grid_pos_y - 1)
-		up_right = Vector2i(grid_pos_x + 1, grid_pos_y - 1)
+		up_left = Vector2i(grid_coordinate.x, grid_coordinate.y - 1)
+		up_right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y - 1)
 	return [right, down_right, down_left, left, up_left, up_right]
 
 ## Clockwise order starting from right, we only get the first 3
 func get_first_neighbors_position() -> Array[Vector2i]:
-	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
-	var down_right = Vector2i(grid_pos_x, grid_pos_y + 1)
-	var down_left = Vector2i(grid_pos_x - 1, grid_pos_y + 1)
-	if grid_pos_y % 2 == 1:
+	var right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y)
+	var down_right = Vector2i(grid_coordinate.x, grid_coordinate.y + 1)
+	var down_left = Vector2i(grid_coordinate.x - 1, grid_coordinate.y + 1)
+	if grid_coordinate.y % 2 == 1:
 		# same right
-		down_right = Vector2i(grid_pos_x + 1, grid_pos_y + 1)
-		down_left = Vector2i(grid_pos_x, grid_pos_y + 1)
+		down_right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y + 1)
+		down_left = Vector2i(grid_coordinate.x, grid_coordinate.y + 1)
 	return [right, down_right, down_left]
 
 ## Clockwise order starting from left this time
 func get_last_neighbors_position() -> Array[Vector2i]:
-	var right = Vector2i(grid_pos_x + 1, grid_pos_y)
-	var left = Vector2i(grid_pos_x - 1, grid_pos_y)
-	var up_left = Vector2i(grid_pos_x -1 , grid_pos_y - 1)
-	var up_right = Vector2i(grid_pos_x, grid_pos_y - 1)
-	if grid_pos_y % 2 == 1:
+	var right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y)
+	var left = Vector2i(grid_coordinate.x - 1, grid_coordinate.y)
+	var up_left = Vector2i(grid_coordinate.x -1 , grid_coordinate.y - 1)
+	var up_right = Vector2i(grid_coordinate.x, grid_coordinate.y - 1)
+	if grid_coordinate.y % 2 == 1:
 		# same left
-		up_left = Vector2i(grid_pos_x, grid_pos_y - 1)
-		up_right = Vector2i(grid_pos_x + 1, grid_pos_y - 1)
+		up_left = Vector2i(grid_coordinate.x, grid_coordinate.y - 1)
+		up_right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y - 1)
 	return [left, up_left, up_right, right]
 
 func set_interaction(value: bool):
@@ -132,9 +131,9 @@ func on_mouse_exited():
 
 func serialize_debug_data() -> Dictionary:
 	var data = {
-		"X": self.grid_pos_x,
+		"X": self.grid_coordinate.x,
 		"Height": self.height,
-		"Y": self.grid_pos_y,
+		"Y": self.grid_coordinate.y,
 		"Distance": self.distance,
 		"Continentalness": self.continentalness,
 		"Erosion": self.erosion,

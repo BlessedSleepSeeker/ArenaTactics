@@ -1,15 +1,15 @@
 extends Node3D
 class_name HexGrid
 
-enum GenerationAlgorithm {CLASSIC, CIRCLE}
-## Classic create a square grid.
+enum GenerationAlgorithm {GRID, CIRCLE}
+## Grid create a square grid.
 ## Circle create multiples concentric circles from a center. Circle is a lot slower and use (limited) recursivity.
 @export var generation_algorithm: GenerationAlgorithm
 @export var tile_size: float = 1.0
 
-## In Classic Mode, define the amount of tile per "line". In Circle mode, define the amount of concentric circles.
+## In Grid Mode, define the amount of tile per "line". In Circle mode, define the amount of concentric circles.
 @export var grid_size_x: int = 50 #vertical
-## In Classic Mode, define the amount of "line" per grid. In Circle Mode, does nothing.
+## In Grid Mode, define the amount of "line" per grid. In Circle Mode, does nothing.
 @export var grid_size_y: int = 50 #horizontal
 ## Delay each tile spawn by this amount (in seconds).
 @export var timer_between_tile: float = 0.01
@@ -117,7 +117,7 @@ func generate_circle(circle_number: int, prev_circle_tiles: Array[HexTile]) -> A
 
 func does_tile_exist_at_position(grid_pos: Vector2i) -> bool:
 	for child: HexTile in self.get_children():
-		if child.grid_pos_x == grid_pos.x && child.grid_pos_y == grid_pos.y:
+		if child.grid_coordinate.x == grid_pos.x && child.grid_coordinate.y == grid_pos.y:
 			return true
 	return false
 
@@ -129,8 +129,8 @@ func calculate_tile_amount_per_circle(circle_number: int) -> int:
 
 func generate_tile(grid_pos: Vector2i) -> HexTile:
 	var inst: HexTile = tile_scene.instantiate()
-	inst.grid_pos_x = grid_pos.x
-	inst.grid_pos_y = grid_pos.y
+	inst.grid_coordinate.x = grid_pos.x
+	inst.grid_coordinate.y = grid_pos.y
 	if not flat_world:
 		inst.height = ProcGen.set_elevation_for_tile(inst, grid_size_x, grid_size_y)
 	# putting the tile at the right place in the grid
@@ -144,13 +144,13 @@ func generate_tile(grid_pos: Vector2i) -> HexTile:
 ## Does not handle well negative X
 func calculate_tile_distribution(hex_tile: HexTile) -> Vector3:
 	var y_spacing: float = (3.0/4.0 * hex_tile.radius)
-	var y_pos: float = 2 * y_spacing * hex_tile.grid_pos_y
+	var y_pos: float = 2 * y_spacing * hex_tile.grid_coordinate.y
 	
 	var x_spacing: float =  hex_tile.radius * sqrt(3)
-	var x_pos: float = x_spacing * hex_tile.grid_pos_x
-	var x_offset: float = x_spacing / 2.0 if abs(hex_tile.grid_pos_y) % 2 == 1 else 0.0
+	var x_pos: float = x_spacing * hex_tile.grid_coordinate.x
+	var x_offset: float = x_spacing / 2.0 if abs(hex_tile.grid_coordinate.y) % 2 == 1 else 0.0
 
-	var x_result = x_pos + x_offset #if hex_tile.grid_pos_y >= 0 else x_pos - x_offset
+	var x_result = x_pos + x_offset #if hex_tile.grid_coordinate.y >= 0 else x_pos - x_offset
 
 	return Vector3(x_result, 0, y_pos)
 
@@ -191,6 +191,22 @@ func get_camera_start_point() -> Vector3:
 			return Vector3(grid_size_x, 0, grid_size_x)
 		_:
 			return Vector3(float(grid_size_x) / 2, 0, float(grid_size_y) / 2)
+
+func get_center_tile() -> HexTile:
+	for tile: HexTile in self.get_children():
+		if generation_algorithm == GenerationAlgorithm.CIRCLE:
+			return get_tile_at_pos(Vector2i(grid_size_x, grid_size_x))
+		elif generation_algorithm == GenerationAlgorithm.GRID:
+			return get_tile_at_pos(Vector2i(ceil(float(grid_size_x) / 2), ceil(float(grid_size_y) / 2)))
+	return null
+
+
+func get_tile_at_pos(_position: Vector2i) -> HexTile:
+	for tile: HexTile in self.get_children():
+		if tile.grid_coordinate.x == _position.x && tile.grid_coordinate.y == _position.y:
+			return tile
+	return null
+
 
 func _on_tile_hovered(hex_tile: HexTile):
 	tile_hovered.emit(hex_tile)

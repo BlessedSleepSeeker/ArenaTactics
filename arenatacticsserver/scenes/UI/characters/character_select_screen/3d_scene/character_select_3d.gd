@@ -57,6 +57,8 @@ func spawn_grid():
 	grid_instance.flat_world = hex_grid_flatworld
 	grid_instance.generation_algorithm = grid_instance.GenerationAlgorithm.CIRCLE
 	grid_spawn.position = Vector3(-hex_grid_size_x, 0, -hex_grid_size_x)
-	chara_spawn.position = Vector3(-float(hex_grid_size_x) / 2, 10, -float(hex_grid_size_x) / 2)
 	grid_spawn.add_child(grid_instance)
 	grid_instance.generate_grid()
+	var grid_center_global_pos = grid_instance.get_center_tile().global_position
+	grid_center_global_pos.y = 10
+	chara_spawn.global_position = grid_center_global_pos
