@@ -1,8 +1,6 @@
 extends HexTile
 class_name FakeHexTile
 
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
-
 func _ready():
 	var hexagon_prism := CylinderMesh.new()
 	hexagon_prism.height = height
@@ -17,4 +15,4 @@ func _ready():
 	hexagon_prism.material.transparency = 1
 	mesh_inst.mesh = hexagon_prism
 
-	anim_player.play("fade_in")
+	anim_player.play("tile_animation_library/fade_in")

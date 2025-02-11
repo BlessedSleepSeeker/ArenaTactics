@@ -8,6 +8,7 @@ class_name CharacterInstance
 @export var subtitle: String = ""
 ## Supports BBCODE
 @export var description: String = ""
+@export var colors: Dictionary = {}
 
 @export var fallback_portrait_texture_path: String = "res://scenes/UI/characters/character_select_screen/assets/base_drawing_area_portrait.png"
 @export var fallback_icon_texture_path: String = "res://icon.svg"

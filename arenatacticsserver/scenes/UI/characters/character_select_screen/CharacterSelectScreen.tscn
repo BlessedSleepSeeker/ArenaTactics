@@ -20,3 +20,5 @@ unique_name_in_owner = true
 
 [node name="CharacterSelect3d" parent="." instance=ExtResource("3_xuvnp")]
 unique_name_in_owner = true
+hex_grid_size_x = 2
+hex_grid_timer = 0.1

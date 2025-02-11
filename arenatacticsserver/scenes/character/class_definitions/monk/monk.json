@@ -6,7 +6,7 @@
     "subtitle": "The Blessed Bald",
     "description": "An iron fist in a golden soul. Resilience for him, Repentance for them.",
     "css_screen": {
-        "base_tile_color": "#ea323c",
-        "idle_tile_popup_color": "#fff96e"
+        "base_tile_color": "#984b33",
+        "idle_tile_popup_color": "#ea323c"
     }
 }

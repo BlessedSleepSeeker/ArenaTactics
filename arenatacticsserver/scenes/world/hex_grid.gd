@@ -159,14 +159,13 @@ func calculate_tile_distribution(hex_tile: HexTile) -> Vector3:
 #region GridAnimation
 func fade(out: bool = true) -> void:
 	for tile: HexTile in get_children():
-		if tile.has_node("AnimationPlayer"):
-			var node_anim_player: AnimationPlayer = tile.get_node("AnimationPlayer")
+		if tile.anim_player:
 			if out:
-				node_anim_player.stop(true)
-				node_anim_player.play_backwards("fade_in")
+				tile.anim_player.stop(true)
+				tile.anim_player.play_backwards("tile_animation_library/fade_in")
 			else:
-				node_anim_player.stop(true)
-				node_anim_player.play("fade_in")
+				tile.anim_player.stop(true)
+				tile.anim_player.play("tile_animation_library/fade_in")
 			if timer_between_tile > 0:
 				await get_tree().create_timer(timer_between_tile).timeout
 	await get_tree().create_timer(1.0).timeout
@@ -177,12 +176,17 @@ func fade(out: bool = true) -> void:
 
 func queue_grid_anim(anim_name: String, wait_mult: float = 1) -> void:
 	for tile: HexTile in get_children():
-		if tile.has_node("AnimationPlayer"):
-			var node_anim_player: AnimationPlayer = tile.get_node("AnimationPlayer")
-			if node_anim_player.has_animation(anim_name):
-				node_anim_player.queue(anim_name)
+		if tile.anim_player:
+			if tile.anim_player.has_animation(anim_name):
+				tile.anim_player.queue(anim_name)
 			if timer_between_tile > 0:
 				await get_tree().create_timer(timer_between_tile * wait_mult).timeout
+
+func update_tiles_animations_colors(colors: Dictionary):
+	var tile: HexTile = self.get_children().front()
+	if tile:
+		tile.update_animations_colors(colors)
+
 #endregion
 
 func get_camera_start_point() -> Vector3:

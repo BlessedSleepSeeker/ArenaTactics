@@ -7,6 +7,8 @@
   - [05/02/2025](#05022025)
   - [06/02/2025](#06022025)
   - [07/02/2025](#07022025)
+  - [10/02/25](#100225)
+  - [11/02/25](#110225)
 
 ## November 24
 
@@ -47,12 +49,13 @@
 - HexMenu Juicing with HexGrid animations : 14-15
 - HexGrid work : Circle Generation 15-16
 
-10/02/25
+## 10/02/25
 
 - HexGrid work : Refactored Gen + Circle Algorithm 9-10
 - HexGrid Circle Algorithm 10-11 11-12 14-15 15-16 16-17
 
-11/02/25
+## 11/02/25
 
 - Fixed HexGrid for CSS 10-11
-- HexGrid Animation Tweaking by Class
+- HexGrid Animation Tweaking by Class : Setup 11-12
+- HexGrid Animation Color Changing by Class : 13:30-14:30

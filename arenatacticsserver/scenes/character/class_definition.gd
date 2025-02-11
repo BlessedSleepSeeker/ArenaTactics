@@ -13,8 +13,7 @@ class_name ClassDefinition
 @export var model: PackedScene = null
 @export var hitbox_shape: Shape3D = null
 
-@export var css_base_tile_color: Color = Color.SEA_GREEN
-@export var css_idle_tile_popup_color: Color = Color.ALICE_BLUE
+@export var colors: Dictionary = {}
 
 @export var modules: Dictionary = {}
 @export var module_path_template: String = "res://scenes/character/module/%s.gd"
@@ -38,6 +37,7 @@ func instantiate_data(instance: CharacterInstance) -> void:
 	instance.subtitle = self.subtitle
 	instance.portrait = self.portrait
 	instance.icon = self.icon
+	instance.colors = self.colors
 	instance.set_model(model)
 	instance.set_hitbox_shape(hitbox_shape)
 
@@ -93,10 +93,8 @@ func parse_class_data(class_data: Dictionary) -> void:
 
 func load_css_data(css_data: Dictionary):
 	for data in css_data:
-		if check_if_match("base_tile_color", data):
-			css_base_tile_color = Color(str(css_data[data]))
-		elif check_if_match("idle_tile_popup_color", data):
-			css_idle_tile_popup_color = Color(str(css_data[data]))
+		if check_if_match("color", data):
+			colors[data] = Color(str(css_data[data]))
 
 func load_model(model_path: String) -> void:
 	var gltf_document_load := GLTFDocument.new()

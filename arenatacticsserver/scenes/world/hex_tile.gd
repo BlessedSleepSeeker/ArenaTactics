@@ -13,6 +13,7 @@ var interactive: bool = true:
 
 @onready var mesh_inst: MeshInstance3D = $MeshInstance3D
 @onready var collision: CollisionShape3D = $CollisionShape3D
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 signal hover_enter(hex_tile: HexTile)
 signal hover_exit(hex_tile: HexTile)
@@ -64,6 +65,33 @@ func set_vertical_position():
 func set_color(color: Color) -> void:
 	mesh_inst.mesh.material.albedo_color = color
 
+#region Animations
+
+func update_animations_colors(colors: Dictionary) -> void:
+	tweak_idle_animation_colors(colors["base_tile_color"], colors["idle_tile_popup_color"])
+	tweak_fade_animation_color(colors["base_tile_color"])
+
+func tweak_idle_animation_colors(base_color: Color = Color(0, 0, 0), pop_up_color: Color = Color(0, 0, 0, 0)) -> void:
+	var idle_anim: Animation = get_animation_library().get_animation("idle")
+	var albedo_track: int = idle_anim.find_track("MeshInstance3D:mesh:material:albedo_color", Animation.TYPE_VALUE)
+	idle_anim.track_set_key_value(albedo_track, 0, base_color)
+	idle_anim.track_set_key_value(albedo_track, 1, Color(base_color, 0.5))
+	idle_anim.track_set_key_value(albedo_track, 2, pop_up_color)
+	idle_anim.track_set_key_value(albedo_track, 3, base_color)
+
+func tweak_fade_animation_color(base_color: Color = Color(0, 0, 0)) -> void:
+	var fade_anim: Animation = get_animation_library().get_animation("fade_in")
+	var albedo_track: int = fade_anim.find_track("MeshInstance3D:mesh:material:albedo_color", Animation.TYPE_VALUE)
+	fade_anim.track_set_key_value(albedo_track, 0, Color(base_color, 0))
+	fade_anim.track_set_key_value(albedo_track, 1, base_color)
+
+func get_animation_library() -> AnimationLibrary:
+	return anim_player.get_animation_library("tile_animation_library")
+
+#endregion
+
+#region Neighbors
+
 ## Clockwise order starting from right, we get all 6 neighbors
 func get_neighbors_position() -> Array[Vector2i]:
 	var right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y)
@@ -104,6 +132,9 @@ func get_last_neighbors_position() -> Array[Vector2i]:
 		up_right = Vector2i(grid_coordinate.x + 1, grid_coordinate.y - 1)
 	return [left, up_left, up_right, right]
 
+#endregion
+
+#region Interactions
 func set_interaction(value: bool):
 	if value:
 		if not mouse_entered.is_connected(on_mouse_entered):
@@ -129,6 +160,17 @@ func on_mouse_exited():
 		hover_exit.emit(self)
 
 
+func set_selected():
+	selected = true
+	self.mesh_inst.mesh.material.albedo_color = Color(Color.ORANGE_RED)
+
+
+func set_unselected():
+	selected = false
+	self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
+
+#endregion
+
 func serialize_debug_data() -> Dictionary:
 	var data = {
 		"X": self.grid_coordinate.x,
@@ -144,13 +186,3 @@ func serialize_debug_data() -> Dictionary:
 	}
 	
 	return data
-
-
-func set_selected():
-	selected = true
-	self.mesh_inst.mesh.material.albedo_color = Color(Color.ORANGE_RED)
-
-
-func set_unselected():
-	selected = false
-	self.mesh_inst.mesh.material.albedo_color = Color(Color.SEA_GREEN)
