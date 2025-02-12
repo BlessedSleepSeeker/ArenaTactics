@@ -9,4 +9,4 @@ class_name ActionDataDisplay
 
 
 func _build():
-	pass
+	self.text = action.get_infos()

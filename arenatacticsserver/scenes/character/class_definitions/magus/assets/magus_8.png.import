@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bciwi35bfsmoe"
-path.s3tc="res://.godot/imported/magus_5.png-ebbd84dbc530990765ef96ed15f285e9.s3tc.ctex"
+uid="uid://cnj450ricpbf"
+path.s3tc="res://.godot/imported/magus_8.png-b919b965827d345922571742d018885f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "133dab4092ca4f5f00580414449b26f1"
+"md5": "778db6fb96db8872d976b21c7b10d7fa"
 }
 
 [deps]
 
-source_file="res://scenes/character/class_definitions/magus/assets/magus_5.png"
-dest_files=["res://.godot/imported/magus_5.png-ebbd84dbc530990765ef96ed15f285e9.s3tc.ctex"]
+source_file="res://scenes/character/class_definitions/magus/assets/magus_8.png"
+dest_files=["res://.godot/imported/magus_8.png-b919b965827d345922571742d018885f.s3tc.ctex"]
 
 [params]
 
