@@ -3,29 +3,29 @@
 [ext_resource type="Script" path="res://scenes/world/hex_tile.gd" id="1_3qjq1"]
 [ext_resource type="AnimationLibrary" uid="uid://c7qtwnp6np1nx" path="res://scenes/world/Tiles/tile_animation_library.res" id="2_5cn36"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_2ojrq"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lfklp"]
 height = 0.5
 radius = 0.45
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynl0e"]
-albedo_color = Color(0.1815, 0.55, 0.341183, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wq1jo"]
+albedo_color = Color(0.180392, 0.545098, 0.341176, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yy58d"]
-material = SubResource("StandardMaterial3D_ynl0e")
+[sub_resource type="CylinderMesh" id="CylinderMesh_ha45i"]
+material = SubResource("StandardMaterial3D_wq1jo")
 height = 1.0
 radial_segments = 6
 cap_bottom = false
 
 [node name="HexTile" type="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_3qjq1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("CylinderShape3D_2ojrq")
+shape = SubResource("CylinderShape3D_lfklp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CylinderMesh_yy58d")
+mesh = SubResource("CylinderMesh_ha45i")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

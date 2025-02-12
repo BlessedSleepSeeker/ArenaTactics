@@ -1,8 +1,7 @@
 extends Resource
-class_name PathFinder
+class_name PathFinderSettings
 
-var grid: HexGrid = null
-var name = "PathFinder"
+var name = "PathFinderSettings"
 
 ## Enable or disable the pathfinding. if `pathfind_to_target` is false, pathfinding will always succeed.
 @export var pathfind_to_target: bool = false

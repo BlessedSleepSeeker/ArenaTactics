@@ -59,3 +59,8 @@
 - Fixed HexGrid for CSS 10-11
 - HexGrid Animation Tweaking by Class : Setup 11-12
 - HexGrid Animation Color Changing by Class : 13:30-14:30
+- Actions Module, Action, TargetingRequirements and PathFinder class, parsing and generation : 14:30 - 18h
+
+12/02/25
+
+- Action System : Progress on Movement and Offensive data parsing 9-10

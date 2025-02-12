@@ -21,8 +21,10 @@ var actor: CharacterInstance = null
 @export_group("Gameplay")
 ## The action's cost in ActionPoints:tm:
 @export var ap_cost: int = 1
-## The amount of gameplay noise emitted by the action.
-@export var noise_level: int = 1
+## The amount of gameplay noise emitted by the action at the actor's position when the spell is begining to be cast.
+@export var noise_level_actor: int = 0
+## The amount of gameplay noise emitted by the action at the target's position when the spell resolve.
+@export var noise_level_target: int = 0
 ## The amount of turn where the action is unusable after being used once. 0 = no restriction. 1 = next turn.
 @export var cooldown: int = 0
 ## The maximum use of the action per turn.
@@ -33,7 +35,7 @@ var actor: CharacterInstance = null
 func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 	actor = instance
 	state_machine = instance.state_machine
-	_name = name
+	name = _name
 	for key in data:
 		if is_match("targeting_restriction", key):
 			targeting_restrictions = TargetingRestrictions.new(data[key])
@@ -42,9 +44,9 @@ func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 		else:
 			add_data_to_var(key, data[key])
 
-func use():
+func use(_target: CharacterInstance) -> void:
 	pass
-	
+
 
 #region Helpers
 func is_match(match: String, key) -> bool:

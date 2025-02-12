@@ -9,6 +9,8 @@ var name = "TargetingRestrictions"
 		if value < 0:
 			push_error(DebugHelper.format_debug_string(self, "ERROR", "Minimum Targeting Range can't be negative."))
 			min_range = 0
+		else:
+			min_range = value
 
 ## Maximum Targeting Range. Negative numbers throw an error.
 @export var max_range: int = 99:
@@ -16,6 +18,8 @@ var name = "TargetingRestrictions"
 		if value < 0:
 			push_error(DebugHelper.format_debug_string(self, "ERROR", "Maximum Targeting Range can't be negative."))
 			min_range = 0
+		else:
+			max_range = value
 
 ## Should we check line of sight with the targeted tile ?
 @export var line_of_sight: bool = false
@@ -26,7 +30,7 @@ var name = "TargetingRestrictions"
 
 ## Should be try to pathfind to the target ?
 @export var pathfind_to_target: bool = false
-@export var pathfinder: PathFinder = null
+@export var pathfinder_settings: PathFinderSettings = null
 
 #region Parsing Data
 func _init(data: Dictionary):
@@ -43,7 +47,7 @@ func parse_target_data(data: Dictionary) -> void:
 	for key in data:
 		if is_match("pathfind", key):
 			pathfind_to_target = true
-			pathfinder = PathFinder.new(data[key])
+			pathfinder_settings = PathFinderSettings.new(data[key])
 		else:
 			add_data_to_var(key, data[key])
 #endregion
