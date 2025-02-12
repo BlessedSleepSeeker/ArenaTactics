@@ -47,7 +47,6 @@ func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 func use(_target: CharacterInstance) -> void:
 	pass
 
-
 #region Helpers
 func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)

@@ -14,10 +14,10 @@ signal fade_finished
 func _ready():
 	spawn_grid()
 
-func build(class_def: ClassDefinition):
+func build(character: CharacterInstance):
 	reset_diorama()
 	await fade_finished
-	spawn_diorama(class_def)
+	spawn_diorama(character)
 
 func reset_diorama() -> void:
 	# camera movement/blur ?
@@ -30,12 +30,11 @@ func reset_diorama() -> void:
 	fade_finished.emit()
 
 
-func spawn_diorama(class_def: ClassDefinition) -> void:
-	var new_instance: CharacterInstance = class_def.instantiate()
-	new_instance.transition_state("Idle")
-	chara_spawn.add_child(new_instance)
-	spawned_character = new_instance
-	hex_grid.update_tiles_animations_colors(new_instance.colors)
+func spawn_diorama(character: CharacterInstance) -> void:
+	character.transition_state("Idle")
+	chara_spawn.add_child(character)
+	spawned_character = character
+	hex_grid.update_tiles_animations_colors(character.colors)
 	play_diorama_animation("tile_animation_library/idle", 3)
 
 

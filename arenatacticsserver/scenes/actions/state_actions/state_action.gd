@@ -1,8 +1,5 @@
 extends GameplayAction
 class_name StateAction
 
-func build(instance: CharacterInstance, _data: Dictionary):
-	super(instance, _data)
-
-func use():
-	pass
+func _init(instance: CharacterInstance, _data: Dictionary, _name: String):
+	super(instance, _data, _name)

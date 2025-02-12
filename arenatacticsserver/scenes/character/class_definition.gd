@@ -21,6 +21,7 @@ class_name ClassDefinition
 
 @export var character_scene = preload("res://scenes/character/CharacterInstance.tscn")
 
+#region Instantiation
 func instantiate(load_data: bool = true, load_modules: bool = true) -> CharacterInstance:
 	var instance = character_scene.instantiate()
 	ClassLoader.add_child(instance)
@@ -37,11 +38,14 @@ func instantiate(load_data: bool = true, load_modules: bool = true) -> Character
 func instantiate_data(instance: CharacterInstance) -> void:
 	instance.character_class = self.title
 	instance.subtitle = self.subtitle
+	instance.description = self.description
 	instance.portrait = self.portrait
 	instance.icon = self.icon
 	instance.colors = self.colors
 	instance.set_model(model)
 	instance.set_hitbox_shape(hitbox_shape)
+#endregion
+
 
 #region Modules
 

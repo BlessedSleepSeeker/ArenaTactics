@@ -3,8 +3,10 @@ class_name BasicOffensiveAction
 
 @export var target_effect: OffensiveActionEffect = null
 @export var actor_effect: OffensiveActionEffect = null
+@export var default_offensive_icon: Texture2D = preload("res://scenes/actions/offensive_actions/assets/offensive_icon_placeholder.png")
 
 func _init(instance: CharacterInstance, _data: Dictionary, _name: String):
+	self.icon = default_offensive_icon
 	super(instance, _data, _name)
 	for key in _data:
 		if is_match("target_effect", key):

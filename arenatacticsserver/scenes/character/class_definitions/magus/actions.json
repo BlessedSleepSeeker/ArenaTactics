@@ -7,9 +7,27 @@
     },
     "Movement": {
         "Walk": {
-            "priority": 3,
-            "animation_path": "",
-            "type": "walk"
+            "action_class_name": "BasicMovementAction",
+            "character_animation_name": "idle",
+            "ap_cost": 2,
+            "noise_level_actor": 4,
+            "targeting_restriction": {
+                "min_range": 1,
+                "max_range": 3,
+                "line_of_sight": true,
+                "aligned": false,
+                "target_tile": {
+                    "must_be_empty": true,
+                    "pathfind": {
+                        "pathfind_to_target": true,
+                        "max_distance": 3,
+                        "elevation_difference_tolerated_between_neighbors": 1,
+                        "allow_non_empty_tile_as_path": false
+                    }
+                }
+            },
+            "cooldown": 0,
+            "max_use_per_turn": 0
         }
     },
     "Utility": {

@@ -55,6 +55,10 @@ func set_hitbox_shape(shape: Shape3D) -> void:
 	hitbox.shape = shape
 
 
+func get_actions() -> Array[GameplayAction]:
+	var action_module: ActionsModule = get_module_by_name("ActionsModule")
+	return action_module.actions
+
 func get_module_by_name(value: String) -> Module:
 	for child: Module in module_container.get_children():
 		if child.module_name == value:
