@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dtodgpoqsjj8s"]
+[gd_scene load_steps=12 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://scenes/UI/base_ui_theme.tres" id="1_auudq"]
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
@@ -38,6 +38,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_8xnvm"]
 resource_name = "fade_in"
@@ -66,11 +90,52 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jv644"]
+resource_name = "fade_in_action_data"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o8ffg"]
 _data = {
 "RESET": SubResource("Animation_tgogt"),
-"fade_in": SubResource("Animation_8xnvm")
+"fade_in": SubResource("Animation_8xnvm"),
+"fade_in_action_data": SubResource("Animation_jv644")
 }
 
 [node name="CharacterSelectUI" type="Control"]
@@ -174,9 +239,6 @@ size_flags_vertical = 3
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
 
 [node name="ActionData" type="RichTextLabel" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2"]
 unique_name_in_owner = true

@@ -9,4 +9,7 @@ class_name ActionDataDisplay
 
 
 func _build():
-	self.text = action.get_infos()
+	if action:
+		self.text = action.get_gameplay_infos()
+	else:
+		self.text = ""

@@ -3,6 +3,10 @@ class_name ActionButtonGrid
 
 @export var action_button_scene: PackedScene = preload("res://scenes/UI/characters/actions/ActionButton.tscn")
 
+var selected_button: ActionButton = null
+
+var buttons: Array[ActionButton] = []
+
 signal action_selected(action: GameplayAction)
 
 func build(actions: Array[GameplayAction]):
@@ -10,6 +14,8 @@ func build(actions: Array[GameplayAction]):
 	create_button_grid(actions)
 
 func reset_button_grid() -> void:
+	selected_button = null
+	buttons = []
 	for child in get_children():
 		child.queue_free()
 
@@ -31,7 +37,17 @@ func create_button(action: GameplayAction) -> ActionButton:
 	panel.add_child(margin)
 	add_child(panel)
 	button.action = action
+	buttons.append(button)
 	return button
 
-func _on_button_pressed(action: GameplayAction):
-	action_selected.emit(action)
+func select_button(action: GameplayAction):
+	for btn: ActionButton in buttons:
+		if btn.action.name == action.name:
+			selected_button = btn
+			btn.button.set_pressed_no_signal(true)
+
+func _on_button_pressed(button: ActionButton):
+	if selected_button:
+		selected_button.button.set_pressed_no_signal(false)
+	selected_button = button
+	action_selected.emit(button.action)

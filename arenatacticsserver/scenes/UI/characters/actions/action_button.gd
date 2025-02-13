@@ -10,7 +10,7 @@ class_name ActionButton
 @onready var icon_holder: TextureRect = $"IconHolder"
 @onready var button: TextureButton = $"Button"
 
-signal button_clicked(action: GameplayAction)
+signal button_clicked(button: ActionButton)
 
 func _ready():
 	button.pressed.connect(_on_button_pressed)
@@ -19,4 +19,4 @@ func _build():
 	icon_holder.texture = action.icon
 
 func _on_button_pressed():
-	button_clicked.emit(action)
+	button_clicked.emit(self)

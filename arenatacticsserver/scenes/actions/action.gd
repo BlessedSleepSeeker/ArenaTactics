@@ -47,9 +47,9 @@ func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 func use(_target: CharacterInstance) -> void:
 	pass
 
-@export var gameplay_info_string_template: String = "[b]%s[/b]\nCost : %d AP\n"
+@export var gameplay_info_string_template: String = "[b]%s[/b]\nCost : %d AP\nNoises : %d, %d"
 func get_gameplay_infos() -> String:
-	return gameplay_info_string_template
+	return gameplay_info_string_template % [self.name, self.ap_cost, self.noise_level_actor, self.noise_level_target]
 
 #region Helpers
 func is_match(match: String, key) -> bool:

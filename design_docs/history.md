@@ -66,3 +66,8 @@
 - Action System : Progress on Movement and Offensive data parsing 9-10
 - Modeling Magus : 10-11
 - Action System : CSS UI 13h30 16h30
+- Modeling + Animating Magus : 16h30 18h
+
+13/02/25
+
+- Action UI : VFX UI Feedback when selecting actions
