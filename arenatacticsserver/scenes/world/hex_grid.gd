@@ -43,7 +43,7 @@ func free_grid() -> void:
 
 func generate_grid() -> void:
 	if not flat_world:
-		if not ProcGen.setup_is_finished:
+		if not ProcGen.setup_is_finished && not ProcGen.finished_setup.is_connected(_generate_grid):
 			ProcGen.finished_setup.connect(_generate_grid)
 		else:
 			_generate_grid()

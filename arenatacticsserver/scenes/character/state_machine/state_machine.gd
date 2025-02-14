@@ -31,6 +31,7 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	if not has_node(target_state_name):
 		push_error("No State with Name {%s} was found" % [target_state_name])
 		return
+	msg["PreviousState"] = state.name
 	state.exit()
 	state = get_node(target_state_name)
 	state.enter(msg)

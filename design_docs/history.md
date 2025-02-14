@@ -70,4 +70,6 @@
 
 13/02/25
 
-- Action UI : VFX UI Feedback when selecting actions
+- Action UI : VFX UI Feedback when selecting actions 9-10
+- Modeling Ranger : Added Sheathe and Poutches 10-11
+- Animating Ranger : Fidget Animation 13h30:16h

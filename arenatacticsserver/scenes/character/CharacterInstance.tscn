@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcvho024kiqga"]
+[gd_scene load_steps=7 format=3 uid="uid://bcvho024kiqga"]
 
 [ext_resource type="Script" path="res://scenes/character/character_instance.gd" id="1_vgy44"]
 [ext_resource type="Script" path="res://scenes/character/state_machine/state_machine.gd" id="2_g3qjf"]
-[ext_resource type="Script" path="res://scenes/character/state_machine/character_state.gd" id="3_kv5o0"]
+[ext_resource type="Script" path="res://scenes/character/state_machine/states/idle.gd" id="3_gn8po"]
+[ext_resource type="Script" path="res://scenes/character/state_machine/states/walk.gd" id="5_svu25"]
 
 [sub_resource type="Animation" id="Animation_gsina"]
 resource_name = "fade_in"
@@ -34,5 +35,10 @@ script = ExtResource("2_g3qjf")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("3_kv5o0")
+script = ExtResource("3_gn8po")
+fidget_chance = 100
+loop_anim = true
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("5_svu25")
 loop_anim = true

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dny5fbxn8lofj"
-path.s3tc="res://.godot/imported/ranger_7.png-f4eb340aba1fd66e186419b936147253.s3tc.ctex"
+uid="uid://csu30p4cqs2fn"
+path.s3tc="res://.godot/imported/ranger_11.png-bf2fedcbff48b3b1c71999fb767d8f18.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "e814085298e472ac11fca9e036d86d60"
+"md5": "23141c9c178ffa03c51a3da746819ec3"
 }
 
 [deps]
 
-source_file="res://scenes/character/class_definitions/ranger/assets/ranger_7.png"
-dest_files=["res://.godot/imported/ranger_7.png-f4eb340aba1fd66e186419b936147253.s3tc.ctex"]
+source_file="res://scenes/character/class_definitions/ranger/assets/ranger_11.png"
+dest_files=["res://.godot/imported/ranger_11.png-bf2fedcbff48b3b1c71999fb767d8f18.s3tc.ctex"]
 
 [params]
 
