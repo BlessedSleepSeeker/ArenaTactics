@@ -52,6 +52,13 @@ func parse_target_data(data: Dictionary) -> void:
 			add_data_to_var(key, data[key])
 #endregion
 
+@export var gameplay_info_string_template: String = "[u]Targeting[/u]\nRange : %d to %d tiles.\nLine of Sight required : %s\nIn a straight line only : %s\nMust be cast on an empty tile : %s\n"
+func get_gameplay_infos() -> String:
+	var infos = gameplay_info_string_template % [self.min_range, self.max_range, self.line_of_sight, self.aligned, self.must_be_empty]
+	if pathfinder_settings:
+		infos += pathfinder_settings.get_gameplay_infos()
+	return infos
+
 #region Helpers
 func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)

@@ -26,17 +26,13 @@ func use(target: CharacterInstance, is_backstab: bool = false):
 	if actor_effect:
 		actor_effect.apply_effect(actor, is_backstab)
 
-
-#region Helpers
-func is_match(match: String, key) -> bool:
-	return key is String && key.contains(match)
-
-func is_match_and_path_exist(match: String, key, value) -> bool:
-	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
-
-func add_data_to_var(var_name: String, var_value: Variant):
-	if var_name in self:
-		self.set(var_name, var_value)
-	else:
-		push_error(DebugHelper.format_debug_string(self, "ERROR", "Can't set {%s.%s} : Member variable not found" % [self.name, var_name]))
-#endregion
+func get_gameplay_infos() -> String:
+	var infos = gameplay_info_string_template % [self.name, self.ap_cost, self.noise_level_actor, self.noise_level_target]
+	if targeting_restrictions:
+		infos += targeting_restrictions.get_gameplay_infos()
+	if target_effect:
+		infos += target_effect.get_gameplay_infos("Target")
+	if actor_effect:
+		infos += actor_effect.get_gameplay_infos("Actor")
+	infos += "[/center]"
+	return infos

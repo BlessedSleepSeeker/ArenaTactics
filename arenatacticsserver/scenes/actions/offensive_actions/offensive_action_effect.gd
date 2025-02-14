@@ -45,6 +45,13 @@ func calculate_damage(_target: CharacterInstance, _stats: StatisticsModule, is_b
 func apply_status(target: CharacterInstance, is_backstab: bool):
 	pass
 
+@export var gameplay_info_string_template: String = "[u]Affecting %s[/u]\nDamage : %d to %d.\n%d % Crit x %0.2f\nBackstabbing Multiplier : %0.1f\n"
+func get_gameplay_infos(whos_affected: String = "Target") -> String:
+	var infos = "[u]Affecting %s[/u]\n" % whos_affected
+	infos += ""
+	#var infos = gameplay_info_string_template % [whos_affected, self.min_damage, self.min_damage, self.crit_chance, self.crit_multiplier, self.backstab_multiplier]
+	return infos
+
 #region Helpers
 func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)

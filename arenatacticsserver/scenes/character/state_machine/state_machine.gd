@@ -5,7 +5,7 @@ signal transitioned(state_name)
 
 @export var initial_state := NodePath()
 
-@onready var state: State = get_node(initial_state)
+@onready var state: CharacterState = get_node(initial_state)
 
 
 func _ready() -> void:
@@ -33,6 +33,8 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 		return
 	msg["PreviousState"] = state.name
 	state.exit()
+	if state.wait_for_animation_end_before_exit:
+		await state.character.model_animation_player.animation_finished
 	state = get_node(target_state_name)
 	state.enter(msg)
 	transitioned.emit(state.name)

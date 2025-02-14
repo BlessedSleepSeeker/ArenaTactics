@@ -3,6 +3,7 @@
         "Stab": {
             "action_class_name": "MeleeOffensiveAction",
             "character_animation_name": "idle",
+            "icon_path": "res://scenes/character/class_definitions/ranger/assets/actions_icons/stab.svg",
             "ap_cost": 2,
             "noise_level_actor": 2,
             "noise_level_target": 2,
@@ -28,6 +29,7 @@
         "Knife Throw": {
             "action_class_name": "ProjectileOffensiveAction",
             "character_animation_name": "idle",
+            "icon_path": "res://scenes/character/class_definitions/ranger/assets/actions_icons/dagger_throw.svg",
             "ap_cost": 3,
             "noise_level_actor": 2,
             "noise_level_target": 3,
@@ -43,7 +45,6 @@
             "cooldown": 0,
             "max_use_per_turn": 0
         }
-
     },
     "Defense": {
 
@@ -51,6 +52,7 @@
     "Movement": {
         "Walk": {
             "action_class_name": "BasicMovementAction",
+            "icon_path": "res://scenes/character/class_definitions/ranger/assets/actions_icons/walk.svg",
             "character_animation_name": "idle",
             "ap_cost": 2,
             "noise_level_actor": 4,
@@ -75,6 +77,7 @@
         "Sneaky Walk": {
             "action_class_name": "BasicMovementAction",
             "character_animation_name": "idle",
+            "icon_path": "res://scenes/character/class_definitions/ranger/assets/actions_icons/sneaky_walk.svg",
             "ap_cost": 2,
             "noise_level_actor": 0,
             "targeting_restriction": {
@@ -92,6 +95,7 @@
         "Jump": {
             "action_class_name": "BasicMovementAction",
             "character_animation_name": "idle",
+            "icon_path": "res://scenes/character/class_definitions/ranger/assets/actions_icons/jump.svg",
             "ap_cost": 3,
             "noise_level_actor": 6,
             "noise_level_target": 4,

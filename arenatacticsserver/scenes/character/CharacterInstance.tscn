@@ -42,3 +42,4 @@ loop_anim = true
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("5_svu25")
 loop_anim = true
+wait_for_animation_end_before_exit = true

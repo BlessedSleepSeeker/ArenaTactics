@@ -21,6 +21,11 @@ func parse_data(data: Dictionary) -> void:
 		add_data_to_var(key, data[key])
 
 
+@export var gameplay_info_string_template: String = "[u]PathFinding[/u]\nPathFinding Distance : %d tiles.\nMax elevation between neighbors : %d\nPassing throught taken tiles is allowed : %s"
+func get_gameplay_infos() -> String:
+	var infos = gameplay_info_string_template % [self.max_distance, self.elevation_difference_tolerated_between_neighbors, self.allow_non_empty_tile_as_path]
+	return infos
+
 #region Helpers
 func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)

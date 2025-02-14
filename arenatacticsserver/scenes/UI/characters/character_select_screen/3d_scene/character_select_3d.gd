@@ -44,6 +44,12 @@ func play_diorama_animation(anim_name: String, wait_multiplier: float = 1) -> vo
 		await hex_grid.fade_in_finished
 		hex_grid.queue_grid_anim(anim_name, wait_multiplier)
 
+func play_character_action(action: GameplayAction):
+	if spawned_character.has_state(action.name):
+		spawned_character.transition_state(action.name)
+	else:
+		spawned_character.transition_state("Idle")
+
 func spawn_grid():
 	hex_grid.generate_grid()
 

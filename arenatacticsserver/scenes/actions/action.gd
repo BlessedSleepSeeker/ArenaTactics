@@ -39,7 +39,7 @@ func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 	for key in data:
 		if is_match("targeting_restriction", key):
 			targeting_restrictions = TargetingRestrictions.new(data[key])
-		elif is_match_and_path_exist("icon_texture", key, data[key]):
+		elif is_match_and_path_exist("icon_path", key, data[key]):
 			icon = load(data[key])
 		else:
 			add_data_to_var(key, data[key])
@@ -47,16 +47,25 @@ func _init(instance: CharacterInstance, data: Dictionary, _name: String):
 func use(_target: CharacterInstance) -> void:
 	pass
 
-@export var gameplay_info_string_template: String = "[b]%s[/b]\nCost : %d AP\nNoises : %d, %d"
+@export var gameplay_info_string_template: String = "[center][u][b]%s[/b][/u]\nCost : %d AP\nNoises : %d, %d\n"
 func get_gameplay_infos() -> String:
-	return gameplay_info_string_template % [self.name, self.ap_cost, self.noise_level_actor, self.noise_level_target]
+	var infos = gameplay_info_string_template % [self.name, self.ap_cost, self.noise_level_actor, self.noise_level_target]
+	if targeting_restrictions:
+		infos += targeting_restrictions.get_gameplay_infos()
+	infos += "[/center]"
+	return infos
 
 #region Helpers
 func is_match(match: String, key) -> bool:
 	return key is String && key.contains(match)
 
 func is_match_and_path_exist(match: String, key, value) -> bool:
-	return key is String && key.contains(match) && value is String && FileAccess.file_exists(value)
+	if key is String && key.contains(match) && value:
+		if FileAccess.file_exists(value):
+			return true
+		else:
+			push_error(DebugHelper.format_debug_string(self, "ERROR", "Matched \"%s\" but path [%s] doesn't exist." % [match, value]))
+	return false
 
 func add_data_to_var(var_name: String, var_value: Variant):
 	if var_name in self:

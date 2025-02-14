@@ -9,6 +9,9 @@
   - [07/02/2025](#07022025)
   - [10/02/25](#100225)
   - [11/02/25](#110225)
+  - [12/02/25](#120225)
+  - [13/02/25](#130225)
+  - [14/02/25](#140225)
 
 ## November 24
 
@@ -61,15 +64,24 @@
 - HexGrid Animation Color Changing by Class : 13:30-14:30
 - Actions Module, Action, TargetingRequirements and PathFinder class, parsing and generation : 14:30 - 18h
 
-12/02/25
+## 12/02/25
 
 - Action System : Progress on Movement and Offensive data parsing 9-10
 - Modeling Magus : 10-11
 - Action System : CSS UI 13h30 16h30
 - Modeling + Animating Magus : 16h30 18h
 
-13/02/25
+## 13/02/25
 
 - Action UI : VFX UI Feedback when selecting actions 9-10
 - Modeling Ranger : Added Sheathe and Poutches 10-11
 - Animating Ranger : Fidget Animation 13h30:16h
+
+## 14/02/25
+
+harder to focus today
+
+- Ranger Animation : IdleToWalk & Walk (it sucks but rn it's ok)
+- Action UI : characters now perform the action when it's selected. Use state_machine
+- Action UI : added icon_path property and loading it up.
+- Action UI : added action descriptive text.

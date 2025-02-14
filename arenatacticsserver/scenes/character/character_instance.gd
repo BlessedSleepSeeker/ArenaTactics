@@ -41,9 +41,17 @@ func set_model(model: PackedScene) -> void:
 func transition_state(state_name: String, msg: Dictionary = {}):
 	state_machine.transition_to(state_name, msg)
 
+func has_state(state_name: String) -> bool:
+	for state: CharacterState in state_machine.get_children():
+		if state.name == state_name:
+			return true
+	return false
 
 func play_animation(animation_name: String, reverse: bool = false):
 	if model_animation_player == null:
+		return
+	if not model_animation_player.has_animation(animation_name):
+		push_warning(DebugHelper.format_debug_string(self, "WARNING", "Missing Animation [%s]" % animation_name))
 		return
 	if not reverse:
 		model_animation_player.play(animation_name)

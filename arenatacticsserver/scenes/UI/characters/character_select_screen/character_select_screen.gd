@@ -22,3 +22,4 @@ func _on_class_selected(selected_class: ClassDefinition):
 
 func _on_action_selected(action: GameplayAction):
 	css_ui.update_selected_action(action)
+	css_3d.play_character_action(action)
