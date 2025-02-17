@@ -3,7 +3,7 @@ class_name PathFinderSettings
 
 var name = "PathFinderSettings"
 
-## Enable or disable the pathfinding. if `pathfind_to_target` is false, pathfinding will always succeed.
+## Enable or disable the pathfinding. if [member PathFinderSettings.pathfind_to_target] is false, pathfinding will always succeed.
 @export var pathfind_to_target: bool = false
 ## The amount of tile traversed the pathfinding is allowed to pass by to find a way. -1 has no limit.
 @export var max_distance: int = -1
@@ -12,7 +12,7 @@ var name = "PathFinderSettings"
 ## Is the pathfinding allowed to use non-empty tiles to pathfind ?
 @export var allow_non_empty_tile_as_path: bool = true
 
-func _init(data: Dictionary):
+func _init(data: Dictionary = {}):
 	parse_data(data)
 
 

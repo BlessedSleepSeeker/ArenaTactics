@@ -11,6 +11,7 @@ var actor: CharacterInstance = null
 @export var action_class_name: String = ""
 ## The GameplayAction icon in the UI.
 @export var icon: Texture2D = null
+@export var description: String = ""
 
 @export_group("Juice")
 ## The name of the action the character is going to perform when doing this action.
@@ -32,17 +33,18 @@ var actor: CharacterInstance = null
 ## The instance of a `TargetingRestrictions`.
 @export var targeting_restrictions: TargetingRestrictions = null
 
-func _init(instance: CharacterInstance, data: Dictionary, _name: String):
+func _init(instance: CharacterInstance = null, _data: Dictionary = {}, _name: String = "Default"):
 	actor = instance
-	state_machine = instance.state_machine
+	if instance:
+		state_machine = instance.state_machine
 	name = _name
-	for key in data:
+	for key in _data:
 		if is_match("targeting_restriction", key):
-			targeting_restrictions = TargetingRestrictions.new(data[key])
-		elif is_match_and_path_exist("icon_path", key, data[key]):
-			icon = load(data[key])
+			targeting_restrictions = TargetingRestrictions.new(_data[key])
+		elif is_match_and_path_exist("icon_path", key, _data[key]):
+			icon = load(_data[key])
 		else:
-			add_data_to_var(key, data[key])
+			add_data_to_var(key, _data[key])
 
 func use(_target: CharacterInstance) -> void:
 	pass

@@ -1,0 +1,185 @@
+[gd_scene load_steps=15 format=3 uid="uid://b02bc8kvbf22r"]
+
+[ext_resource type="Script" path="res://scenes/UI/characters/actions/tooltip/action_tooltip.gd" id="1_r82ff"]
+[ext_resource type="Texture2D" uid="uid://b5ribxnpndscs" path="res://scenes/actions/movement_actions/assets/default_movement_icon_placeholder.png" id="2_2f4p7"]
+[ext_resource type="Texture2D" uid="uid://d3fh5dc3r6gk1" path="res://scenes/actions/offensive_actions/assets/offensive_icon_placeholder.png" id="2_n5a2v"]
+[ext_resource type="Script" path="res://scenes/UI/characters/actions/tooltip/icon_rich_text_label.gd" id="3_evdjt"]
+[ext_resource type="Texture2D" uid="uid://8gtjfyxvs25x" path="res://scenes/character/class_definitions/ranger/assets/actions_icons/stab.svg" id="3_s82os"]
+[ext_resource type="Script" path="res://scenes/actions/offensive_actions/melee_offensive_action.gd" id="3_tk6vm"]
+[ext_resource type="Script" path="res://scenes/actions/offensive_actions/offensive_action_effect.gd" id="4_sgnrj"]
+[ext_resource type="Script" path="res://scenes/actions/targeting_restrictions.gd" id="5_dxony"]
+[ext_resource type="Script" path="res://scenes/world/pathfinder/pathfinder.gd" id="6_51ypq"]
+
+[sub_resource type="Resource" id="Resource_i1ncm"]
+script = ExtResource("4_sgnrj")
+max_damage = -6
+min_damage = -2
+crit_chance = 10
+crit_multiplier = 1.5
+backstab_multiplier = 1.5
+gameplay_info_string_template = "[u]Affecting %s[/u]
+Damage : %d to %d.
+%d % Crit x %0.2f
+Backstabbing Multiplier : %0.1f
+"
+
+[sub_resource type="Resource" id="Resource_syinn"]
+script = ExtResource("4_sgnrj")
+max_damage = 6
+min_damage = 4
+crit_chance = 20
+crit_multiplier = 1.5
+backstab_multiplier = 2.0
+gameplay_info_string_template = "[u]Affecting %s[/u]
+Damage : %d to %d.
+%d % Crit x %0.2f
+Backstabbing Multiplier : %0.1f
+"
+
+[sub_resource type="Resource" id="Resource_87fk3"]
+script = ExtResource("6_51ypq")
+pathfind_to_target = false
+max_distance = -1
+elevation_difference_tolerated_between_neighbors = -1
+allow_non_empty_tile_as_path = true
+gameplay_info_string_template = "[u]PathFinding[/u]
+PathFinding Distance : %d tiles.
+Max elevation between neighbors : %d
+Passing throught taken tiles is allowed : %s"
+
+[sub_resource type="Resource" id="Resource_eas5d"]
+script = ExtResource("5_dxony")
+min_range = 1
+max_range = 2
+line_of_sight = true
+aligned = true
+must_be_empty = true
+pathfinder_settings = SubResource("Resource_87fk3")
+gameplay_info_string_template = "[u]Targeting[/u]
+Range : %d to %d tiles.
+Line of Sight required : %s
+In a straight line only : %s
+Must be cast on an empty tile : %s
+"
+
+[sub_resource type="Resource" id="Resource_0vkhi"]
+script = ExtResource("3_tk6vm")
+target_effect = SubResource("Resource_syinn")
+actor_effect = SubResource("Resource_i1ncm")
+default_offensive_icon = ExtResource("2_n5a2v")
+name = "TestAction"
+action_class_name = ""
+icon = ExtResource("3_s82os")
+character_animation_name = ""
+ap_cost = 3
+noise_level_actor = 2
+noise_level_target = 5
+cooldown = 1
+max_use_per_turn = 2
+targeting_restrictions = SubResource("Resource_eas5d")
+gameplay_info_string_template = "[center][u][b]%s[/b][/u]
+Cost : %d AP
+Noises : %d, %d
+"
+
+[node name="ActionTooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 300)
+anchors_preset = -1
+anchor_right = 0.156
+anchor_bottom = 0.278
+offset_right = -299.52
+offset_bottom = -300.24
+script = ExtResource("1_r82ff")
+action = SubResource("Resource_0vkhi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IconRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Title"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_2f4p7")
+expand_mode = 3
+
+[node name="TitleLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Title"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "Action"
+fit_content = true
+script = ExtResource("3_evdjt")
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "description"
+fit_content = true
+script = ExtResource("3_evdjt")
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[img=16]res://scenes/UI/characters/actions/tooltip/tooltip_icons/ap_star.svg[/img] 6 AP"
+fit_content = true
+script = ExtResource("3_evdjt")
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TargetingLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "targeting data"
+fit_content = true
+script = ExtResource("3_evdjt")
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PathFindingLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "pathfinding data"
+fit_content = true
+script = ExtResource("3_evdjt")
+
+[node name="PathFindingSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EffectLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "effects"
+fit_content = true
+script = ExtResource("3_evdjt")

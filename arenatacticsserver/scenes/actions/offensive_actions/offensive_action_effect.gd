@@ -14,7 +14,7 @@ var name = "OffensiveActionEffect"
 ## The Backstab Damage Multiplier.
 @export var backstab_multiplier: float = 1.0
 
-func _init(_data: Dictionary):
+func _init(_data: Dictionary = {}):
 	parse_data(_data)
 
 

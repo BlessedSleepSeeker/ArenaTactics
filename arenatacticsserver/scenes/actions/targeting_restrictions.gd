@@ -28,12 +28,10 @@ var name = "TargetingRestrictions"
 ## Should the targeted tile be empty ?
 @export var must_be_empty: bool = false
 
-## Should be try to pathfind to the target ?
-@export var pathfind_to_target: bool = false
 @export var pathfinder_settings: PathFinderSettings = null
 
 #region Parsing Data
-func _init(data: Dictionary):
+func _init(data: Dictionary = {}):
 	parse_data(data)
 
 func parse_data(data: Dictionary) -> void:
@@ -46,7 +44,6 @@ func parse_data(data: Dictionary) -> void:
 func parse_target_data(data: Dictionary) -> void:
 	for key in data:
 		if is_match("pathfind", key):
-			pathfind_to_target = true
 			pathfinder_settings = PathFinderSettings.new(data[key])
 		else:
 			add_data_to_var(key, data[key])

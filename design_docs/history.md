@@ -12,6 +12,7 @@
   - [12/02/25](#120225)
   - [13/02/25](#130225)
   - [14/02/25](#140225)
+  - [17/02/25](#170225)
 
 ## November 24
 
@@ -85,3 +86,7 @@ harder to focus today
 - Action UI : characters now perform the action when it's selected. Use state_machine
 - Action UI : added icon_path property and loading it up.
 - Action UI : added action descriptive text.
+
+## 17/02/25
+
+- Action Tooltip : BBCode parsing
