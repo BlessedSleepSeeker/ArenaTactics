@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Container
 class_name ActionTooltip
 
 @export var action: GameplayAction = null
@@ -17,9 +17,10 @@ class_name ActionTooltip
 @export var targeting_template: String = "[img]range_eye[/img] %d"
 @onready var targeting: IconRichTextLabel = %"TargetingLabel"
 
-@onready var pathfinding: IconRichTextLabel = %"PathFindingLabel"
 @onready var pathfinding_sep: HSeparator = %"PathFindingSeparator"
+@onready var pathfinding: IconRichTextLabel = %"PathFindingLabel"
 
+@onready var effects_sep: HSeparator = %"EffectSeparator"
 @onready var effects: IconRichTextLabel = %"EffectLabel"
 
 
@@ -44,9 +45,11 @@ func build():
 		if action is BasicOffensiveAction:
 			effects.parse_and_set_text(build_effects())
 			effects.show()
+			effects_sep.show()
 		else:
 			effects.hide()
-		#description.text = action.description
+			effects_sep.hide()
+		description.text = action.description
 
 func build_cost() -> String:
 	var ap_cost: String = "%s %d %s" % [encase_in_color("Cost", Color.SLATE_GRAY), action.ap_cost, build_img("ap_star")]
@@ -66,10 +69,10 @@ func build_targeting() -> String:
 	if action.targeting_restrictions.max_range != action.targeting_restrictions.min_range:
 		_range += " - %d" % [action.targeting_restrictions.max_range]
 	_range += "%s\n" % build_img("range_eye")
-	
+
 	var line_of_sight: String = ""
-	if action.targeting_restrictions.line_of_sight:
-		line_of_sight = "%s\n" % [encase_in_color("No Line of Sight", Color.SLATE_GRAY)]
+	if not action.targeting_restrictions.line_of_sight:
+		line_of_sight = "%s\n" % [encase_in_color("Without Line of Sight", Color.SLATE_GRAY)]
 	
 	var aligned: String = ""
 	if action.targeting_restrictions.aligned:
@@ -85,13 +88,13 @@ func build_pathfinding() -> String:
 	if action.targeting_restrictions.pathfinder_settings.max_distance == -1:
 		max_distance = "%s %s %s\n" % [encase_in_color("Maximum PathFinding Distance", Color.SLATE_GRAY), "Infinite", build_img("path_distance")]
 
-	var elevation_difference_tolerated_between_neighbors: String = "%s %d %s\n" % [encase_in_color("Tiles Elevation Difference Tolerated", Color.SLATE_GRAY), action.targeting_restrictions.pathfinder_settings.elevation_difference_tolerated_between_neighbors, build_img("elevation_difference")]
+	var elevation_difference_tolerated_between_neighbors: String = "%s %d %s" % [encase_in_color("Tiles Elevation Difference Tolerated", Color.SLATE_GRAY), action.targeting_restrictions.pathfinder_settings.elevation_difference_tolerated_between_neighbors, build_img("elevation_difference")]
 	if action.targeting_restrictions.pathfinder_settings.elevation_difference_tolerated_between_neighbors == -1:
-		elevation_difference_tolerated_between_neighbors = "%s %s %s\n" % [encase_in_color("Tiles Elevation Difference Tolerated", Color.SLATE_GRAY), "Infinite", build_img("elevation_difference")]
+		elevation_difference_tolerated_between_neighbors = "%s %s %s" % [encase_in_color("Tiles Elevation Difference Tolerated", Color.SLATE_GRAY), "Infinite", build_img("elevation_difference")]
 
 	var allow_non_empty_tile_as_path: String = ""
 	if action.targeting_restrictions.pathfinder_settings.allow_non_empty_tile_as_path:
-		allow_non_empty_tile_as_path = "%s" % [encase_in_color("Non-Empty Tile Allowed", Color.SLATE_GRAY)]
+		allow_non_empty_tile_as_path = "\n%s" % [encase_in_color("Non-Empty Tile Allowed", Color.SLATE_GRAY)]
 	return max_distance + elevation_difference_tolerated_between_neighbors + allow_non_empty_tile_as_path
 
 func build_effects() -> String:
@@ -114,11 +117,11 @@ func build_effect(effect: OffensiveActionEffect) -> String:
 
 	var crits: String = "%s\n" % encase_in_color("Can't Crit", Color.SLATE_GRAY)
 	if effect.crit_chance >= 0:
-		crits = "%s %d%% x%d Multiplier\n" % [build_img("crit"), effect.crit_multiplier, effect.crit_chance]
+		crits = "%s %d%% Chance x %0.1f Multiplier" % [build_img("crit"), effect.crit_chance, effect.crit_multiplier]
 
 	var backstabs: String = ""
 	if effect.backstab_multiplier != 1:
-		backstabs = "%s x%d Multiplier\n" % [build_img("backstab"), effect.backstab_multiplier]
+		backstabs = "\n%s x%0.1f Multiplier" % [build_img("backstab"), effect.backstab_multiplier]
 
 	return damages + crits + backstabs
 

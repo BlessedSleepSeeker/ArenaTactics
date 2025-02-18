@@ -17,6 +17,8 @@ func _ready():
 
 func _build():
 	icon_holder.texture = action.icon
+	if "action" in button:
+		button.action = action
 
 func _on_button_pressed():
 	button_clicked.emit(self)

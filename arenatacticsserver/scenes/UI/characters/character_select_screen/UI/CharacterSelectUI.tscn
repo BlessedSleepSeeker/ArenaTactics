@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtodgpoqsjj8s"]
+[gd_scene load_steps=11 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://scenes/UI/base_ui_theme.tres" id="1_auudq"]
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
 [ext_resource type="PackedScene" uid="uid://bsbinym0w5is4" path="res://scenes/UI/characters/character_select_screen/UI/CSSHexagonGrid.tscn" id="3_1a6kn"]
 [ext_resource type="Script" path="res://scenes/UI/characters/actions/action_button_grid.gd" id="4_lux1u"]
-[ext_resource type="Script" path="res://scenes/UI/characters/actions/action_data_display.gd" id="5_63f3a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bsis1"]
 font_size = 60
@@ -41,22 +40,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -93,22 +80,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -118,18 +93,6 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_jv644"]
 resource_name = "fade_in_action_data"
 length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2/ActionData:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o8ffg"]
 _data = {
@@ -232,21 +195,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("4_lux1u")
-
-[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-
-[node name="ActionData" type="RichTextLabel" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer2/MarginContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-script = ExtResource("5_63f3a")
 
 [node name="Buttons" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,7 +1,15 @@
-[gd_resource type="Theme" format=3 uid="uid://d3kms72g8lsqf"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d3kms72g8lsqf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8teyw"]
+bg_color = Color(0.160267, 0.152, 0.4, 0.788235)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [resource]
 MarginContainer/constants/margin_bottom = 15
 MarginContainer/constants/margin_left = 15
 MarginContainer/constants/margin_right = 15
 MarginContainer/constants/margin_top = 15
+PopupPanel/styles/panel = SubResource("StyleBoxFlat_8teyw")

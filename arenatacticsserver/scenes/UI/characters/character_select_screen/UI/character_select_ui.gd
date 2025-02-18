@@ -9,7 +9,6 @@ var selected_skin: String = "default"
 @onready var char_description: RichTextLabel = $"%CharacterDescription"
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var action_grid: ActionButtonGrid = $"%ActionIconsGrid"
-@onready var action_data: ActionDataDisplay = $"%ActionData"
 
 signal class_selected(selected_class: ClassDefinition)
 signal action_selected(action: GameplayAction)
@@ -41,7 +40,6 @@ func update_selected_action(action: GameplayAction, play_anim: bool = true):
 	if play_anim:
 		anim_player.play_backwards("fade_in_action_data")
 		await anim_player.animation_finished
-	action_data.action = action
 	action_grid.select_button(action)
 	if play_anim:
 		anim_player.play("fade_in_action_data")
