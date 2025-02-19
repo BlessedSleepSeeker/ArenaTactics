@@ -8,7 +8,9 @@ enum GenerationAlgorithm {GRID, CIRCLE}
 ## Circle create multiples concentric circles from a center. Circle is a lot slower and use (limited) recursivity.
 @export var generation_algorithm: GenerationAlgorithm
 ## Delay each tile spawn by this amount (in seconds).
-@export_range(0, 5, 0.01, "or_greater") var timer_between_tile: float = 0.01
+@export_range(0, 5, 0.01, "or_greater") var tile_spawn_delay: float = 0.0
+## Delay each tile animation by this amount (in seconds).
+@export_range(0, 5, 0.01, "or_greater") var tile_animation_delay: float = 0.025
 ## Enable or disable elevation variation from Noise-Based Textures (See [ProceduralGenerator]).
 @export var flat_world: bool = false
 ## Enable or disable grid interactivity with signals.
@@ -51,9 +53,11 @@ var maximum_y_size: int:
 
 signal tile_hovered(hex_tile: HexTileCube)
 signal tile_clicked(hex_tile: HexTileCube)
-signal generation_finished
 signal fade_in_finished
 signal fade_out_finished
+
+var is_generation_finished: bool = false
+signal generation_finished
 
 var selected_tile: HexTileCube = null
 
@@ -67,17 +71,16 @@ func generate_grid() -> void:
 		if not ProcGen.setup_is_finished && not ProcGen.finished_setup.is_connected(_generate_grid):
 			ProcGen.finished_setup.connect(_generate_grid)
 		else:
-			_generate_grid()
+			await _generate_grid()
 	else:
-		_generate_grid()
-	generation_finished.emit()
+		await _generate_grid()
 
 func _generate_grid() -> void:
 	match generation_algorithm:
 		GenerationAlgorithm.CIRCLE:
-			generate_circle_grid()
+			await generate_circle_grid()
 		_:
-			generate_square_grid()
+			await generate_square_grid()
 
 func get_maximum_size() -> Vector2i:
 	match generation_algorithm:
@@ -118,8 +121,10 @@ func generate_square_grid() -> void:
 	for i in range(grid_size_x):
 		for j in range(grid_size_y):
 			generate_tile(HexTileCube.get_cube_coordinate(Vector2i(i, j)))
-			if timer_between_tile > 0:
-				await get_tree().create_timer(timer_between_tile).timeout
+			if tile_spawn_delay > 0:
+				await get_tree().create_timer(tile_spawn_delay).timeout
+	is_generation_finished = true
+	generation_finished.emit()
 #endregion
 
 #region Circle Generation
@@ -132,8 +137,10 @@ func generate_circle_grid() -> void:
 	var circle_coordinates = center_tile.get_circle_coordinates(circle_diameter)
 	for coord: Vector3i in circle_coordinates:
 		generate_tile(coord)
-		if timer_between_tile > 0:
-				await get_tree().create_timer(timer_between_tile).timeout
+		if tile_spawn_delay > 0:
+			await get_tree().create_timer(tile_spawn_delay).timeout
+	is_generation_finished = true
+	generation_finished.emit()
 
 func get_circle_starting_position() -> Vector3i:
 	return HexTileCube.get_cube_coordinate(Vector2i(circle_diameter, circle_diameter))
@@ -141,7 +148,8 @@ func get_circle_starting_position() -> Vector3i:
 #enregion
 
 #region GridAnimation
-func fade(out: bool = true) -> void:
+func fade(out: bool = true, fast_forward_to_end: bool = false) -> void:
+	print("fading")
 	for tile: HexTileCube in get_children():
 		if tile.anim_player:
 			if out:
@@ -150,12 +158,16 @@ func fade(out: bool = true) -> void:
 			else:
 				tile.anim_player.stop(true)
 				tile.anim_player.play("tile_animation_library/fade_in")
-			if timer_between_tile > 0:
-				await get_tree().create_timer(timer_between_tile).timeout
+			if fast_forward_to_end:
+				tile.anim_player.advance(1)
+			if tile_animation_delay > 0 && not fast_forward_to_end:
+				await get_tree().create_timer(tile_animation_delay).timeout
 	await get_tree().create_timer(1.0).timeout
 	if out:
+		print("fade out finished")
 		fade_out_finished.emit()
 	else:
+		print("fade in finished")
 		fade_in_finished.emit()
 
 func queue_grid_anim(anim_name: String, wait_mult: float = 1) -> void:
@@ -163,8 +175,8 @@ func queue_grid_anim(anim_name: String, wait_mult: float = 1) -> void:
 		if tile.anim_player:
 			if tile.anim_player.has_animation(anim_name):
 				tile.anim_player.queue(anim_name)
-			if timer_between_tile > 0:
-				await get_tree().create_timer(timer_between_tile * wait_mult).timeout
+			if tile_animation_delay > 0:
+				await get_tree().create_timer(tile_animation_delay * wait_mult).timeout
 
 func update_tiles_animations_colors(colors: Dictionary):
 	var tile: HexTileCube = self.get_children().front()

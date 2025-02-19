@@ -101,4 +101,5 @@ harder to focus today
 ## 19/02/25
 
 - Tiles and Grid : refactor + Cube Coordinate system : 8-9
-- Tiles and Grid Refactor : HexGrid Lib 9-10
+- Tiles and Grid Refactor : HexGrid Lib 9-10-11-12
+- CSS Animation Synchronisation 14-15

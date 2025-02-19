@@ -35,7 +35,6 @@ directional_shadow_max_distance = 300.0
 
 [node name="HexGrid" type="Node3D" parent="."]
 script = ExtResource("2_6pvua")
-timer_between_tile = 0.0
 circle_diameter = 20
 
 [node name="CamAnchor" type="Node3D" parent="."]

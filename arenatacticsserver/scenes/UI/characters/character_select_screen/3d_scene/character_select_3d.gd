@@ -15,16 +15,14 @@ func _ready():
 	spawn_grid()
 
 func build(character: CharacterInstance):
-	reset_diorama()
-	await fade_finished
+	await reset_diorama()
+	#await fade_finished
 	spawn_diorama(character)
 
 func reset_diorama() -> void:
 	# camera movement/blur ?
-	await get_tree().create_timer(0.11).timeout
 	if chara_spawn.get_child_count() > 0 && grid_spawn.get_child_count() > 0:
-		hex_grid.fade()
-		await hex_grid.fade_out_finished
+		await hex_grid.fade()
 		spawned_character.queue_free()
 		spawned_character = null
 	fade_finished.emit()
@@ -35,13 +33,12 @@ func spawn_diorama(character: CharacterInstance) -> void:
 	chara_spawn.add_child(character)
 	spawned_character = character
 	hex_grid.update_tiles_animations_colors(character.colors)
-	play_diorama_animation("tile_animation_library/idle", 3)
+	play_diorama_animation("tile_animation_library/idle")
 
 
 func play_diorama_animation(anim_name: String, wait_multiplier: float = 1) -> void:
 	if spawned_character && hex_grid:
-		hex_grid.fade(false)
-		await hex_grid.fade_in_finished
+		await hex_grid.fade(false)
 		hex_grid.queue_grid_anim(anim_name, wait_multiplier)
 
 func play_character_action(action: GameplayAction):
@@ -59,3 +56,6 @@ func spawn_grid():
 	grid_center_global_pos = hex_grid.get_center_tile().global_position
 	grid_center_global_pos.y = 10
 	chara_spawn.global_position = grid_center_global_pos
+	if not hex_grid.is_generation_finished:
+		await hex_grid.generation_finished
+	hex_grid.fade(true, true)

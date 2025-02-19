@@ -117,8 +117,8 @@ func get_coordinates_in_range(_range: int) -> Array[Vector3i]:
 			result.append(self.grid_coordinate + Vector3i(q, r, -q - r)) ## just add the vector to our position to find the new position !
 	return result
 
-## Return the coordinates
-## Ring of factor 1 : only the neighbors.
+## Return the coordinates of a ring of size `ring_radius`[br]
+## Ring of factor 1 : only the neighbors.[br]
 ## Ring of factor 2 : only the external neighbors of neighbors...
 func get_ring_coordinates(ring_radius: int) -> Array[Vector3i]:
 	var ring_coords: Array[Vector3i] = []
@@ -131,8 +131,9 @@ func get_ring_coordinates(ring_radius: int) -> Array[Vector3i]:
 			grid_coord = grid_coord + get_neighbor(i)
 	return ring_coords
 
+## Does not include self position.
 func get_circle_coordinates(circle_radius: int) -> Array[Vector3i]:
-	var circle_coords: Array[Vector3i] = [grid_coordinate]
+	var circle_coords: Array[Vector3i] = []
 	for i in range(1, circle_radius):
 		circle_coords.append_array(get_ring_coordinates(i))
 	return circle_coords

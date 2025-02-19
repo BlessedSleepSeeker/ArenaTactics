@@ -14,7 +14,6 @@ func _ready():
 	else:
 		css_ui.build()
 
-
 func _on_class_selected(selected_class: ClassDefinition):
 	var new_instance: CharacterInstance = selected_class.instantiate()
 	css_ui.update_selected_class(new_instance)
