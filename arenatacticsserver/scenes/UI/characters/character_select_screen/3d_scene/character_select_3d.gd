@@ -9,14 +9,11 @@ class_name CharacterSelect3D
 
 var spawned_character: CharacterInstance = null
 
-signal fade_finished
-
 func _ready():
 	spawn_grid()
 
 func build(character: CharacterInstance):
 	await reset_diorama()
-	#await fade_finished
 	spawn_diorama(character)
 
 func reset_diorama() -> void:
@@ -25,7 +22,6 @@ func reset_diorama() -> void:
 		await hex_grid.fade()
 		spawned_character.queue_free()
 		spawned_character = null
-	fade_finished.emit()
 
 
 func spawn_diorama(character: CharacterInstance) -> void:
@@ -36,10 +32,10 @@ func spawn_diorama(character: CharacterInstance) -> void:
 	play_diorama_animation("tile_animation_library/idle")
 
 
-func play_diorama_animation(anim_name: String, wait_multiplier: float = 1) -> void:
+func play_diorama_animation(anim_name: String) -> void:
 	if spawned_character && hex_grid:
 		await hex_grid.fade(false)
-		hex_grid.queue_grid_anim(anim_name, wait_multiplier)
+		hex_grid.queue_rings_anim(anim_name, true, true)
 
 func play_character_action(action: GameplayAction):
 	if spawned_character.has_state(action.name):

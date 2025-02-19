@@ -102,4 +102,5 @@ harder to focus today
 
 - Tiles and Grid : refactor + Cube Coordinate system : 8-9
 - Tiles and Grid Refactor : HexGrid Lib 9-10-11-12
-- CSS Animation Synchronisation 14-15
+- CSS Animation Synchronisation 14-15h30
+- CSS Animation Circle Animations 15h30-17h

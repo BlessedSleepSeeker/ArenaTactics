@@ -89,7 +89,8 @@ script = ExtResource("2_gtrcv")
 generation_algorithm = 1
 flat_world = true
 interactive_grid = false
-circle_diameter = 3
+circle_animation_delay = 0.0
+circle_diameter = 6
 
 [node name="Sun" type="DirectionalLight3D" parent="ScenePivot"]
 transform = Transform3D(0.792553, -0.363438, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365552, 0.707545, 0, 0, 0)
