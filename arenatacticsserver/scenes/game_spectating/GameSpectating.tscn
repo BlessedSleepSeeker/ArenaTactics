@@ -6,6 +6,7 @@
 
 [node name="GameSpectating" type="Node"]
 script = ExtResource("1_0uyv1")
+world_view_scene = null
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15

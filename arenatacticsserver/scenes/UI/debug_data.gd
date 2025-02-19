@@ -3,7 +3,7 @@ class_name TileDebugContainer
 
 @export var debug_data_string_template: String = "[b]%s[/b] = %f"
 
-func load_debug_data(hex_tile: HexTile):
+func load_debug_data(hex_tile: HexTileCube):
 	# don't bother if it's not visible
 	if self.visible == false:
 		return

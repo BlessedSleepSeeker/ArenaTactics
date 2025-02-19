@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3aaaue0h4kbp"]
 
 [ext_resource type="Script" path="res://scenes/world/world_view.gd" id="1_qqpp8"]
-[ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_fwjfj"]
+[ext_resource type="Script" path="res://scenes/world/hex_grid_cube.gd" id="2_6pvua"]
 [ext_resource type="Script" path="res://scenes/world/camera/CameraMovement.gd" id="3_nwcck"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_23qwn"]
@@ -33,16 +33,17 @@ directional_shadow_split_1 = 1.0
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 300.0
 
-[node name="HexGrid" parent="." instance=ExtResource("2_fwjfj")]
-grid_size_x = 150
-grid_size_y = 150
+[node name="HexGrid" type="Node3D" parent="."]
+script = ExtResource("2_6pvua")
 timer_between_tile = 0.0
+circle_diameter = 20
 
 [node name="CamAnchor" type="Node3D" parent="."]
 script = ExtResource("3_nwcck")
+zoom_increment = 5.0
 
 [node name="Freecam" type="Camera3D" parent="CamAnchor"]
-transform = Transform3D(0.78801, -0.435338, 0.435338, 0, 0.707107, 0.707107, -0.615661, -0.557208, 0.557208, 80, 160, 80)
+transform = Transform3D(0.999999, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 80)
 projection = 1
 current = true
 size = 25.0

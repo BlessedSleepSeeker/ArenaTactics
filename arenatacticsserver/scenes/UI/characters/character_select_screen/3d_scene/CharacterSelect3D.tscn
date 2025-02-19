@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5vx7mnmf36g2"]
+[gd_scene load_steps=9 format=3 uid="uid://b5vx7mnmf36g2"]
 
 [ext_resource type="Script" path="res://scenes/UI/characters/character_select_screen/3d_scene/character_select_3d.gd" id="1_7l5iv"]
-[ext_resource type="PackedScene" uid="uid://dtkla8u5fttkp" path="res://scenes/world/HexGrid.tscn" id="2_xbi04"]
-[ext_resource type="PackedScene" uid="uid://p6flf0evxv38" path="res://scenes/world/Tiles/FakeHexTile.tscn" id="3_wklfu"]
+[ext_resource type="Script" path="res://scenes/world/hex_grid_cube.gd" id="2_gtrcv"]
 
 [sub_resource type="Animation" id="Animation_qh7id"]
 length = 30.0
@@ -84,15 +83,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 [node name="GridSpawnPoint" type="Node3D" parent="ScenePivot"]
 unique_name_in_owner = true
 
-[node name="HexGrid" parent="ScenePivot/GridSpawnPoint" instance=ExtResource("2_xbi04")]
+[node name="HexGrid" type="Node3D" parent="ScenePivot/GridSpawnPoint"]
 unique_name_in_owner = true
+script = ExtResource("2_gtrcv")
 generation_algorithm = 1
-grid_size_x = 3
-grid_size_y = 3
-timer_between_tile = 0.05
 flat_world = true
 interactive_grid = false
-tile_scene = ExtResource("3_wklfu")
+circle_diameter = 3
 
 [node name="Sun" type="DirectionalLight3D" parent="ScenePivot"]
 transform = Transform3D(0.792553, -0.363438, 0.489666, 0.0781508, 0.856904, 0.509517, -0.604775, -0.365552, 0.707545, 0, 0, 0)

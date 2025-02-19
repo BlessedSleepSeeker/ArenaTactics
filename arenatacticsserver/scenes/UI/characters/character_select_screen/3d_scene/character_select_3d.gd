@@ -5,7 +5,7 @@ class_name CharacterSelect3D
 @onready var scene_pivot: Node3D = $"%ScenePivot"
 @onready var chara_spawn: Node3D = $"%CharacterSpawnPoint"
 @onready var grid_spawn: Node3D = $"%GridSpawnPoint"
-@onready var hex_grid: HexGrid = $"%HexGrid"
+@onready var hex_grid: HexGridCube = $"%HexGrid"
 
 var spawned_character: CharacterInstance = null
 

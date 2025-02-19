@@ -13,6 +13,8 @@
   - [13/02/25](#130225)
   - [14/02/25](#140225)
   - [17/02/25](#170225)
+  - [18/02/25](#180225)
+  - [19/02/25](#190225)
 
 ## November 24
 
@@ -76,7 +78,7 @@
 
 - Action UI : VFX UI Feedback when selecting actions 9-10
 - Modeling Ranger : Added Sheathe and Poutches 10-11
-- Animating Ranger : Fidget Animation 13h30:16h
+- Animating Ranger : Fidget Animation 13h30-16h
 
 ## 14/02/25
 
@@ -89,4 +91,14 @@ harder to focus today
 
 ## 17/02/25
 
-- Action Tooltip : BBCode parsing
+- Action Tooltip : BBCode parsing 10-12
+- Action Tooltip : more work 14-17
+
+## 18/02/25
+
+- Action Tooltip : integration 14-15h30
+
+## 19/02/25
+
+- Tiles and Grid : refactor + Cube Coordinate system : 8-9
+- Tiles and Grid Refactor : HexGrid Lib 9-10

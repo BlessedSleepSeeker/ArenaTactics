@@ -7,7 +7,7 @@ var name = "PathFinderSettings"
 @export var pathfind_to_target: bool = false
 ## The amount of tile traversed the pathfinding is allowed to pass by to find a way. -1 has no limit.
 @export var max_distance: int = -1
-## The maximum  `HexTile.height` difference between a tile and their neighbors before the pathfinding isn't allowed to take this path. -1 has no limit.
+## The maximum  `HexTileCube.height` difference between a tile and their neighbors before the pathfinding isn't allowed to take this path. -1 has no limit.
 @export var elevation_difference_tolerated_between_neighbors: int = -1
 ## Is the pathfinding allowed to use non-empty tiles to pathfind ?
 @export var allow_non_empty_tile_as_path: bool = true

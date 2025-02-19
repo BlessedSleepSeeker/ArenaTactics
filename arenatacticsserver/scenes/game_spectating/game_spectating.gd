@@ -16,9 +16,9 @@ func _generate_world():
 	world_view.regenerate_world()
 
 
-func _on_tile_hovered(hex_tile: HexTile):
+func _on_tile_hovered(hex_tile: HexTileCube):
 	server_ui.hovered_tile_container.load_debug_data(hex_tile)
 
 
-func _on_tile_selected(hex_tile: HexTile):
+func _on_tile_selected(hex_tile: HexTileCube):
 	server_ui.selected_tile_container.load_debug_data(hex_tile)

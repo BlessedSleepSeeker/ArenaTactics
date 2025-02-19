@@ -3,18 +3,17 @@ class_name WorldView
 
 @onready var cam_anchor: Node3D = $CamAnchor
 @onready var camera: Camera3D = $CamAnchor/Freecam
-@onready var hex_grid: HexGrid = $HexGrid
+@onready var hex_grid: HexGridCube = $HexGrid
 
-signal tile_hovered(hex_tile: HexTile)
-signal tile_selected(hex_tile: HexTile)
+signal tile_hovered(hex_tile: HexTileCube)
+signal tile_selected(hex_tile: HexTileCube)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hex_grid.tile_hovered.connect(_on_tile_hovered)
 	hex_grid.tile_clicked.connect(_on_tile_selected)
-	var cam_start_point = hex_grid.get_camera_start_point()
-	cam_anchor.position = cam_start_point
 	regenerate_world()
+	cam_anchor.position = hex_grid.get_camera_start_point()
 
 
 func regenerate_world():
@@ -23,11 +22,11 @@ func regenerate_world():
 	hex_grid.generate_grid()
 
 
-func _on_tile_hovered(hex_tile: HexTile):
+func _on_tile_hovered(hex_tile: HexTileCube):
 	tile_hovered.emit(hex_tile)
 
 
-func _on_tile_selected(hex_tile: HexTile):
+func _on_tile_selected(hex_tile: HexTileCube):
 	tile_selected.emit(hex_tile)
 
 
@@ -46,11 +45,11 @@ func raycaster() -> Variant:
 	var origin = camera.project_ray_origin(mouse_pos)
 	var end = origin + camera.project_ray_normal(mouse_pos) * RAYCAST_DISTANCE
 	var query = PhysicsRayQueryParameters3D.create(origin, end)
-	
+
 	var result = space_state.intersect_ray(query)
 	if result.is_empty():
 		return null
 	var node = result["collider"]
-	if node is HexTile:
+	if node is HexTileCube:
 		return node
 	return null
