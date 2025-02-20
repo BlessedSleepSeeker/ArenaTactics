@@ -46,6 +46,9 @@ func _init(instance: CharacterInstance = null, _data: Dictionary = {}, _name: St
 		else:
 			add_data_to_var(key, _data[key])
 
+func _to_string():
+	return name
+
 func use(_target: CharacterInstance) -> void:
 	pass
 

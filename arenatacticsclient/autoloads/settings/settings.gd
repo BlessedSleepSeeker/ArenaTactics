@@ -41,7 +41,7 @@ func change_settings_file_path(new_path: String) -> void:
 func load_setting_file() -> int:
 	var err = settings_file.load(user_settings_file_path)
 	if err != OK:
-		printerr("Something happened at %s, error code [%d]" % [user_settings_file_path, err])
+		push_error("Something happened at %s, error code [%d]" % [user_settings_file_path, err])
 	return err
 
 ## Does not create any settings. Only change the values of the defined settings in the settings.tscn scene.
@@ -54,7 +54,7 @@ func load_settings_from_file() -> void:
 ## save_settings_to_file() will get the values inside the settings array and put them in the file.
 ## We need to call save_to_file() only when the settings are saved by the user.
 func save_settings_to_file() -> int:
-	print_debug('Saving file at %s' % user_settings_file_path)
+	#print_debug('Saving file at %s' % user_settings_file_path)
 
 	for section in get_children():
 		for setting in section.get_children():
@@ -62,7 +62,7 @@ func save_settings_to_file() -> int:
 
 	var err = settings_file.save(user_settings_file_path)
 	if err != OK:
-		printerr("Error code [%d]. Something went wrong saving the file at %s." % [err, user_settings_file_path])
+		push_error("Error code [%d]. Something went wrong when saving the file at %s." % [err, user_settings_file_path])
 	return err
 
 

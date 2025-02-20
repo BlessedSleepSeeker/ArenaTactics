@@ -62,21 +62,34 @@ func play_animation(animation_name: String, reverse: bool = false):
 func set_hitbox_shape(shape: Shape3D) -> void:
 	hitbox.shape = shape
 
+#region Actions
 
 func get_actions() -> Array[GameplayAction]:
 	var action_module: ActionsModule = get_module_by_name("ActionsModule")
 	return action_module.actions
 
+func get_action_by_name(value: String) -> GameplayAction:
+	for action in get_actions():
+		if action.name == value:
+			return action
+	push_error(DebugHelper.format_debug_string(self, "ERROR", "No action named [%s] found." % value))
+	return null
+#endregion
+
+#region Modules
+
 func get_module_by_name(value: String) -> Module:
 	for child: Module in module_container.get_children():
 		if child.module_name == value:
 			return child
+	push_error(DebugHelper.format_debug_string(self, "ERROR", "No module named [%s] found." % value))
 	return null
 
 func modules_start_game() -> void:
 	for module: Module in self.module_container.get_children():
 		module.start_game()
 
+#endregion
 
 func clone_from(original: CharacterInstance):
 	var og_data = original.export_data()
