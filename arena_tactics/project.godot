@@ -1,0 +1,58 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="ArenaTactics"
+config/version="0.0.1"
+config/tags=PackedStringArray("hexagons", "tactical", "turn_based")
+run/main_scene="res://autoloads/custom_root/root.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+InputSettings="*res://autoloads/settings/input_settings.gd"
+RngHandler="*res://autoloads/RNGHandler.gd"
+ProcGen="*res://gameplay/arena/procgen/ProceduralGenerator.tscn"
+ClassLoader="*res://gameplay/character/class_loader.gd"
+DebugHelper="*res://autoloads/debug_printer.gd"
+UserArguments="*res://autoloads/args_parser.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+
+[file_customization]
+
+folder_colors={
+"res://autoloads/": "orange",
+"res://gameplay/": "blue",
+"res://gameplay/character/": "purple",
+"res://gameplay/character/class_definitions/": "pink",
+"res://network/": "pink",
+"res://ui/": "green"
+}
+
+[importer_defaults]
+
+scene={
+"fbx/embedded_image_handling": 3
+}
+
+[input]
+
+debug_ui_toggle={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}

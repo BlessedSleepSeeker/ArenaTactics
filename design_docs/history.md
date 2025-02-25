@@ -126,3 +126,4 @@ Offdat
 
 - Gameplay System : GameSettings, GameResult
 - UI/UX : Integration of title screen, settings, main menu...
+- Set up client/server separation
