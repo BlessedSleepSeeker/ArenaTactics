@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsbinym0w5is4"]
+
+[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/css_hexagon_grid.gd" id="1_oi6d3"]
+[ext_resource type="PackedScene" uid="uid://dertr1qpkmo2i" path="res://ui/characters/character_select_screen/UI/HexagonButton.tscn" id="2_t4ikh"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_4cux1"]
+scenes/1/scene = ExtResource("2_t4ikh")
+
+[sub_resource type="TileSet" id="TileSet_ti84e"]
+tile_shape = 3
+tile_layout = 2
+tile_size = Vector2i(118, 138)
+sources/0 = SubResource("TileSetScenesCollectionSource_4cux1")
+
+[node name="CSSHexagonGrid" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_oi6d3")
+
+[node name="CenterContainer" type="Control" parent="."]
+layout_mode = 2
+
+[node name="HexTile" type="TileMapLayer" parent="CenterContainer"]
+unique_name_in_owner = true
+tile_map_data = PackedByteArray(0, 0, 254, 255, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0)
+tile_set = SubResource("TileSet_ti84e")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqlhw860j5s8v"]
+
+[ext_resource type="Script" path="res://network/server.gd" id="1_uj7w7"]
+[ext_resource type="Script" path="res://network/chat_module.gd" id="2_yoksx"]
+
+[node name="Networker" type="Node"]
+script = ExtResource("1_uj7w7")
+
+[node name="ChatModule" type="Node" parent="."]
+script = ExtResource("2_yoksx")

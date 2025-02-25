@@ -1,0 +1,223 @@
+[gd_scene load_steps=11 format=3 uid="uid://dtodgpoqsjj8s"]
+
+[ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://ui/base_ui_theme.tres" id="1_auudq"]
+[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
+[ext_resource type="PackedScene" uid="uid://bsbinym0w5is4" path="res://ui/characters/character_select_screen/UI/CSSHexagonGrid.tscn" id="3_1a6kn"]
+[ext_resource type="Script" path="res://ui/characters/actions/action_button_grid.gd" id="4_lux1u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bsis1"]
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_6mp1h"]
+font_size = 50
+
+[sub_resource type="Animation" id="Animation_tgogt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer/MarginContainer/CharacterDescription:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8xnvm"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer/MarginContainer/CharacterDescription:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer/ActionIconsGrid:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jv644"]
+resource_name = "fade_in_action_data"
+length = 0.4
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o8ffg"]
+_data = {
+"RESET": SubResource("Animation_tgogt"),
+"fade_in": SubResource("Animation_8xnvm"),
+"fade_in_action_data": SubResource("Animation_jv644")
+}
+
+[node name="CharacterSelectUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_auudq")
+script = ExtResource("2_hf0x0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VSpliter" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="3DSceneReservedSpace" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace"]
+layout_mode = 2
+
+[node name="CharacterTitle" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "AAAA"
+label_settings = SubResource("LabelSettings_bsis1")
+horizontal_alignment = 1
+
+[node name="CharacterSubtitle" type="Label" parent="MarginContainer/VBoxContainer/VSpliter/3DSceneReservedSpace/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BBBB
+"
+label_settings = SubResource("LabelSettings_6mp1h")
+horizontal_alignment = 1
+
+[node name="UiSelectSpace" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace"]
+layout_mode = 2
+
+[node name="CharacterPortraits" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+
+[node name="CSSHexagonGrid" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/CharacterPortraits" instance=ExtResource("3_1a6kn")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="CharacterDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActionIconsGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/VSpliter/UiSelectSpace/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("4_lux1u")
+
+[node name="Buttons" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+
+[node name="Return" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="Container" type="Control" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "Lock In"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o8ffg")
+}

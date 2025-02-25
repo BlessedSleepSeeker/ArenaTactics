@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://6y1gl1eydw8j"]
-
-[ext_resource type="Script" path="res://scenes/world/procgen/procgen_data.gd" id="1_2721w"]
-
-[node name="ProceduralGenerator" type="Node"]
-script = ExtResource("1_2721w")

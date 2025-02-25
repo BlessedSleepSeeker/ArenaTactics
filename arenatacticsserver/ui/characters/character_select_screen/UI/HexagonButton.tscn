@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dertr1qpkmo2i"]
+
+[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/hexagon_button.gd" id="1_7wiub"]
+[ext_resource type="Texture2D" uid="uid://bypu4t7njx625" path="res://ui/characters/character_select_screen/UI/assets/hex_button_clicked.png" id="3_fdu04"]
+[ext_resource type="BitMap" uid="uid://dehbydr6dp22t" path="res://ui/characters/character_select_screen/UI/assets/hex_button_click_mask.png" id="3_ifoti"]
+[ext_resource type="Texture2D" uid="uid://caps7pquwv37h" path="res://ui/characters/character_select_screen/UI/assets/grass_hexagon.png" id="3_try0m"]
+[ext_resource type="Texture2D" uid="uid://cxigto4qnquxs" path="res://ui/characters/character_select_screen/UI/assets/hex_button_hover.png" id="4_fj2a7"]
+
+[node name="HexagonButton" type="MarginContainer"]
+anchors_preset = -1
+anchor_left = -0.031
+anchor_top = -0.065
+anchor_right = 0.031
+anchor_bottom = 0.065
+offset_left = -0.479996
+offset_top = 0.200005
+offset_right = 0.479996
+offset_bottom = -0.200012
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_7wiub")
+
+[node name="CharaPortrait" type="TextureRect" parent="."]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HexButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Missing Class Data"
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_try0m")
+texture_pressed = ExtResource("3_fdu04")
+texture_hover = ExtResource("4_fj2a7")
+texture_click_mask = ExtResource("3_ifoti")

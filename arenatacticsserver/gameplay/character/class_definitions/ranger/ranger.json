@@ -1,0 +1,12 @@
+{
+	"model_path": "res://scenes/character/class_definitions/ranger/assets/ranger.gltf",
+	"hitbox_path": "bbb",
+	"icon_path": "ccc",
+	"portrait_path": "res://scenes/character/class_definitions/ranger/assets/icon.png",
+	"subtitle": "The Deceitful Dagger",
+	"description": "Sneaky, Crafty and Resourceful, the Ranger versatility will satisfy you, my lord...",
+	"css_screen": {
+		"base_tile_color": "#984b33",
+		"idle_tile_popup_color": "#33984b"
+	}
+}

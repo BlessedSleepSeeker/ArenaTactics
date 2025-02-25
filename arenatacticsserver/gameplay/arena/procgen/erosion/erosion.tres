@@ -1,0 +1,14 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://de6pipgcs2rky"]
+
+[ext_resource type="Gradient" uid="uid://d4hhpcfy3wf6d" path="res://gameplay/arena/procgen/erosion/erosion_gradient.tres" id="1_uj3pt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gvtna"]
+noise_type = 0
+frequency = 0.0014
+offset = Vector3(10000, 10000, 0)
+fractal_octaves = 7
+
+[resource]
+invert = true
+color_ramp = ExtResource("1_uj3pt")
+noise = SubResource("FastNoiseLite_gvtna")

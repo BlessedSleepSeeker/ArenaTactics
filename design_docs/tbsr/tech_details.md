@@ -1,9 +1,9 @@
 # TBSR : Technical Details
 
 - [TBSR : Technical Details](#tbsr--technical-details)
-	- [Both](#both)
-	- [Server](#server)
-	- [Client](#client)
+  - [Both](#both)
+  - [Server](#server)
+  - [Client](#client)
 
 This document aims to design the technical side of the TSBR.
 
@@ -18,7 +18,7 @@ This document aims to design the technical side of the TSBR.
       - > might be hard !!
   - Potential issues : how do I deal with the player hosting the game ? Does he have 2 ? How do I make sure he doesn't cheat ?
 
-- [ ] GameplaySettings ressource
+- [x] GameSettings ressource
   - main seeds
   - player_id
     - class, skins
@@ -36,10 +36,14 @@ This document aims to design the technical side of the TSBR.
 - [x] PlayedAction ressource
   - Hold a player unique action
 
-- ReplayWriter
+- [x] GameResult ressource
+  - [x] Hold game settings
+  - [x] Hold other data like turn number, winning team/players...
+
+- [x] ReplayWriter
   - Can be hooked to gameplay server to store all the game data and action to a file.
 
-- ReplayReader
+- [x] ReplayReader
   - Feed the input to the server.
 
 ## Server

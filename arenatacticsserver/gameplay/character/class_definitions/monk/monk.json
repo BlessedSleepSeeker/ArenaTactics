@@ -1,0 +1,12 @@
+{
+    "model_path": "res://gameplay/character/class_definitions/monk/assets/monk.gltf",
+    "hitbox_path": "bbb",
+    "icon_path": "ccc",
+    "portrait_path": "res://gameplay/character/class_definitions/monk/assets/icon.png",
+    "subtitle": "The Blessed Bald",
+    "description": "An iron fist in a golden soul. Resilience for him, Repentance for them.",
+    "css_screen": {
+        "base_tile_color": "#984b33",
+        "idle_tile_popup_color": "#ea323c"
+    }
+}

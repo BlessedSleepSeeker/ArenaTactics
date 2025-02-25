@@ -1,0 +1,12 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://b2of5828deq2i"]
+
+[ext_resource type="Gradient" uid="uid://dyyovgfsoen32" path="res://gameplay/arena/procgen/temperature/temperature_gradient.tres" id="1_xvstw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_83e7a"]
+frequency = 0.004
+fractal_octaves = 3
+fractal_gain = 0.2
+
+[resource]
+color_ramp = ExtResource("1_xvstw")
+noise = SubResource("FastNoiseLite_83e7a")

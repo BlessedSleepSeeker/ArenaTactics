@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="ArenaTacticsServer"
-run/main_scene="res://scenes/UI/characters/character_select_screen/CharacterSelectScreen.tscn"
+run/main_scene="res://ui/characters/character_select_screen/CharacterSelectScreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Networker="*res://scenes/network/Server.tscn"
-RngHandler="*res://scenes/autoloads/RNGHandler.gd"
-ProcGen="*res://scenes/world/procgen/ProceduralGenerator.tscn"
-ClassLoader="*res://scenes/character/class_loader.gd"
-DebugHelper="*res://scenes/autoloads/debug_printer.gd"
+Networker="*res://network/Server.tscn"
+RngHandler="*res://autoloads/RNGHandler.gd"
+ProcGen="*res://gameplay/arena/procgen/ProceduralGenerator.tscn"
+ClassLoader="*res://gameplay/character/class_loader.gd"
+DebugHelper="*res://autoloads/debug_printer.gd"
 
 [display]
 
@@ -32,7 +32,12 @@ window/size/mode=2
 [file_customization]
 
 folder_colors={
-"res://scenes/": "blue"
+"res://autoloads/": "orange",
+"res://gameplay/": "blue",
+"res://gameplay/character/": "purple",
+"res://gameplay/character/class_definitions/": "pink",
+"res://network/": "pink",
+"res://ui/": "green"
 }
 
 [importer_defaults]
