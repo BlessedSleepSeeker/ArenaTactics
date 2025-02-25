@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dalktguxudra8"]
 
-[ext_resource type="Theme" uid="uid://srf2bpfdjwwr" path="res://assets/theme/menu_ui_theme.tres" id="1_87076"]
-[ext_resource type="Script" path="res://scenes/menu/settings/settings_screen.gd" id="2_ehjt7"]
+[ext_resource type="Theme" uid="uid://srf2bpfdjwwr" path="res://ui/themes/menu_ui_theme.tres" id="1_87076"]
+[ext_resource type="Script" path="res://ui/screens/settings/settings_screen.gd" id="2_ehjt7"]
 
 [node name="SettingScreen" type="Control"]
 layout_mode = 3
@@ -29,10 +29,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_right = 300
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VB" type="VBoxContainer" parent="MC"]
 layout_mode = 2

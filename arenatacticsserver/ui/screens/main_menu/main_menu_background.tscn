@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dg2lu8hd15uey"]
 
-[ext_resource type="FontFile" uid="uid://cmrl2ud2gbcsr" path="res://assets/font/sci-bi.ttf" id="1_j5q1f"]
-[ext_resource type="Texture2D" uid="uid://c73iq8u6bwdgu" path="res://assets/ui/panelcontainer.png" id="2_ssdxp"]
+[ext_resource type="FontFile" uid="uid://cmrl2ud2gbcsr" path="res://ui/fonts/sci-bi.ttf" id="1_j5q1f"]
+[ext_resource type="Texture2D" uid="uid://c73iq8u6bwdgu" path="res://ui/screens/title_sequence/assets/panelcontainer.png" id="2_ssdxp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ndwxm"]
 

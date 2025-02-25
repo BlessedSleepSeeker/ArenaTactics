@@ -1,0 +1,126 @@
+[gd_scene load_steps=12 format=3 uid="uid://byyrdom0f4784"]
+
+[ext_resource type="FontFile" uid="uid://cmrl2ud2gbcsr" path="res://ui/fonts/sci-bi.ttf" id="1_s5gp3"]
+[ext_resource type="Texture2D" uid="uid://c73iq8u6bwdgu" path="res://ui/screens/title_sequence/assets/panelcontainer.png" id="2_0vqyn"]
+[ext_resource type="Script" path="res://ui/screens/title_sequence/title_sequence.gd" id="3_hwnuc"]
+[ext_resource type="SpriteFrames" uid="uid://cj21wvykpyhsg" path="res://ui/screens/title_sequence/boot_screen/title_sequence.tres" id="4_pk0iy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ndwxm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqt4n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3v54b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3cvge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxhoh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d0tq4"]
+texture = ExtResource("2_0vqyn")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="Theme" id="Theme_wx2v0"]
+default_font = ExtResource("1_s5gp3")
+default_font_size = 20
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_s5gp3")
+Button/styles/disabled = SubResource("StyleBoxEmpty_ndwxm")
+Button/styles/focus = SubResource("StyleBoxEmpty_rqt4n")
+Button/styles/hover = SubResource("StyleBoxEmpty_3v54b")
+Button/styles/normal = SubResource("StyleBoxEmpty_3cvge")
+Button/styles/pressed = SubResource("StyleBoxEmpty_jxhoh")
+GridContainer/constants/h_separation = 2
+GridContainer/constants/v_separation = 2
+Label/fonts/font = ExtResource("1_s5gp3")
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_d0tq4")
+TabBar/font_sizes/font_size = 20
+TabBar/fonts/font = ExtResource("1_s5gp3")
+
+[node name="TitleSequence" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_wx2v0")
+color = Color(0.133333, 0.129412, 0.14902, 1)
+script = ExtResource("3_hwnuc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VB" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="agameby" type="Label" parent="MarginContainer/VB"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "A Game By"
+horizontal_alignment = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/VB"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/VB/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+gui_disable_input = true
+size = Vector2i(1910, 750)
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="MarginContainer/VB/SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VB/SubViewportContainer/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="MarginContainer/VB/SubViewportContainer/SubViewport/Control/CenterContainer"]
+layout_mode = 2
+
+[node name="LogoAnimation" type="AnimatedSprite2D" parent="MarginContainer/VB/SubViewportContainer/SubViewport/Control/CenterContainer/Control"]
+unique_name_in_owner = true
+position = Vector2(-20, -20)
+scale = Vector2(40, 40)
+sprite_frames = ExtResource("4_pk0iy")
+animation = &"logo"
+
+[node name="bss" type="Label" parent="MarginContainer/VB"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Blessed Sleep Studio"
+horizontal_alignment = 1

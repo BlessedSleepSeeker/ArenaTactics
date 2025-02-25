@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ArenaTacticsServer"
-run/main_scene="res://ui/characters/character_select_screen/CharacterSelectScreen.tscn"
+run/main_scene="res://autoloads/custom_root/root.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ RngHandler="*res://autoloads/RNGHandler.gd"
 ProcGen="*res://gameplay/arena/procgen/ProceduralGenerator.tscn"
 ClassLoader="*res://gameplay/character/class_loader.gd"
 DebugHelper="*res://autoloads/debug_printer.gd"
+InputSettings="*res://autoloads/settings/input_settings.gd"
 
 [display]
 

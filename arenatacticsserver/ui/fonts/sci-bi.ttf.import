@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cmrl2ud2gbcsr"
-path="res://.godot/imported/sci-bi.ttf-e7275189cad0e003e8b4de6207be77d3.fontdata"
+path="res://.godot/imported/sci-bi.ttf-cf441e68ffcfc762e60ff2db01aa8991.fontdata"
 
 [deps]
 
-source_file="res://assets/font/sci-bi.ttf"
-dest_files=["res://.godot/imported/sci-bi.ttf-e7275189cad0e003e8b4de6207be77d3.fontdata"]
+source_file="res://ui/fonts/sci-bi.ttf"
+dest_files=["res://.godot/imported/sci-bi.ttf-cf441e68ffcfc762e60ff2db01aa8991.fontdata"]
 
 [params]
 

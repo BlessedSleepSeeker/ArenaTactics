@@ -16,6 +16,9 @@
   - [18/02/25](#180225)
   - [19/02/25](#190225)
   - [20/02/25](#200225)
+  - [21/02/25](#210225)
+  - [24/02/25](#240225)
+  - [25/02/25](#250225)
 
 ## November 24
 
@@ -109,4 +112,17 @@ harder to focus today
 ## 20/02/25
 
 - Gameplay System : PlayedAction, ActionSequences 10-12
-- Replay System : ReplayWriter
+- Replay System : ReplayWriter, ReplayReader 14-17
+
+## 21/02/25
+
+Offday
+
+## 24/02/25
+
+Offdat
+
+## 25/02/25
+
+- Gameplay System : GameSettings, GameResult
+- UI/UX : Integration of title screen, settings, main menu...

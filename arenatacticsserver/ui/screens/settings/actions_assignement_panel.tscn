@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://deilqxh4w887j"]
+[gd_scene load_steps=2 format=3 uid="uid://deilqxh4w887j"]
 
-[ext_resource type="Theme" path="res://Assets/MainTheme.tres" id="1_un6oy"]
-[ext_resource type="Script" path="res://scenes/menu/settings/actions_assignement_panel.gd" id="2_ywso3"]
+[ext_resource type="Script" path="res://ui/screens/settings/actions_assignement_panel.gd" id="2_ywso3"]
 
 [node name="ActionsAssignementPanel" type="PanelContainer"]
 anchors_preset = 8
@@ -15,7 +14,6 @@ offset_right = 22.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_un6oy")
 script = ExtResource("2_ywso3")
 
 [node name="MC" type="MarginContainer" parent="."]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brn7hd6vbxh21"
-path="res://.godot/imported/bsstudio_sheet.png-1b8e8cf0b55a680850177a959962c632.ctex"
+uid="uid://c73iq8u6bwdgu"
+path="res://.godot/imported/panelcontainer.png-67482e00af9cd57c9d87c18d38527b98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/boot_screen/bsstudio_sheet.png"
-dest_files=["res://.godot/imported/bsstudio_sheet.png-1b8e8cf0b55a680850177a959962c632.ctex"]
+source_file="res://ui/screens/title_sequence/assets/panelcontainer.png"
+dest_files=["res://.godot/imported/panelcontainer.png-67482e00af9cd57c9d87c18d38527b98.ctex"]
 
 [params]
 

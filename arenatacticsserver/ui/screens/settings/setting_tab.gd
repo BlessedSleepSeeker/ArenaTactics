@@ -1,7 +1,7 @@
 extends MarginContainer
 class_name SettingsTab
 
-@export var setting_line_scene: PackedScene = preload("res://scenes/Menu/settings/settings_line.tscn")
+@export var setting_line_scene: PackedScene = preload("res://ui/screens/settings/settings_line.tscn")
 @export var section_name: String:
 	set(val):
 		section_name = val

@@ -1,8 +1,8 @@
 extends Control
 
-@export var setting_tab_scene: PackedScene = preload("res://scenes/menu/settings/setting_tab.tscn")
+@export var setting_tab_scene: PackedScene = preload("res://ui/screens/settings/setting_tab.tscn")
 
-@export var back_scene: PackedScene = preload("res://scenes/menu/main_menu.tscn")
+@export var back_scene: PackedScene = preload("res://ui/screens/main_menu/main_menu.tscn")
 
 @onready var settings_tab: TabContainer = $MC/VB/SettingsTab
 @onready var settings: Settings = get_tree().root.get_node("Root").settings

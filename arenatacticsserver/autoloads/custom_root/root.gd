@@ -1,7 +1,7 @@
 class_name Root
 extends Node
 
-@export var first_scene: PackedScene = preload("res://scenes/title_sequence/title_sequence.tscn")
+@export var first_scene: PackedScene = preload("res://ui/screens/title_sequence/title_sequence.tscn")
 @onready var settings = $Settings
 @onready var scene_root = $SceneRoot
 @onready var animator: AnimationPlayer = $Animator

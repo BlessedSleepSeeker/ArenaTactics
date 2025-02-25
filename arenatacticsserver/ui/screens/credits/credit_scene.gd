@@ -1,6 +1,6 @@
 extends Control
 
-@export var mainMenu = preload("res://scenes/menu/main_menu.tscn")
+@export var mainMenu = preload("res://ui/screens/main_menu/main_menu.tscn")
 
 signal transition(new_scene: PackedScene, animation: String)
 
