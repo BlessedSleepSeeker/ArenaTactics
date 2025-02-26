@@ -2,7 +2,7 @@ class_name Root
 extends Node
 
 @export var first_client_scene: PackedScene = preload("res://ui/screens/title_sequence/title_sequence.tscn")
-@export var first_server_scene: PackedScene = preload("res://ui/characters/character_select_screen/CharacterSelectScreen.tscn")
+@export var first_server_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
 @onready var settings = $Settings
 @onready var scene_root = $SceneRoot
 @onready var animator: AnimationPlayer = $Animator

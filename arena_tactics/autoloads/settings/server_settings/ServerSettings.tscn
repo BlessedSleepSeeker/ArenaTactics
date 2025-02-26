@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://j5ybay8h1lep"]
+
+[ext_resource type="Script" path="res://autoloads/settings/settings.gd" id="1_1rll5"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/headless.gd" id="2_4aeiu"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/game_seed.gd" id="3_rgce2"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_team_number.gd" id="4_0277t"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/generic_text_setting.gd" id="4_jss0t"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_player_per_team.gd" id="5_waa5g"]
+
+[node name="ServerSettings" type="Node"]
+script = ExtResource("1_1rll5")
+user_settings_file_path = "user://settings/server_settings.cfg"
+
+[node name="General" type="Node" parent="."]
+
+[node name="Spectate Game" type="Node" parent="General"]
+script = ExtResource("2_4aeiu")
+key = "SPECTATE"
+tooltip = "If selected, the server will load a spectating scene. Only use if you're not taking part in the game."
+
+[node name="Game Seed" type="Node" parent="General"]
+script = ExtResource("3_rgce2")
+key = "GAME_SEED"
+tooltip = "If not blank, set the main seed for randomized random generation. 2 games played with the same seed will be played on the same map, with the obstacles at the same positions and so and so..."
+type = 3
+
+[node name="Room Password (not functional)" type="Node" parent="General"]
+script = ExtResource("4_jss0t")
+key = "ROOM_PASSWORD"
+tooltip = "Limit access to the room to users who entered the password."
+type = 3
+
+[node name="Team" type="Node" parent="."]
+
+[node name="Max Team Number" type="Node" parent="Team"]
+script = ExtResource("4_0277t")
+key = "MAX_TEAM"
+tooltip = "The maximum numbers of team in the game."
+type = 4
+
+[node name="Max Player Per Team" type="Node" parent="Team"]
+script = ExtResource("5_waa5g")
+key = "MAX_PLAYERS_PER_TEAM"
+tooltip = "The maximum number of players per team."
+type = 4

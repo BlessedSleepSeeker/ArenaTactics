@@ -1,12 +1,13 @@
 extends Control
-class_name ClientSettingsUI
+class_name ServerSettingsUI
+
 
 @export var setting_tab_scene: PackedScene = preload("res://ui/screens/settings/setting_tab.tscn")
 
 @export var back_scene: PackedScene = preload("res://ui/screens/main_menu/main_menu.tscn")
 
-@onready var settings_tab: TabContainer = $MC/VB/SettingsTab
-@onready var settings: Settings = get_tree().root.get_node("Root").settings
+@onready var settings_tab: TabContainer = $"%SettingsContainer"
+@onready var settings: Settings = get_tree().root.get_node("Root").get_node("ServerSettings")
 
 @onready var save_dialog: ConfirmationDialog = $SaveDialog
 @onready var quit_dialog: ConfirmationDialog = $QuitDialog
@@ -27,25 +28,16 @@ func _ready():
 
 
 func _on_quit_button_pressed():
-	var b = false
-	for tabs: SettingsTab in settings_tab.get_children():
-		if tabs.has_modified_settings():
-			quit_dialog.show()
-			b = true
-	if not b:
-		transition.emit(back_scene, "scene_transition")
-	
-
-func _on_save_button_pressed():
-	save_dialog.show()
-
+	quit_dialog.show()
 
 func _on_save_confirmed():
 	for tabs: SettingsTab in settings_tab.get_children():
-		tabs.save()
-	settings.apply_settings()
-	settings.save_settings_to_file()
+		print(tabs.settings)
 
 
 func _on_quit_confirmed():
-	transition.emit(back_scene, true)
+	get_tree().quit()
+
+
+func _on_launch_button_pressed():
+	save_dialog.show()

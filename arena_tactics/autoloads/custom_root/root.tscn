@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmywmdt0bmod4"]
+[gd_scene load_steps=7 format=3 uid="uid://bmywmdt0bmod4"]
 
 [ext_resource type="Script" path="res://autoloads/custom_root/root.gd" id="1_0ggjb"]
 [ext_resource type="PackedScene" uid="uid://s46wqxnh4dnl" path="res://autoloads/settings/settings.tscn" id="2_022ww"]
+[ext_resource type="PackedScene" uid="uid://j5ybay8h1lep" path="res://autoloads/settings/server_settings/ServerSettings.tscn" id="3_tlkqu"]
 
 [sub_resource type="Animation" id="Animation_43y50"]
 length = 0.001
@@ -45,6 +46,8 @@ script = ExtResource("1_0ggjb")
 
 [node name="Settings" parent="." instance=ExtResource("2_022ww")]
 user_settings_file_path = "user://settings/game_settings.cfg"
+
+[node name="ServerSettings" parent="." instance=ExtResource("3_tlkqu")]
 
 [node name="SceneRoot" type="Node" parent="."]
 

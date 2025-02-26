@@ -5,6 +5,8 @@ var lbl: Label
 var checkbox: CheckButton
 var slider: Slider
 var options: OptionButton
+var text: LineEdit
+var number: SpinBox
 
 @onready var setting_name = $NameContainer/SettingName
 @onready var container = $Container
@@ -19,12 +21,17 @@ func _ready():
 	pass
 
 func _on_mouse_exited():
-	if setting.type == setting.SETTING_TYPE.BOOLEAN:
-		checkbox.release_focus()
-	elif setting.type == setting.SETTING_TYPE.RANGE:
-		slider.release_focus()
-	elif setting.type == setting.SETTING_TYPE.OPTIONS:
-		options.release_focus()
+	match setting.type:
+		setting.SETTING_TYPE.BOOLEAN:
+			checkbox.release_focus()
+		setting.SETTING_TYPE.RANGE:
+			slider.release_focus()
+		setting.SETTING_TYPE.OPTIONS:
+			options.release_focus()
+		setting.SETTING_TYPE.TEXT:
+			text.release_focus()
+		setting.SETTING_TYPE.NUMBER:
+			number.release_focus()
 
 func tear_down() -> void:
 	if lbl != null:
@@ -35,17 +42,26 @@ func tear_down() -> void:
 		slider.queue_free()
 	if options != null:
 		options.queue_free()
+	if text != null:
+		text.queue_free()
+	if number != null:
+		number.queue_free()
 
 
 func build() -> void:
 	setting_name.text = setting.key.capitalize()
 	setting_name.tooltip_text = setting.tooltip
-	if setting.type == setting.SETTING_TYPE.BOOLEAN:
-		build_bool()
-	elif setting.type == setting.SETTING_TYPE.RANGE:
-		build_range()
-	elif setting.type == setting.SETTING_TYPE.OPTIONS:
-		build_options()
+	match setting.type:
+		setting.SETTING_TYPE.BOOLEAN:
+			build_bool()
+		setting.SETTING_TYPE.RANGE:
+			build_range()
+		setting.SETTING_TYPE.OPTIONS:
+			build_options()
+		setting.SETTING_TYPE.TEXT:
+			build_text()
+		setting.SETTING_TYPE.NUMBER:
+			build_number()
 
 
 func build_bool() -> void:
@@ -66,9 +82,9 @@ func build_range() -> void:
 	container.add_child(lbl)
 	slider.tick_count = 5
 	slider.ticks_on_borders = true
-	slider.min_value = setting.min_value
-	slider.max_value = setting.max_value
-	slider.step = setting.step
+	slider.min_value = setting.min_value_range
+	slider.max_value = setting.max_value_range
+	slider.step = setting.step_range
 	slider.value = setting.value
 
 
@@ -94,20 +110,43 @@ func build_options() -> void:
 	options.mouse_exited.connect(_on_mouse_exited)
 	container.add_child(options)
 
+func build_text() -> void:
+	text = LineEdit.new()
+	container.add_child(text)
+	text.text = setting.value
+
+func build_number() -> void:
+	number = SpinBox.new()
+	container.add_child(number)
+	number.min_value = setting.min_value_nbr
+	number.max_value = setting.max_value_nbr
+	number.step = setting.step_nbr
+	number.value = setting.value
+
 
 func is_modified() -> bool:
-	if setting.type == setting.SETTING_TYPE.BOOLEAN:
-		return setting.value != checkbox.button_pressed
-	elif setting.type == setting.SETTING_TYPE.RANGE:
-		return setting.value != slider.value
-	elif setting.type == setting.SETTING_TYPE.OPTIONS:
-		return setting.value != setting.possible_values[options.get_selected_id()]
+	match setting.type:
+		setting.SETTING_TYPE.BOOLEAN:
+			return setting.value != checkbox.button_pressed
+		setting.SETTING_TYPE.RANGE:
+			return setting.value != slider.value
+		setting.SETTING_TYPE.OPTIONS:
+			return setting.value != setting.possible_values[options.get_selected_id()]
+		setting.SETTING_TYPE.TEXT:
+			return setting.value != text.text
+		setting.SETTING_TYPE.NUMBER:
+			return setting.value != number.value
 	return true
 
 func save() -> void:
-	if setting.type == setting.SETTING_TYPE.BOOLEAN:
-		setting.value = checkbox.button_pressed
-	elif setting.type == setting.SETTING_TYPE.RANGE:
-		setting.value = slider.value
-	elif setting.type == setting.SETTING_TYPE.OPTIONS:
-		setting.value = setting.possible_values[options.get_selected_id()]
+	match setting.type:
+		setting.SETTING_TYPE.BOOLEAN:
+			setting.value = checkbox.button_pressed
+		setting.SETTING_TYPE.RANGE:
+			setting.value = slider.value
+		setting.SETTING_TYPE.OPTIONS:
+			setting.value = setting.possible_values[options.get_selected_id()]
+		setting.SETTING_TYPE.TEXT:
+			setting.value = text.text
+		setting.SETTING_TYPE.NUMBER:
+			setting.value = number.value

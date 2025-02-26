@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://qey4naoxiapu"]
+
+[ext_resource type="Script" path="res://ui/screens/server_config/server_config.gd" id="1_ualbq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2poek"]
+bg_color = Color(0, 0.6375, 0.85, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.5025, 0.67, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2so2"]
+font_size = 70
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ServerConfig" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0.85, 1, 1)
+script = ExtResource("1_ualbq")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2poek")
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleContainer" type="HBoxContainer" parent="Margin/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/PanelContainer/MarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+text = "Server Configuration"
+label_settings = SubResource("LabelSettings_t2so2")
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsContainer" type="TabContainer" parent="Margin/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Margin/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="Margin/PanelContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit"
+
+[node name="AvoidMissClickSpacer" type="Control" parent="Margin/PanelContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LaunchButton" type="Button" parent="Margin/PanelContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Launch Server"
+
+[node name="SaveDialog" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = "Launch Game with these settings ?"
+initial_position = 2
+size = Vector2i(400, 80)
+visible = true
+content_scale_mode = 2
+content_scale_aspect = 1
+content_scale_stretch = 1
+ok_button_text = "Let's Go !"
+cancel_button_text = "Nah, not yet"
+
+[node name="QuitDialog" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = "Are you sure ?"
+initial_position = 2
+size = Vector2i(400, 80)
+unresizable = true
+popup_window = true
+min_size = Vector2i(300, 30)
+content_scale_mode = 2
+content_scale_aspect = 1
+content_scale_stretch = 1
+ok_button_text = "Yes, get me out of here !"
+cancel_button_text = "Nah, let me stay"
+
+[connection signal="pressed" from="Margin/PanelContainer/MarginContainer/VBoxContainer/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/MarginContainer/VBoxContainer/ButtonContainer/LaunchButton" to="." method="_on_launch_button_pressed"]

@@ -19,6 +19,7 @@
   - [21/02/25](#210225)
   - [24/02/25](#240225)
   - [25/02/25](#250225)
+  - [26/02/25](#260225)
 
 ## November 24
 
@@ -127,3 +128,7 @@ Offdat
 - Gameplay System : GameSettings, GameResult
 - UI/UX : Integration of title screen, settings, main menu...
 - Set up client/server separation
+
+## 26/02/25
+
+- Server Settings : actual settings + ui
