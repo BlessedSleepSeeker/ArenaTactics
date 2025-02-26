@@ -2,6 +2,7 @@ extends Node
 class_name Setting
 
 # Class for defining a single setting.
+@export var type: SETTING_TYPE = SETTING_TYPE.BOOLEAN
 @export var key: String
 @export_multiline var tooltip: String
 var value: Variant
@@ -15,7 +16,7 @@ enum SETTING_TYPE {
 	NUMBER
 }
 
-@export var type: SETTING_TYPE = SETTING_TYPE.BOOLEAN
+
 
 @export_group("Range Type")
 @export var min_value_range: int = 0

@@ -1,3 +1,11 @@
-[gd_resource type="Theme" format=3 uid="uid://srf2bpfdjwwr"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://srf2bpfdjwwr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfh8j"]
+bg_color = Color(0.939473, 0.358365, 0.618218, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1473x"]
+bg_color = Color(0.930867, 0.372729, 0.605018, 1)
 
 [resource]
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_bfh8j")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_1473x")

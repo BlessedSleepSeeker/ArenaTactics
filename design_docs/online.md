@@ -17,8 +17,10 @@
 
 ### I want to host a game
 
-1. Launch the server in headless "host game mode".
-   1. This will open a terminal running the server.
-2. Forward your ports if needed.
-3. Launch your player's clients and connect to the server.
-4. The first connected player is admin and can tweak settings/launch the game.
+1. Launch the game with `-- --server` args.
+2. Set your server setting then click on "run server"
+   1. If headless : this will open a terminal running the server.
+   2. If not, this will continue executing the server.
+3. Forward your ports if needed.
+4. Launch your player's clients and connect to the server.
+5. The first connected player is admin and can tweak settings/launch the game.

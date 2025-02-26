@@ -2,6 +2,7 @@ class_name Root
 extends Node
 
 @export var first_client_scene: PackedScene = preload("res://ui/screens/title_sequence/title_sequence.tscn")
+@export var first_server_launcher_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
 @export var first_server_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
 @onready var settings = $Settings
 @onready var scene_root = $SceneRoot
@@ -11,7 +12,10 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	transition_sprite.position = Vector2(-1920, 0)
-	if UserArguments.has_arg("server"):
+	if UserArguments.has_arg("server_launcher"):
+		add_scene(first_server_launcher_scene)
+	elif UserArguments.has_arg("server"):
+		printerr("Starting Server !")
 		add_scene(first_server_scene)
 	else:
 		add_scene(first_client_scene)

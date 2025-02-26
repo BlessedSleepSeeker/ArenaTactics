@@ -2,6 +2,7 @@ extends Node
 class_name Settings
 
 @export var user_settings_file_path: String = "user://settings/game_settings.cfg"
+@export var load_settings_on_boot: bool = true
 
 #setting file path
 @onready var settings_file := ConfigFile.new()
@@ -10,15 +11,15 @@ class_name Settings
 ## Then we load the setting file and change the values of our settings based on the value inside the file.
 ## We then apply the settings and save the settings value to the settings file.
 func _ready():
-	if load_setting_file() == OK:
+	if load_setting_file() == OK && load_settings_on_boot:
 		load_settings_from_file()
 	apply_settings()
 	save_settings_to_file()
 
 ## Return an array with the names of the sections.
 ## Used for UI creation.
-func get_sections_list() -> Array:
-	var sections: Array = []
+func get_sections_list() -> Array[String]:
+	var sections: Array[String] = []
 	for sett in get_children():
 		if !sections.has(sett.name):
 			sections.append(sett.name)
@@ -32,6 +33,12 @@ func get_settings_by_section(section: String) -> Array:
 		return sect.get_children()
 	return []
 
+func get_settings_as_dict() -> Dictionary:
+	var sett_dict = {}
+	for section: String in get_sections_list():
+		for setting: Setting in get_settings_by_section(section):
+			sett_dict[setting.key] = setting.value
+	return sett_dict
 
 ## Change the path to the settings file.
 func change_settings_file_path(new_path: String) -> void:
@@ -55,7 +62,6 @@ func load_settings_from_file() -> void:
 ## We need to call save_to_file() only when the settings are saved by the user.
 func save_settings_to_file() -> int:
 	#print_debug('Saving file at %s' % user_settings_file_path)
-
 	for section in get_children():
 		for setting in section.get_children():
 			set_file_value(section.name, setting.key, setting.value)

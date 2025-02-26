@@ -1,5 +1,4 @@
 extends Control
-class_name ServerSettingsUI
 
 
 @export var setting_tab_scene: PackedScene = preload("res://ui/screens/settings/setting_tab.tscn")
@@ -32,8 +31,8 @@ func _on_quit_button_pressed():
 
 func _on_save_confirmed():
 	for tabs: SettingsTab in settings_tab.get_children():
-		print(tabs.settings)
-
+		tabs.save()
+	launch_server()
 
 func _on_quit_confirmed():
 	get_tree().quit()
@@ -41,3 +40,6 @@ func _on_quit_confirmed():
 
 func _on_launch_button_pressed():
 	save_dialog.show()
+
+func launch_server() -> void:
+	pass#var launcher = ArenaServerLauncher.new(settings)

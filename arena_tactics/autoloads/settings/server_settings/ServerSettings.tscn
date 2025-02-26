@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://j5ybay8h1lep"]
+[gd_scene load_steps=8 format=3 uid="uid://j5ybay8h1lep"]
 
 [ext_resource type="Script" path="res://autoloads/settings/settings.gd" id="1_1rll5"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/headless.gd" id="2_4aeiu"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/allow_spectators.gd" id="2_80j1j"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/game_seed.gd" id="3_rgce2"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_team_number.gd" id="4_0277t"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/generic_text_setting.gd" id="4_jss0t"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/spectator_limit.gd" id="5_ve3yb"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_player_per_team.gd" id="5_waa5g"]
 
 [node name="ServerSettings" type="Node"]
@@ -13,33 +14,41 @@ user_settings_file_path = "user://settings/server_settings.cfg"
 
 [node name="General" type="Node" parent="."]
 
-[node name="Spectate Game" type="Node" parent="General"]
-script = ExtResource("2_4aeiu")
-key = "SPECTATE"
-tooltip = "If selected, the server will load a spectating scene. Only use if you're not taking part in the game."
-
 [node name="Game Seed" type="Node" parent="General"]
 script = ExtResource("3_rgce2")
+type = 3
 key = "GAME_SEED"
 tooltip = "If not blank, set the main seed for randomized random generation. 2 games played with the same seed will be played on the same map, with the obstacles at the same positions and so and so..."
-type = 3
 
-[node name="Room Password (not functional)" type="Node" parent="General"]
+[node name="Room Password" type="Node" parent="General"]
 script = ExtResource("4_jss0t")
+type = 3
 key = "ROOM_PASSWORD"
 tooltip = "Limit access to the room to users who entered the password."
-type = 3
 
-[node name="Team" type="Node" parent="."]
+[node name="Teams" type="Node" parent="."]
 
-[node name="Max Team Number" type="Node" parent="Team"]
+[node name="Max Team Number" type="Node" parent="Teams"]
 script = ExtResource("4_0277t")
-key = "MAX_TEAM"
-tooltip = "The maximum numbers of team in the game."
 type = 4
+key = "MAXIMUM_TEAMS"
+tooltip = "The maximum number of teams in the game."
 
-[node name="Max Player Per Team" type="Node" parent="Team"]
+[node name="Max Player Per Team" type="Node" parent="Teams"]
 script = ExtResource("5_waa5g")
-key = "MAX_PLAYERS_PER_TEAM"
-tooltip = "The maximum number of players per team."
 type = 4
+key = "MAXIMUM_PLAYERS_PER_TEAM"
+tooltip = "The maximum number of players per team."
+
+[node name="Spectating" type="Node" parent="."]
+
+[node name="Allow Spectators" type="Node" parent="Spectating"]
+script = ExtResource("2_80j1j")
+key = "ALLOW_SPECTATORS"
+tooltip = "If false, no spectator can join."
+
+[node name="Spectator Limit" type="Node" parent="Spectating"]
+script = ExtResource("5_ve3yb")
+type = 4
+key = "MAXIMUM_SPECTATORS"
+tooltip = "0 means no limit."

@@ -18,15 +18,15 @@ user_settings_file_path = "user://game_settings.cfg"
 
 [node name="WindowType" type="Node" parent="Window"]
 script = ExtResource("5_h84ts")
-key = "WINDOW_TYPE"
 type = 2
+key = "WINDOW_TYPE"
 
 [node name="Resolution" type="Node" parent="Window"]
 script = ExtResource("2_g3vyq")
 base_value = "1280x720"
+type = 2
 key = "RESOLUTION"
 tooltip = "Only applied when mode is Windowed"
-type = 2
 
 [node name="Vsync" type="Node" parent="Window"]
 script = ExtResource("3_b8qgr")
@@ -34,27 +34,27 @@ key = "VSYNC"
 
 [node name="MaxFrameRate" type="Node" parent="Window"]
 script = ExtResource("4_07xv1")
-key = "MAX_FRAME_RATE"
 type = 2
+key = "MAX_FRAME_RATE"
 
 [node name="Sound" type="Node" parent="."]
 
 [node name="MasterVolume" type="Node" parent="Sound"]
 script = ExtResource("5_c4hqd")
-key = "MASTER_VOLUME"
 type = 1
+key = "MASTER_VOLUME"
 
 [node name="MusicVolume" type="Node" parent="Sound"]
 script = ExtResource("5_c4hqd")
 bus_name = "Music"
-key = "MUSIC_VOLUME"
 type = 1
+key = "MUSIC_VOLUME"
 
 [node name="SoundEffectVolume" type="Node" parent="Sound"]
 script = ExtResource("5_c4hqd")
 bus_name = "Sound Effect"
-key = "SOUND_EFFECT_VOLUME"
 type = 1
+key = "SOUND_EFFECT_VOLUME"
 
 [node name="MuteInBackground" type="Node" parent="Sound"]
 script = ExtResource("6_dhgul")
@@ -65,13 +65,13 @@ tooltip = "Mute the Game when the window isn't focused"
 
 [node name="Language" type="Node" parent="Game"]
 script = ExtResource("9_bqloj")
+type = 2
 key = "LANGUAGE"
 tooltip = "Sorry... Only English for now..."
-type = 2
 
 [node name="UI" type="Node" parent="."]
 
 [node name="Scale" type="Node" parent="UI"]
 script = ExtResource("9_nhd6j")
-key = "UI_SCALE"
 type = 2
+key = "UI_SCALE"
