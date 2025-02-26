@@ -19,10 +19,13 @@ func convert_dict_to_args(dict: Dictionary) -> PackedStringArray:
 	return args
 
 func launch_server_with_args(args: PackedStringArray) -> void:
+	var strr = OS.get_executable_path()
 	for a in args:
-		print_debug(a)
-	var dict = OS.execute_with_pipe(OS.get_executable_path(), args)
-	var stdio = dict["stdio"]
-	var stderr = dict["stderr"]
-	var pid = dict["pid"]
-	print(stdio, stderr, pid)
+		strr += " "
+		strr += a
+	#print_debug(strr)
+	# var dict = OS.execute_with_pipe(OS.get_executable_path(), args)
+	# var stdio = dict["stdio"]
+	# var stderr = dict["stderr"]
+	# var pid = dict["pid"]
+	# print(stdio, stderr, pid)

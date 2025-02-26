@@ -4,29 +4,43 @@ class_name NetworkServer
 signal player_connected(peer_id)
 signal player_disconnected(peer_id)
 
-const PORT = 7000
-const DEFAULT_SERVER_IP = "127.0.0.1"
-const MAX_CONNEXION = 4
+const TYPE: String = "SERVER"
+var PORT: int = 7000
+var DEFAULT_SERVER_IP: String = "127.0.0.1"
+var MAX_CONNEXION: int = 4
 
 var lobby_name = "Tintalabus's Awesome Lobby"
 var players = {}
 
+@onready var settings: Settings = get_tree().root.get_node("Root").get_node("ServerSettings")
+
 @onready var chatModule = $ChatModule
 
 func _ready():
+	print_debug("coucou")
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	read_params()
 	create_game()
 
+func read_params() -> void:
+	settings.parse_user_params()
+	PORT = int(settings.read_setting_value_by_key("IP_PORT"))
+	if int(settings.read_setting_value_by_key("MAXIMUM_SPECTATORS")) == 0:
+		MAX_CONNEXION = 4095
+	else:
+		## Making sure that settings are interpreted as positive integer and clamped between 1 and 4095.
+		MAX_CONNEXION = clampi(abs(int(settings.read_setting_value_by_key("MAXIMUM_TEAMS"))) * abs(int(settings.read_setting_value_by_key("MAXIMUM_PLAYERS_PER_TEAM"))) + abs(int(settings.read_setting_value_by_key("MAXIMUM_SPECTATORS"))), 1, 4095)
 
 func create_game():
 	var peer := ENetMultiplayerPeer.new()
+	print_debug(PORT, ":", MAX_CONNEXION)
 	var error = peer.create_server(PORT, MAX_CONNEXION)
 	if error:
-		print_debug(error)
+		push_error(error_string(error))
 		return error
 	multiplayer.multiplayer_peer = peer
-	#print_debug("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
+	print("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
 
 
 func _on_player_connected(_id):

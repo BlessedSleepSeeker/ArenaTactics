@@ -5,6 +5,7 @@ signal player_disconnected(peer_id)
 signal server_disconnected
 signal player_list_updated(list)
 
+const TYPE: String = "CLIENT"
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNEXION = 4

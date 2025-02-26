@@ -51,6 +51,8 @@ user_settings_file_path = "user://settings/game_settings.cfg"
 
 [node name="SceneRoot" type="Node" parent="."]
 
+[node name="NetworkRoot" type="Node" parent="."]
+
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_yeyqi")
@@ -65,8 +67,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1919.99
-offset_right = -1919.99
 grow_horizontal = 2
 grow_vertical = 2
 

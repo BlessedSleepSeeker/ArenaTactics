@@ -3,9 +3,13 @@ extends Node
 
 @export var first_client_scene: PackedScene = preload("res://ui/screens/title_sequence/title_sequence.tscn")
 @export var first_server_launcher_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
-@export var first_server_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
+@export var first_server_scene: PackedScene = preload("res://network/server/Server.tscn")
+@export var network_server_scene: PackedScene = preload("res://network/server/Server.tscn")
+@export var network_client_scene: PackedScene = preload("res://network/client/Client.tscn")
+
 @onready var settings = $Settings
 @onready var scene_root = $SceneRoot
+@onready var network_root = $NetworkRoot
 @onready var animator: AnimationPlayer = $Animator
 @onready var transition_sprite: Control = $"%TransitionSprite"
 
@@ -15,9 +19,10 @@ func _ready():
 	if UserArguments.has_arg("server_launcher"):
 		add_scene(first_server_launcher_scene)
 	elif UserArguments.has_arg("server"):
-		printerr("Starting Server !")
-		add_scene(first_server_scene)
+		add_network_scene(network_server_scene)
+		#add_scene(first_server_scene)
 	else:
+		add_network_scene(network_client_scene)
 		add_scene(first_client_scene)
 
 func flush_scenes():
@@ -29,6 +34,10 @@ func add_scene(new_scene: PackedScene):
 	if instance.has_signal("transition") and not instance.transition.is_connected(_on_transition):
 		instance.transition.connect(_on_transition)
 	scene_root.add_child(instance)
+
+func add_network_scene(network_scene: PackedScene):
+	var instance = network_scene.instantiate()
+	network_root.add_child(instance)
 
 func change_scene(new_scene: PackedScene):
 	flush_scenes()

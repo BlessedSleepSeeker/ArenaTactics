@@ -32,6 +32,10 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
 
+[editor]
+
+run/main_run_args="-- --server --GAME_SEED=7432984726 --ROOM_PASSWORD=Zkjrezlkjrez --IP_ADRESS=127.0.0.1 --IP_PORT=7000 --MAXIMUM_TEAMS=2 --MAXIMUM_PLAYERS_PER_TEAM=1 --ALLOW_SPECTATORS=true --MAXIMUM_SPECTATORS=0"
+
 [file_customization]
 
 folder_colors={

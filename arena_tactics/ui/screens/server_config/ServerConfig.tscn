@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://qey4naoxiapu"]
+[gd_scene load_steps=5 format=3 uid="uid://qey4naoxiapu"]
 
+[ext_resource type="Script" path="res://ui/screens/server_config/server_config.gd" id="1_qcbwi"]
 [ext_resource type="Theme" uid="uid://r8wkoocujs1g" path="res://ui/themes/modal_theme.tres" id="2_gg53u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2poek"]
@@ -28,6 +29,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0.85, 1, 1)
+script = ExtResource("1_qcbwi")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1

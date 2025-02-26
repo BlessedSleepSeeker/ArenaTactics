@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://j5ybay8h1lep"]
+[gd_scene load_steps=10 format=3 uid="uid://j5ybay8h1lep"]
 
 [ext_resource type="Script" path="res://autoloads/settings/settings.gd" id="1_1rll5"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/allow_spectators.gd" id="2_80j1j"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/game_seed.gd" id="3_rgce2"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_team_number.gd" id="4_0277t"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/generic_text_setting.gd" id="4_jss0t"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/ip_adress.gd" id="4_uqtma"]
+[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/network_port.gd" id="5_c5ota"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/spectator_limit.gd" id="5_ve3yb"]
 [ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_player_per_team.gd" id="5_waa5g"]
 
@@ -25,6 +27,20 @@ script = ExtResource("4_jss0t")
 type = 3
 key = "ROOM_PASSWORD"
 tooltip = "Limit access to the room to users who entered the password."
+
+[node name="Network" type="Node" parent="."]
+
+[node name="IP Adress" type="Node" parent="Network"]
+script = ExtResource("4_uqtma")
+type = 3
+key = "IP_ADRESS"
+tooltip = "Your current IP Adress"
+
+[node name="Network Port" type="Node" parent="Network"]
+script = ExtResource("5_c5ota")
+type = 3
+key = "IP_PORT"
+tooltip = "The networking port used by the server. Must be free !"
 
 [node name="Teams" type="Node" parent="."]
 

@@ -1,4 +1,5 @@
 extends Control
+class_name ServerConfigUI
 
 
 @export var setting_tab_scene: PackedScene = preload("res://ui/screens/settings/setting_tab.tscn")
@@ -42,4 +43,4 @@ func _on_launch_button_pressed():
 	save_dialog.show()
 
 func launch_server() -> void:
-	pass#var launcher = ArenaServerLauncher.new(settings)
+	var launcher = ArenaServerLauncher.new(settings)

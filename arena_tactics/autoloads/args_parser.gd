@@ -9,7 +9,7 @@ func _ready():
 			arguments[key_value[0].trim_prefix("--")] = key_value[1]
 		else:
 			arguments[argument.trim_prefix("--")] = ""
-	print_debug(arguments)
+	#print_debug(arguments)
 
 func get_arg(arg_name: String) -> String:
 	if arguments.has(arg_name):

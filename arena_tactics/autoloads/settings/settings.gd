@@ -16,6 +16,7 @@ func _ready():
 	apply_settings()
 	save_settings_to_file()
 
+#region SceneTree
 ## Return an array with the names of the sections.
 ## Used for UI creation.
 func get_sections_list() -> Array[String]:
@@ -40,6 +41,28 @@ func get_settings_as_dict() -> Dictionary:
 			sett_dict[setting.key] = setting.value
 	return sett_dict
 
+func find_setting_by_key(setting_key: String) -> Setting:
+	for section in get_sections_list():
+		for setting: Setting in get_settings_by_section(section):
+			if setting_key == setting.key:
+				return setting
+	return null
+
+func read_setting_value_by_key(setting_key: String) -> Variant:
+	var setting = find_setting_by_key(setting_key)
+	return setting.value
+#endregion
+
+#region UserParams
+
+func parse_user_params() -> void:
+	for arg in UserArguments.arguments:
+		var setting: Setting = find_setting_by_key(arg)
+		if setting:
+			setting.value = UserArguments.arguments[arg]
+#endregion
+
+#region File Handling
 ## Change the path to the settings file.
 func change_settings_file_path(new_path: String) -> void:
 	user_settings_file_path = new_path
@@ -78,12 +101,14 @@ func get_file_value(section: String, setting: String) -> Variant:
 
 func set_file_value(section: String, setting: String, value: Variant) -> void:
 	settings_file.set_value(section, setting, value)
+#endregion
 
-## Settings Interaction
-
+#region Settings Interaction
 func print_settings() -> void:
-	for seti in get_children():
-		print_debug(seti.get_print_string())
+	for section in get_children():
+		print("___%s___" % section.name)
+		for seti in section.get_children():
+			print(seti.get_print_string())
 
 
 #func create_bool_setting(key: String, value: Variant): #automaticaly set the default value to the value you give him at creation
@@ -112,3 +137,4 @@ func apply_settings() -> void:
 		for setting in section.get_children():
 			if setting.has_method("apply"):
 				setting.apply()
+#endregion
