@@ -1,0 +1,187 @@
+[gd_scene load_steps=3 format=3 uid="uid://nb6t0gkmna7c"]
+
+[ext_resource type="Script" path="res://ui/screens/network/lobby_connector/lobby_connector.gd" id="1_awj5n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwgro"]
+bg_color = Color(0.168, 0.3984, 0.6, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.256, 0.373867, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LobbyConnector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_awj5n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.3105, 0.69, 0.6647, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="ConnectPanel" type="PanelContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rwgro")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Connection" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="UserIdentity" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/UserIdentity"]
+layout_mode = 2
+text = "Player Name"
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/UserIdentity"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerName" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/UserIdentity"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "Tintalabus"
+max_length = 25
+expand_to_text_length = true
+select_all_on_focus = true
+caret_blink = true
+
+[node name="ServerIP" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerIP"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Adress"
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerIP"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ServerAdress" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerIP"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Fill Me !"
+expand_to_text_length = true
+clear_button_enabled = true
+select_all_on_focus = true
+caret_blink = true
+
+[node name="ServerPort" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPort"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Port"
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPort"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ServerPort" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPort"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "7000"
+placeholder_text = "Fill Me !"
+expand_to_text_length = true
+clear_button_enabled = true
+select_all_on_focus = true
+caret_blink = true
+
+[node name="ServerPass" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPass"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Password"
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPass"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ServerPass" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection/ServerPass"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "Optional"
+expand_to_text_length = true
+clear_button_enabled = true
+select_all_on_focus = true
+caret_blink = true
+secret = true
+
+[node name="ConnectButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/ConnectPanel/MarginContainer/Connection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Connect !"
+
+[node name="ErrorPanel" type="PanelContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer/ErrorPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ErrorLabel" type="RichTextLabel" parent="MarginContainer/CenterContainer/VBoxContainer/ErrorPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="ReturnButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Go Back !"

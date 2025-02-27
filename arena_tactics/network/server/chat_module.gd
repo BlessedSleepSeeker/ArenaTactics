@@ -1,11 +1,16 @@
 extends Node
 
+var networker: NetworkServer
+
+func _ready():
+	networker = owner as NetworkServer
+
 @rpc("any_peer", "reliable")
-func send_chat_message(message):
+func send_chat_message(message: String, type: String) -> void:
 	var sender_id = multiplayer.get_remote_sender_id()
-	#var author = Networker.players[sender_id]["name"] + ' (' + str(sender_id) + ')'
-	#receive_chat_message.rpc(author, message)
+	var author = networker.players[sender_id]["name"] + ' (' + str(sender_id) + ')'
+	receive_chat_message.rpc(author, message, type)
 
 @rpc("authority", "reliable")
-func receive_chat_message(_author: String, _message: String):
+func receive_chat_message(_author: String, _message: String, _type: String) -> void:
 	pass

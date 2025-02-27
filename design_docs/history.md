@@ -131,4 +131,6 @@ Offdat
 
 ## 26/02/25
 
-- Server Settings : actual settings + ui
+- ServerLauncher Settings : actual settings + ui
+- ServerLauncher : starting server.
+- Server and Client : networking set up

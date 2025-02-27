@@ -1,14 +1,7 @@
 extends Control
+class_name Lobby
 
-@export var menuScenePath := "res://ui/screens/main_menu/main_menu.tscn"
-
-@onready var playerNameLine: LineEdit = get_node("%PlayerName")
-
-@onready var serverAdressLine: LineEdit = get_node("%ServerAdress")
-@onready var serverPortLine: LineEdit = get_node("%ServerPort")
-@onready var connectButton: Button = get_node("%ConnectButton")
 @onready var returnButton: Button = get_node("%ReturnButton")
-@onready var disconnectButton: Button = get_node("%DisconnectButton")
 @onready var launchGameButton: Button = get_node("%LaunchGameButton")
 
 @onready var playerListContainer: VBoxContainer = get_node("%ListContainer")
@@ -19,30 +12,17 @@ extends Control
 
 @onready var networker: NetworkClient = get_tree().root.get_node("Root").get_node("NetworkRoot").get_node("Networker")
 
+@export var lobby_connector_scene_path: String = "res://ui/screens/network/lobby_connector/LobbyConnector.tscn"
 signal transition(new_scene: PackedScene, animation: String)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	connectButton.pressed.connect(_on_connect_button_pressed)
 	returnButton.pressed.connect(_on_return_button_pressed)
-	disconnectButton.pressed.connect(_on_disconnect_button_pressed)
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
 	launchGameButton.pressed.connect(_on_launch_game_pressed)
 
 	networker.player_disconnected.connect(_on_player_disconnected)
 	networker.player_list_updated.connect(_on_player_list_updated)
 	networker.chatModule.chat_message_received.connect(_on_message_received)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_connect_button_pressed():
-	var server_adress = serverAdressLine.text
-	var server_port = int(serverPortLine.text)
-	var player_name = playerNameLine.text
-
-	networker.set_player_info({"name": player_name})
-	networker.join_game(server_adress, server_port)
-
 
 func _on_player_list_updated():
 	for child in playerListContainer.get_children():
@@ -57,15 +37,9 @@ func _on_player_disconnected(_id):
 	_on_player_list_updated()
 
 
-func _on_disconnect_button_pressed():
-	networker.leave()
-	for child in chatContainer.get_children():
-		child.queue_free()
-
-
 func _on_return_button_pressed():
 	networker.leave()
-	var menuScene = load(menuScenePath)
+	var menuScene = load(lobby_connector_scene_path)
 	transition.emit(menuScene, "scene_transition")
 
 
@@ -73,15 +47,31 @@ func _on_chat_send_pressed():
 	if chatMessageLine.text == "" or not networker.multiplayer.has_multiplayer_peer():
 		return
 	var message_content = chatMessageLine.text
-	networker.chatModule.send_chat_message.rpc_id(1, message_content)
+	networker.chatModule.send_chat_message.rpc_id(1, message_content, "USER_MESSAGE")
 	chatMessageLine.text = ""
 
 
-func _on_message_received(author: String, message: String):
-	var msg: Label = Label.new()
-	msg.text = "%s : %s" % [author, message]
+func _on_message_received(author: String, message: String, type: String):
+	var msg: RichTextLabel = RichTextLabel.new()
+	msg.bbcode_enabled = true
+	msg.fit_content = true
+	var msg_str = "[b]%s[/b] : %s" % [author, message]
+	msg.text = add_type_coloring(msg_str, type)
 	chatContainer.add_child(msg)
 
 
 func _on_launch_game_pressed():
 	pass
+
+func add_type_coloring(formated_message: String, type: String) -> String:
+	match type:
+		"MAJOR_SUCCESS":
+			return "[color=lime]%s[/color]" % formated_message
+		"MINOR_SUCCESS":
+			return "[color=light_sky_blue]%s[/color]" % formated_message
+		"MINOR_FAILURE":
+			return "[color=coral]%s[/color]" % formated_message
+		"MAJOR_FAILURE":
+			return "[color=firebrick]%s[/color]" % formated_message
+		_:
+			return formated_message

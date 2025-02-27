@@ -56,7 +56,7 @@ theme_override_constants/margin_top = 10
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Back to Menu"
+text = "Disconnect !"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -68,90 +68,6 @@ theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-
-[node name="UserIdentity" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/UserIdentity"]
-layout_mode = 2
-theme_override_constants/margin_right = 20
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UserIdentity/MarginContainer"]
-layout_mode = 2
-text = "Player Name"
-
-[node name="PlayerName" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/UserIdentity"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-placeholder_text = "Tintalabus"
-max_length = 25
-expand_to_text_length = true
-select_all_on_focus = true
-caret_blink = true
-
-[node name="ServerConnection" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-layout_mode = 2
-theme_override_constants/margin_right = 10
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Server Adress"
-
-[node name="ServerAdress" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "127.0.0.1"
-placeholder_text = "Fill Me !"
-expand_to_text_length = true
-clear_button_enabled = true
-select_all_on_focus = true
-caret_blink = true
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Server Port"
-
-[node name="ServerPort" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "7000"
-placeholder_text = "Fill Me !"
-expand_to_text_length = true
-clear_button_enabled = true
-select_all_on_focus = true
-caret_blink = true
-
-[node name="AspectRatioContainer" type="Control" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ConnectButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Connect !"
-
-[node name="DisconnectButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Disconnect"
-
-[node name="LaunchGameButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Launch Game"
 
 [node name="ConnectedData" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -230,3 +146,16 @@ unique_name_in_owner = true
 layout_mode = 2
 shortcut = SubResource("Shortcut_2rsgc")
 text = "Send !"
+
+[node name="ServerConnection" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LaunchGameButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Launch Game"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/MarginContainer/VBoxContainer/ServerConnection"]
+layout_mode = 2
+size_flags_horizontal = 3

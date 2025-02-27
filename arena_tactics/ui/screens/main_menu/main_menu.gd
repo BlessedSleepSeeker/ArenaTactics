@@ -1,8 +1,8 @@
 extends Control
 
-@export var creditsScenePath := "res://ui/screens/credits/credit_scene.tscn"
-@export var gamePath := "res://ui/screens/network/lobby/lobby.tscn"
-@export var settings_screen_path := "res://ui/screens/settings/settings_screen.tscn"
+@export var creditsScenePath: String = "res://ui/screens/credits/credit_scene.tscn"
+@export var gamePath: String = "res://ui/screens/network/lobby_connector/LobbyConnector.tscn"
+@export var settings_screen_path: String = "res://ui/screens/settings/settings_screen.tscn"
 
 signal transition(new_scene: PackedScene, animation: String)
 

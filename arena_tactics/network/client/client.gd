@@ -4,6 +4,9 @@ class_name NetworkClient
 signal player_disconnected(peer_id)
 signal server_disconnected
 signal player_list_updated(list)
+signal allowed_in_server
+
+signal new_error(msg: String)
 
 const TYPE: String = "CLIENT"
 const PORT = 7000
@@ -12,7 +15,7 @@ const MAX_CONNEXION = 4
 
 var players = {}
 
-var player_info: Dictionary = {"name": "Client"}
+var player_info: Dictionary = {"name": "Client", "password": ""}
 
 @onready var chatModule = $ChatModule
 
@@ -28,7 +31,7 @@ func _ready():
 		multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 
-func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
+func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT) -> bool:
 	leave()
 	var peer := ENetMultiplayerPeer.new()
 	var error = peer.create_client(adress, _port)
@@ -36,18 +39,27 @@ func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT):
 		OK:
 			pass
 		ERR_ALREADY_IN_USE:
-			printerr("(!) ERROR: You created a client already!")
+			throw_error("ERROR : You created a client already.")
 			return false
 		ERR_CANT_CREATE:
-			printerr("(!) ERROR: The client could not be created!")
+			throw_error("ERROR: The client could not be created!")
 			return false
 		_:
-			printerr("|!| ERROR: Unknown error!")
+			throw_error("ERROR: Unknown error!")
 			return false
 
 	multiplayer.multiplayer_peer = peer
+	return true
 	#print_debug("Client connected to %s:%d" % [adress, PORT])
 
+
+@rpc("authority", "reliable")
+func allowed_in():
+	allowed_in_server.emit()
+
+@rpc("authority", "reliable")
+func throw_error(msg: String):
+	new_error.emit(msg)
 
 func leave():
 	players = {}
