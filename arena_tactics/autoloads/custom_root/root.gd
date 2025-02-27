@@ -3,7 +3,7 @@ extends Node
 
 @export var first_client_scene: PackedScene = preload("res://ui/screens/title_sequence/title_sequence.tscn")
 @export var first_server_launcher_scene: PackedScene = preload("res://ui/screens/server_config/ServerConfig.tscn")
-@export var first_server_scene: PackedScene = preload("res://network/server/Server.tscn")
+@export var first_server_scene: PackedScene = preload("res://ui/screens/network/server_logs/ServerLogs.tscn")
 @export var network_server_scene: PackedScene = preload("res://network/server/Server.tscn")
 @export var network_client_scene: PackedScene = preload("res://network/client/Client.tscn")
 
@@ -20,7 +20,7 @@ func _ready():
 		add_scene(first_server_launcher_scene)
 	elif UserArguments.has_arg("server"):
 		add_network_scene(network_server_scene)
-		#add_scene(first_server_scene)
+		add_scene(first_server_scene)
 	else:
 		add_network_scene(network_client_scene)
 		add_scene(first_client_scene)

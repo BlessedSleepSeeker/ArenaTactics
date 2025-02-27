@@ -7,6 +7,8 @@ signal player_disconnected(peer_id)
 signal allowed_in_server()
 signal new_error(msg: String)
 
+signal log_me(msg: String)
+
 const TYPE: String = "SERVER"
 var PORT: int = 7000
 var DEFAULT_SERVER_IP: String = "127.0.0.1"
@@ -16,7 +18,7 @@ var lobby_name = "Tintalabus's Awesome Lobby"
 var players: Dictionary = {}
 
 @onready var settings: Settings = get_tree().root.get_node("Root").get_node("ServerSettings")
-@onready var chatModule = $ChatModule
+@onready var chat_module = $ChatModule
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -35,36 +37,44 @@ func read_params() -> void:
 
 func create_game():
 	var peer := ENetMultiplayerPeer.new()
-	print_debug(PORT, ":", MAX_CONNEXION)
 	var error = peer.create_server(PORT, MAX_CONNEXION)
 	if error:
 		push_error(error_string(error))
 		return error
 	multiplayer.multiplayer_peer = peer
-	print("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
+
+	log_me.emit("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
 
 
 func _on_player_connected(_id):
-	chatModule.receive_chat_message.rpc_id(_id, "[SERVER]", "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
-	#print_debug("Peer " + str(_id) + " connected to the server!")
+	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
+	log_me.emit("Peer " + str(_id) + " connecting to the server.")
 
 @rpc("any_peer", "reliable")
 func register_player(new_player_info):
 	var new_player_id: int = multiplayer.get_remote_sender_id()
 	var error: int = check_user(new_player_id, new_player_info)
 	if error >= 0:
-		chatModule.receive_chat_message.rpc("[SERVER]", "%s tried but couldn't join. Reason : %d" % [new_player_info["name"], error], "MINOR_FAILURE")
-		throw_error.rpc_id(new_player_id, convert_error_code(error))
+		chat_module.receive_chat_message.rpc("[SERVER]", "%s tried but couldn't join. Reason : %d" % [new_player_info["name"], error], "MINOR_FAILURE")
+		var error_str: String = convert_error_code(error)
+		throw_error.rpc_id(new_player_id, error_str)
+		throw_error(error_str)
 		return
 
 	allowed_in.rpc_id(new_player_id)
+	if players.size() == 0:
+		new_player_info["is_host"] = true
+	else:
+		new_player_info["is_host"] = false
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
 	get_player_list.rpc(players)
-	chatModule.receive_chat_message.rpc("[SERVER]", "%s joined. Welcome !" % new_player_info["name"], "MINOR_SUCCESS")
+	log_me.emit("%s joined. Welcome !" % new_player_info["name"])
+	chat_module.receive_chat_message.rpc("[SERVER]", "%s joined. Welcome !" % new_player_info["name"], "MINOR_SUCCESS")
 
 @rpc("authority", "reliable")
 func allowed_in():
+	log_me.emit("Allowed in !")
 	allowed_in_server.emit()
 
 @rpc("authority", "reliable")
@@ -78,14 +88,14 @@ func get_player_list(_player_list):
 func _on_player_disconnected(id):
 	if not players.has(id):
 		return
-	#print_debug("Peer " + str(id) + " disconnected from the server!")
-	chatModule.receive_chat_message.rpc("[SERVER]", "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
+	log_me.emit("Peer " + str(id) + " disconnected from the server !")
+	chat_module.receive_chat_message.rpc("[SERVER]", "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
 	players.erase(id)
 	player_disconnected.emit(id)
 
 
 #region User Checks
-func check_user(new_player_id: int, new_player_info: Dictionary) -> int:
+func check_user(_new_player_id: int, new_player_info: Dictionary) -> int:
 	if check_player_name(new_player_info["name"]):
 		return 0
 	if not check_password(new_player_info["password"]):

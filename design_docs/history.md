@@ -20,6 +20,7 @@
   - [24/02/25](#240225)
   - [25/02/25](#250225)
   - [26/02/25](#260225)
+  - [27/02/25](#270225)
 
 ## November 24
 
@@ -134,3 +135,7 @@ Offdat
 - ServerLauncher Settings : actual settings + ui
 - ServerLauncher : starting server.
 - Server and Client : networking set up
+
+## 27/02/25
+
+- Client : Lobby split : LobbyConnector added.
