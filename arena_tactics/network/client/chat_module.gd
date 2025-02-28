@@ -8,5 +8,5 @@ func send_chat_message(_message: String, _type: String):
 
 
 @rpc("authority", "reliable")
-func receive_chat_message(author: String, message: String, type: String):
+func receive_chat_message(author: String, _sender_id: int, message: String, type: String):
 	chat_message_received.emit(author, message, type)

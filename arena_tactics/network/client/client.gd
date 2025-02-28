@@ -76,27 +76,28 @@ func get_player_list(_player_list):
 	players = _player_list
 	player_list_updated.emit()
 
+@rpc("any_peer", "reliable")
+func send_player_list():
+	pass
 
 # when you connect with someone (server or another player)
 func _on_player_connected(_id):
 	pass
 	#print_debug("%d Joined" % _id)
 
-
 # when someone disconnect from server
 func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
-
+	send_player_list.rpc_id(1)
 
 # when you connect to the server
 func _on_connected_ok():
 	register_player.rpc_id(1, player_info)
-
+	send_player_list.rpc_id(1)
 
 func _on_connected_fail():
 	multiplayer.multiplayer_peer = null
-
 
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null

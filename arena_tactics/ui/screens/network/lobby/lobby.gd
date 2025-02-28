@@ -4,7 +4,7 @@ class_name Lobby
 @onready var returnButton: Button = get_node("%ReturnButton")
 @onready var launchGameButton: Button = get_node("%LaunchGameButton")
 
-@onready var playerListContainer: VBoxContainer = get_node("%ListContainer")
+@onready var playerListContainer: GridContainer = get_node("%ListContainer")
 
 @onready var chatContainer: VBoxContainer = get_node("%ChatContainer") 
 @onready var chatSendButton: Button = get_node("%SendMessageButton")
@@ -23,6 +23,7 @@ func _ready():
 	networker.player_disconnected.connect(_on_player_disconnected)
 	networker.player_list_updated.connect(_on_player_list_updated)
 	networker.chatModule.chat_message_received.connect(_on_message_received)
+	_on_player_list_updated()
 
 func _on_player_list_updated():
 	for child in playerListContainer.get_children():

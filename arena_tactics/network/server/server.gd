@@ -47,7 +47,7 @@ func create_game():
 
 
 func _on_player_connected(_id):
-	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
+	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", 1, "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
 	log_me.emit("Peer " + str(_id) + " connecting to the server.")
 
 @rpc("any_peer", "reliable")
@@ -55,7 +55,7 @@ func register_player(new_player_info):
 	var new_player_id: int = multiplayer.get_remote_sender_id()
 	var error: int = check_user(new_player_id, new_player_info)
 	if error >= 0:
-		chat_module.receive_chat_message.rpc("[SERVER]", "%s tried but couldn't join. Reason : %d" % [new_player_info["name"], error], "MINOR_FAILURE")
+		chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s tried but couldn't join. Reason : %d" % [new_player_info["name"], error], "MINOR_FAILURE")
 		var error_str: String = convert_error_code(error)
 		throw_error.rpc_id(new_player_id, error_str)
 		throw_error(error_str)
@@ -68,9 +68,8 @@ func register_player(new_player_info):
 		new_player_info["is_host"] = false
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
-	get_player_list.rpc(players)
 	log_me.emit("%s joined. Welcome !" % new_player_info["name"])
-	chat_module.receive_chat_message.rpc("[SERVER]", "%s joined. Welcome !" % new_player_info["name"], "MINOR_SUCCESS")
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined. Welcome !" % new_player_info["name"], "MINOR_SUCCESS")
 
 @rpc("authority", "reliable")
 func allowed_in():
@@ -85,11 +84,15 @@ func throw_error(msg: String):
 func get_player_list(_player_list):
 	pass
 
+@rpc("any_peer", "reliable")
+func send_player_list():
+	get_player_list.rpc(players)
+
 func _on_player_disconnected(id):
 	if not players.has(id):
 		return
 	log_me.emit("Peer " + str(id) + " disconnected from the server !")
-	chat_module.receive_chat_message.rpc("[SERVER]", "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
 	players.erase(id)
 	player_disconnected.emit(id)
 
