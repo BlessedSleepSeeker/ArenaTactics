@@ -3,7 +3,8 @@ class_name NetworkClient
 
 signal player_disconnected(peer_id)
 signal server_disconnected
-signal player_list_updated(list)
+signal player_list_updated(list: Dictionary)
+signal team_list_updated(list: Dictionary)
 signal allowed_in_server
 
 signal new_error(msg: String)
@@ -14,6 +15,7 @@ const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNEXION = 4
 
 var players = {}
+var teams = {}
 
 var player_info: Dictionary = {"name": "Client", "password": ""}
 
@@ -30,7 +32,7 @@ func _ready():
 		multiplayer.connection_failed.connect(_on_connected_fail)
 		multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-
+#region Players
 func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT) -> bool:
 	leave()
 	var peer := ENetMultiplayerPeer.new()
@@ -52,20 +54,14 @@ func join_game(adress: String = DEFAULT_SERVER_IP, _port: int = PORT) -> bool:
 	return true
 	#print_debug("Client connected to %s:%d" % [adress, PORT])
 
-
 @rpc("authority", "reliable")
 func allowed_in():
 	allowed_in_server.emit()
-
-@rpc("authority", "reliable")
-func throw_error(msg: String):
-	new_error.emit(msg)
 
 func leave():
 	players = {}
 	if multiplayer.has_multiplayer_peer():
 		multiplayer.multiplayer_peer = null
-
 
 @rpc("any_peer", "reliable")
 func register_player(_new_player_info):
@@ -95,6 +91,7 @@ func _on_player_disconnected(id):
 func _on_connected_ok():
 	register_player.rpc_id(1, player_info)
 	send_player_list.rpc_id(1)
+	send_team_list.rpc_id(1)
 
 func _on_connected_fail():
 	multiplayer.multiplayer_peer = null
@@ -102,4 +99,39 @@ func _on_connected_fail():
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
 	players.clear()
+	teams.clear()
 	server_disconnected.emit()
+#endregion
+
+
+#region Teams
+func create_team(_team_name: String):
+	register_team.rpc_id(1, _team_name)
+
+@rpc("any_peer", "reliable")
+func register_team(_team_name: String):
+	pass
+
+func join_team(_team_name: String):
+	if not teams.has(_team_name):
+		throw_error("No team with name %s was found." % _team_name)
+	add_player_to_team.rpc_id(1, _team_name, player_info)
+
+@rpc("any_peer", "reliable")
+func add_player_to_team(_team_name: String, _player_info: Dictionary):
+	pass
+
+@rpc("authority", "reliable")
+func get_teams_list(_teams_list):
+	teams = _teams_list
+	team_list_updated.emit()
+
+@rpc("any_peer", "reliable")
+func send_team_list():
+	pass
+
+#endregion
+
+@rpc("authority", "reliable")
+func throw_error(msg: String):
+	new_error.emit(msg)

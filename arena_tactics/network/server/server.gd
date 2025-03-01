@@ -15,7 +15,13 @@ var DEFAULT_SERVER_IP: String = "127.0.0.1"
 var MAX_CONNEXION: int = 4
 
 var lobby_name = "Tintalabus's Awesome Lobby"
+
+var MAX_TEAMS: int = 2
+var MAX_PLAYERS_PER_TEAM: int = 1
+var MAX_SPECTATORS: int = 0
+
 var players: Dictionary = {}
+var teams: Dictionary = {}
 
 @onready var settings: Settings = get_tree().root.get_node("Root").get_node("ServerSettings")
 @onready var chat_module = $ChatModule
@@ -29,11 +35,15 @@ func _ready():
 func read_params() -> void:
 	settings.parse_user_params()
 	PORT = int(settings.read_setting_value_by_key("IP_PORT"))
+	MAX_TEAMS = clampi(int(settings.read_setting_value_by_key("MAXIMUM_TEAMS")), 1, 100)
+	MAX_PLAYERS_PER_TEAM = clampi(int(settings.read_setting_value_by_key("MAXIMUM_PLAYERS_PER_TEAM")), 1, 100)
+	MAX_SPECTATORS = int(settings.read_setting_value_by_key("MAXIMUM_SPECTATORS"))
 	if int(settings.read_setting_value_by_key("MAXIMUM_SPECTATORS")) == 0:
 		MAX_CONNEXION = 4095
 	else:
 		## Making sure that settings are interpreted as positive integer and clamped between 1 and 4095.
-		MAX_CONNEXION = clampi(abs(int(settings.read_setting_value_by_key("MAXIMUM_TEAMS"))) * abs(int(settings.read_setting_value_by_key("MAXIMUM_PLAYERS_PER_TEAM"))) + abs(int(settings.read_setting_value_by_key("MAXIMUM_SPECTATORS"))), 1, 4095)
+		MAX_CONNEXION = clampi(abs(MAX_TEAMS) * abs(MAX_PLAYERS_PER_TEAM) + abs(MAX_SPECTATORS), 1, 4095)
+
 
 func create_game():
 	var peer := ENetMultiplayerPeer.new()
@@ -45,7 +55,11 @@ func create_game():
 
 	log_me.emit("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
 
+@rpc("authority", "reliable")
+func throw_error(msg: String):
+	new_error.emit(msg)
 
+#region Players
 func _on_player_connected(_id):
 	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", 1, "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
 	log_me.emit("Peer " + str(_id) + " connecting to the server.")
@@ -77,11 +91,7 @@ func allowed_in():
 	allowed_in_server.emit()
 
 @rpc("authority", "reliable")
-func throw_error(msg: String):
-	new_error.emit(msg)
-
-@rpc("authority", "reliable")
-func get_player_list(_player_list):
+func get_player_list(_player_list: Dictionary):
 	pass
 
 @rpc("any_peer", "reliable")
@@ -95,7 +105,7 @@ func _on_player_disconnected(id):
 	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
 	players.erase(id)
 	player_disconnected.emit(id)
-
+#endregion
 
 #region User Checks
 func check_user(_new_player_id: int, new_player_info: Dictionary) -> int:
@@ -127,5 +137,53 @@ func convert_error_code(code: int) -> String:
 			return "ERROR : Bad room password."
 		_:
 			return str(code)
+
+#endregion
+
+#region Teams
+@rpc("any_peer", "reliable")
+func register_team(_team_name: String):
+	var sender: int = multiplayer.get_remote_sender_id()
+	if teams.has(_team_name):
+		chat_module.receive_chat_message.rpc_id(sender, "[SERVER]", 1, "Error : Team name is already taken, cannot create team.", "MINOR_FAILURE")
+		throw_error.rpc_id(sender, "Error : Team name is already taken, cannot create team.")
+		throw_error("Error : Team name is already taken, cannot create team.")
+		return
+	teams[_team_name] = {}
+	log_me.emit("Created team %s" % [_team_name])
+	get_teams_list.rpc(teams)
+
+@rpc("any_peer", "reliable")
+func add_player_to_team(_team_name: String, _player_info: Dictionary):
+	var sender: int = multiplayer.get_remote_sender_id()
+	var team = teams.get(_team_name)
+	if team != null:
+		remove_player_from_team(_player_info["name"])
+		team[_player_info["name"]] = _player_info
+		log_me.emit("Added player %s to team %s" % [_player_info["name"], _team_name])
+	else:
+		var error_msg: String = "Error : Team %s not found while trying to add %s." % [_team_name, _player_info["name"]]
+		chat_module.receive_chat_message.rpc_id(sender, "[SERVER]", 1, error_msg, "MINOR_FAILURE")
+		throw_error.rpc_id(sender, error_msg)
+		throw_error(error_msg)
+		return
+	get_teams_list.rpc(teams)
+
+func remove_player_from_team(_player_name: String, logs: bool = true):
+	for team: String in teams:
+		for player: String in teams[team]:
+			if teams[team][player]["name"] == _player_name:
+				teams[team].erase(player)
+				if logs:
+					log_me.emit("Removed player %s from team %s" % [_player_name, team])
+	get_teams_list.rpc(teams)
+
+@rpc("authority", "reliable")
+func get_teams_list(_teams_list):
+	pass
+
+@rpc("any_peer", "reliable")
+func send_team_list():
+	get_teams_list.rpc(teams)
 
 #endregion

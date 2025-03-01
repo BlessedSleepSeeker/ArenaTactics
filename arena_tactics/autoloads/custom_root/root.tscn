@@ -49,9 +49,9 @@ user_settings_file_path = "user://settings/game_settings.cfg"
 
 [node name="ServerSettings" parent="." instance=ExtResource("3_tlkqu")]
 
-[node name="SceneRoot" type="Node" parent="."]
-
 [node name="NetworkRoot" type="Node" parent="."]
+
+[node name="SceneRoot" type="Node" parent="."]
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {

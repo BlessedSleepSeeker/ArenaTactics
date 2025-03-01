@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcry0lwlfq1d6"]
+[gd_scene load_steps=6 format=3 uid="uid://dcry0lwlfq1d6"]
 
 [ext_resource type="Script" path="res://ui/screens/network/lobby/lobby.gd" id="1_rw0ao"]
+[ext_resource type="PackedScene" uid="uid://cyvitp4i8k7hk" path="res://ui/screens/network/lobby/teams/LobbyTeams.tscn" id="2_7mjwf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ypos"]
 bg_color = Color(0.152941, 0.427451, 0.513726, 0.462745)
@@ -91,11 +92,13 @@ layout_mode = 2
 text = "Teams"
 horizontal_alignment = 1
 
-[node name="ListContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList"]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList"]
 layout_mode = 2
 size_flags_vertical = 3
-columns = 4
+
+[node name="LobbyTeams" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/ScrollContainer" instance=ExtResource("2_7mjwf")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Chat" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ConnectedData"]
 layout_mode = 2

@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcw4w08xs571a"]
+
+[ext_resource type="Script" path="res://ui/screens/network/lobby/teams/team_widget.gd" id="1_4hpjv"]
+[ext_resource type="StyleBox" uid="uid://bx7n370nw0r0" path="res://ui/screens/network/lobby/teams/UIPanel.tres" id="2_cr7vf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5m4ji"]
+font_size = 50
+outline_size = 2
+outline_color = Color(0.2464, 0.25696, 0.88, 1)
+
+[node name="TeamWidget" type="MarginContainer"]
+custom_minimum_size = Vector2(300, 200)
+offset_right = 195.0
+offset_bottom = 158.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_4hpjv")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_cr7vf")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TeamName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "aaaaa"
+label_settings = SubResource("LabelSettings_5m4ji")
+horizontal_alignment = 1
+
+[node name="TeamPlayerList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="JoinButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Join Team"

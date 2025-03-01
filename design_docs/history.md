@@ -21,6 +21,7 @@
   - [25/02/25](#250225)
   - [26/02/25](#260225)
   - [27/02/25](#270225)
+  - [28/02/25](#280225)
 
 ## November 24
 
@@ -139,3 +140,9 @@ Offdat
 ## 27/02/25
 
 - Client : Lobby split : LobbyConnector added.
+- Server : logging to scene
+
+## 28/02/25
+
+- Server : logging to file
+- Client : Team UI start

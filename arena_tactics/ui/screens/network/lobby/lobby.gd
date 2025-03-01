@@ -4,7 +4,7 @@ class_name Lobby
 @onready var returnButton: Button = get_node("%ReturnButton")
 @onready var launchGameButton: Button = get_node("%LaunchGameButton")
 
-@onready var playerListContainer: GridContainer = get_node("%ListContainer")
+@onready var lobby_team: LobbyTeams = $"%LobbyTeams"
 
 @onready var chatContainer: VBoxContainer = get_node("%ChatContainer") 
 @onready var chatSendButton: Button = get_node("%SendMessageButton")
@@ -16,6 +16,7 @@ class_name Lobby
 signal transition(new_scene: PackedScene, animation: String)
 
 func _ready():
+	lobby_team.setup(networker, networker.players)
 	returnButton.pressed.connect(_on_return_button_pressed)
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
 	launchGameButton.pressed.connect(_on_launch_game_pressed)
@@ -26,13 +27,13 @@ func _ready():
 	_on_player_list_updated()
 
 func _on_player_list_updated():
-	for child in playerListContainer.get_children():
-		child.queue_free()
-	for player in networker.players:
-		var playerName: Label = Label.new()
-		playerName.text = "- %s (%s)" % [networker.players[player]["name"], player]
-		playerListContainer.add_child(playerName)
-
+	pass
+	# for child in playerListContainer.get_children():
+	# 	child.queue_free()
+	# for player in networker.players:
+	# 	var playerName: Label = Label.new()
+	# 	playerName.text = "- %s (%s)" % [networker.players[player]["name"], player]
+	# 	playerListContainer.add_child(playerName)
 
 func _on_player_disconnected(_id):
 	_on_player_list_updated()
