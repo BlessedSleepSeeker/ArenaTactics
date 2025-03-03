@@ -102,6 +102,14 @@ func _on_server_disconnected():
 	server_disconnected.emit()
 
 @rpc("authority", "reliable")
+func launch_game():
+	pass# go to game scene
+
+@rpc("any_peer", "reliable")
+func ask_launch_game():
+	pass
+
+@rpc("authority", "reliable")
 func set_as_host():
 	is_host = true
 #endregion

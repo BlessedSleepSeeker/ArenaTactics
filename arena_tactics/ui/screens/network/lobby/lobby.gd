@@ -18,13 +18,18 @@ signal transition(new_scene: PackedScene, animation: String)
 
 func _ready():
 	lobby_team.setup(networker)
+
+	## Leave if we go back or we are disconnected from the server for any reason.
 	returnButton.pressed.connect(_on_return_button_pressed)
+	networker.server_disconnected.connect(_on_return_button_pressed)
+
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
 	chatMessageLine.text_submitted.connect(_on_chat_line_submitted)
 
 	networker.player_disconnected.connect(_on_player_disconnected)
 	networker.player_list_updated.connect(_on_player_list_updated)
 	networker.chatModule.chat_message_received.connect(_on_message_received)
+
 	_on_player_list_updated()
 	host_setup()
 
@@ -73,7 +78,8 @@ func _on_message_received(author: String, message: String, type: String):
 
 
 func _on_launch_game_pressed():
-	pass
+	if networker.is_host:
+		networker.ask_launch_game.rpc_id(1)
 
 func add_type_coloring(formated_message: String, type: String) -> String:
 	match type:

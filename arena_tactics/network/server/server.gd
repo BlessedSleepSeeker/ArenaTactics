@@ -20,6 +20,9 @@ var MAX_TEAMS: int = 2
 var MAX_PLAYERS_PER_TEAM: int = 1
 var MAX_SPECTATORS: int = 0
 
+enum Status {LOBBY, GAME, POSTGAME}
+var status: int = Status.LOBBY
+
 var users: Array[ConnectedUser] = []
 var teams: Array[ConnectedTeam] = []
 
@@ -61,6 +64,48 @@ func create_game():
 func throw_error(msg: String):
 	new_error.emit(msg)
 
+func shutdown():
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "Shutdown Initiated by the host...", "MAJOR_FAILURE")
+	throw_error("Shutdown Initiated by the host...")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "5", "MAJOR_FAILURE")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "4", "MAJOR_FAILURE")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "3", "MAJOR_FAILURE")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "2", "MAJOR_FAILURE")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "1", "MAJOR_FAILURE")
+	await get_tree().create_timer(1).timeout
+	throw_error("Shutting down.")
+	get_tree().quit()
+
+@rpc("authority", "reliable")
+func launch_game():
+	pass
+
+@rpc("any_peer", "reliable")
+func ask_launch_game():
+	var id: int = multiplayer.get_remote_sender_id()
+	var user: ConnectedUser = get_user_by_id(id)
+	if not user.is_host:
+		chat_module.receive_chat_message.rpc("[SERVER]", 1, "Only the host can launch the game, how where you even able to access this function ?", "MAJOR_FAILURE")
+		throw_error("User %s:%d tried to launch the game without being host." % [user.user_name, user.id])
+		return
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "Game starting in 5...", "MAJOR_SUCCESS")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "4", "MAJOR_SUCCESS")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "3", "MAJOR_SUCCESS")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "2", "MAJOR_SUCCESS")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "1", "MAJOR_SUCCESS")
+	await get_tree().create_timer(1).timeout
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "Game starting !", "MAJOR_SUCCESS")
+	status = Status.GAME
+
 #region Users
 func _on_user_connected(_id):
 	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", 1, "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
@@ -85,7 +130,10 @@ func register_user(user_name: String, room_password: String):
 	users.append(new_user)
 	player_connected.emit(new_user.id, new_user)
 	log_me.emit("%s joined. Welcome !" % new_user.user_name)
-	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined. Welcome !" % new_user.user_name, "MINOR_SUCCESS")
+	if status == Status.GAME:
+		add_player_to_team("Spectator", new_user.user_name)
+	else:
+		chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined, welcome !" % new_user.user_name, "MINOR_SUCCESS")
 	get_user_list()
 	get_team_list()
 
@@ -243,5 +291,4 @@ func team_name_already_exist(_team_name: String) -> bool:
 		if team.team_name == _team_name:
 			return true
 	return false
-
 #endregion
