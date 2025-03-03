@@ -55,6 +55,8 @@ func create_game():
 
 	log_me.emit("Server ready at %s:%d" % [DEFAULT_SERVER_IP, PORT])
 
+	register_team("Spectator")
+
 @rpc("authority", "reliable")
 func throw_error(msg: String):
 	new_error.emit(msg)
@@ -77,9 +79,10 @@ func register_user(user_name: String, room_password: String):
 		return
 
 	allowed_in.rpc_id(new_user.id)
-	users.append(new_user)
 	if users.size() == 0:
 		new_user.is_host = true
+		set_as_host.rpc_id(new_user.id)
+	users.append(new_user)
 	player_connected.emit(new_user.id, new_user)
 	log_me.emit("%s joined. Welcome !" % new_user.user_name)
 	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined. Welcome !" % new_user.user_name, "MINOR_SUCCESS")
@@ -111,6 +114,10 @@ func _on_user_disconnected(id: int):
 	remove_user(id)
 	player_disconnected.emit(id)
 	get_user_list()
+
+@rpc("authority", "reliable")
+func set_as_host():
+	pass
 #endregion
 
 #region UserLib

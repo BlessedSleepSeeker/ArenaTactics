@@ -9,10 +9,11 @@ signal allowed_in_server
 
 signal new_error(msg: String)
 
-const TYPE: String = "CLIENT"
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNEXION = 4
+
+var is_host: bool = false
 
 var users: Array[ConnectedUser] = []
 var teams: Array[ConnectedTeam] = []
@@ -99,6 +100,10 @@ func _on_server_disconnected():
 	users.clear()
 	teams.clear()
 	server_disconnected.emit()
+
+@rpc("authority", "reliable")
+func set_as_host():
+	is_host = true
 #endregion
 
 #region UserLib
@@ -108,7 +113,6 @@ func get_user_by_id(id: int) -> ConnectedUser:
 		if user.id == id:
 			return user
 	return null
-
 #endregion
 
 #region Teams

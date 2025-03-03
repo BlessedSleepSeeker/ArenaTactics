@@ -34,12 +34,9 @@ func build_player_tag(player: ConnectedUser) -> IconRichTextLabel:
 	lbl.bbcode_enabled = true
 
 	if player.is_host:
-		lbl.parse_and_set_text("- [b]%s[/b] [img]ap_star[/img]")
+		lbl.parse_and_set_text("- [b]%s[/b] [img]ap_star[/img]" % player.user_name)
 	else:
-		lbl.parse_and_set_text("- %s")
-
-	lbl.text = "- %s" % player.user_name
-
+		lbl.parse_and_set_text("- %s" % player.user_name)
 	return lbl
 
 func _on_join_pressed():

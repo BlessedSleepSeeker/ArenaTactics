@@ -20,13 +20,19 @@ func _ready():
 	lobby_team.setup(networker)
 	returnButton.pressed.connect(_on_return_button_pressed)
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
-	launchGameButton.pressed.connect(_on_launch_game_pressed)
 	chatMessageLine.text_submitted.connect(_on_chat_line_submitted)
 
 	networker.player_disconnected.connect(_on_player_disconnected)
 	networker.player_list_updated.connect(_on_player_list_updated)
 	networker.chatModule.chat_message_received.connect(_on_message_received)
 	_on_player_list_updated()
+	host_setup()
+
+func host_setup() -> void:
+	if networker.is_host:
+		launchGameButton.pressed.connect(_on_launch_game_pressed)
+		launchGameButton.disabled = false
+		launchGameButton.tooltip_text = "Launch the game ! Users without a team will be added to the spectators."
 
 func _on_player_list_updated():
 	for child in player_list.get_children():

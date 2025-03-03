@@ -28,7 +28,8 @@ func fill_grid():
 		team_widget.want_join_team.connect(_on_team_picked)
 		self.add_child(team_widget)
 		team_widget.build_widget(team)
-	create_add_team_button()
+	if networker.is_host:
+		create_add_team_button()
 
 func create_add_team_button():
 	var inst = add_team_button_scene.instantiate()
