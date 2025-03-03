@@ -20,15 +20,15 @@ var MAX_TEAMS: int = 2
 var MAX_PLAYERS_PER_TEAM: int = 1
 var MAX_SPECTATORS: int = 0
 
-var players: Dictionary = {}
-var teams: Dictionary = {}
+var users: Array[ConnectedUser] = []
+var teams: Array[ConnectedTeam] = []
 
 @onready var settings: Settings = get_tree().root.get_node("Root").get_node("ServerSettings")
 @onready var chat_module = $ChatModule
 
 func _ready():
-	multiplayer.peer_connected.connect(_on_player_connected)
-	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	multiplayer.peer_connected.connect(_on_user_connected)
+	multiplayer.peer_disconnected.connect(_on_user_disconnected)
 	read_params()
 	create_game()
 
@@ -59,31 +59,32 @@ func create_game():
 func throw_error(msg: String):
 	new_error.emit(msg)
 
-#region Players
-func _on_player_connected(_id):
+#region Users
+func _on_user_connected(_id):
 	chat_module.receive_chat_message.rpc_id(_id, "[SERVER]", 1, "Joined %s !" % lobby_name, "MAJOR_SUCCESS")
 	log_me.emit("Peer " + str(_id) + " connecting to the server.")
 
 @rpc("any_peer", "reliable")
-func register_player(new_player_info):
-	var new_player_id: int = multiplayer.get_remote_sender_id()
-	var error: int = check_user(new_player_id, new_player_info)
+func register_user(user_name: String, room_password: String):
+	var new_user: ConnectedUser = ConnectedUser.new(user_name)
+	new_user.id = multiplayer.get_remote_sender_id()
+	var error: int = check_user(new_user, room_password)
 	if error >= 0:
-		chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s tried but couldn't join. Reason : %d" % [new_player_info["name"], error], "MINOR_FAILURE")
+		chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s tried but couldn't join. Reason : %d" % [new_user.user_name, error], "MINOR_FAILURE")
 		var error_str: String = convert_error_code(error)
-		throw_error.rpc_id(new_player_id, error_str)
+		throw_error.rpc_id(new_user.id, error_str)
 		throw_error(error_str)
 		return
 
-	allowed_in.rpc_id(new_player_id)
-	if players.size() == 0:
-		new_player_info["is_host"] = true
-	else:
-		new_player_info["is_host"] = false
-	players[new_player_id] = new_player_info
-	player_connected.emit(new_player_id, new_player_info)
-	log_me.emit("%s joined. Welcome !" % new_player_info["name"])
-	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined. Welcome !" % new_player_info["name"], "MINOR_SUCCESS")
+	allowed_in.rpc_id(new_user.id)
+	users.append(new_user)
+	if users.size() == 0:
+		new_user.is_host = true
+	player_connected.emit(new_user.id, new_user)
+	log_me.emit("%s joined. Welcome !" % new_user.user_name)
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s joined. Welcome !" % new_user.user_name, "MINOR_SUCCESS")
+	get_user_list()
+	get_team_list()
 
 @rpc("authority", "reliable")
 func allowed_in():
@@ -91,42 +92,65 @@ func allowed_in():
 	allowed_in_server.emit()
 
 @rpc("authority", "reliable")
-func get_player_list(_player_list: Dictionary):
+func send_user_list(_users: Dictionary):
 	pass
 
 @rpc("any_peer", "reliable")
-func send_player_list():
-	get_player_list.rpc(players)
+func get_user_list():
+	var users_as_dict: Dictionary = {}
+	for user in users:
+		users_as_dict[user.id] = user.to_dict()
+	send_user_list.rpc(users_as_dict)
 
-func _on_player_disconnected(id):
-	if not players.has(id):
+func _on_user_disconnected(id: int):
+	var user: ConnectedUser = get_user_by_id(id)
+	if user == null:
 		return
 	log_me.emit("Peer " + str(id) + " disconnected from the server !")
-	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s Left... See ya !" % players[id]["name"], "MINOR_FAIL")
-	players.erase(id)
+	chat_module.receive_chat_message.rpc("[SERVER]", 1, "%s Left... See ya !" % user.user_name, "MINOR_FAIL")
+	remove_user(id)
 	player_disconnected.emit(id)
+	get_user_list()
+#endregion
+
+#region UserLib
+func get_user_by_id(id: int) -> ConnectedUser:
+	for user in users:
+		if user.id == id:
+			return user
+	return null
+
+func get_user_by_name(user_name: String) -> ConnectedUser:
+	for user in users:
+		if user.user_name == user_name:
+			return user
+	return null
+
+func remove_user(id: int):
+	for user in users:
+		if user.id == id:
+			remove_player_from_team(user)
+			users.erase(user)
 #endregion
 
 #region User Checks
-func check_user(_new_player_id: int, new_player_info: Dictionary) -> int:
-	if check_player_name(new_player_info["name"]):
+func check_user(user: ConnectedUser, room_password: String) -> int:
+	if not user.check_name_validity() and check_user_name_exist(user.user_name):
 		return 0
-	if not check_password(new_player_info["password"]):
+	if not check_password(room_password):
 		return 1
 	return -1
 
-func check_player_name(p_name: String) -> bool:
-	if p_name.length() == 0:
-		return true
-	for player in players:
-		if players[player]["name"] == p_name:
+func check_user_name_exist(_name: String) -> bool:
+	for user: ConnectedUser in users:
+		if user.name == _name:
 			return true
 	return false
 
-func check_password(p_pass: String) -> bool:
+func check_password(room_pass: String) -> bool:
 	var s_pass: String = settings.read_setting_value_by_key("ROOM_PASSWORD")
 	if s_pass:
-		return s_pass == p_pass
+		return s_pass == room_pass
 	return true
 
 func convert_error_code(code: int) -> String:
@@ -138,52 +162,79 @@ func convert_error_code(code: int) -> String:
 		_:
 			return str(code)
 
+func is_user_host(p_name: String) -> bool:
+	if p_name.length() == 0:
+		return false
+	for user in users:
+		if users[user]["name"] == p_name:
+			return users[user]["is_host"]
+	return false
+
 #endregion
 
 #region Teams
 @rpc("any_peer", "reliable")
 func register_team(_team_name: String):
 	var sender: int = multiplayer.get_remote_sender_id()
-	if teams.has(_team_name):
-		chat_module.receive_chat_message.rpc_id(sender, "[SERVER]", 1, "Error : Team name is already taken, cannot create team.", "MINOR_FAILURE")
-		throw_error.rpc_id(sender, "Error : Team name is already taken, cannot create team.")
-		throw_error("Error : Team name is already taken, cannot create team.")
+	if team_name_already_exist(_team_name) or _team_name.length() == 0:
+		chat_module.receive_chat_message.rpc_id(sender, "[SERVER]", 1, "Error : Team name is empty or already taken, cannot create team.", "MINOR_FAILURE")
+		throw_error.rpc_id(sender, "Error : Team name is empty or already taken, cannot create team.")
+		throw_error("Error : Team name is empty or already taken, cannot create team.")
 		return
-	teams[_team_name] = {}
+	var new_team: ConnectedTeam = ConnectedTeam.new(_team_name)
+	teams.append(new_team)
 	log_me.emit("Created team %s" % [_team_name])
-	get_teams_list.rpc(teams)
+	get_team_list()
 
 @rpc("any_peer", "reliable")
-func add_player_to_team(_team_name: String, _player_info: Dictionary):
+func add_player_to_team(_team_name: String, _player_name: String):
 	var sender: int = multiplayer.get_remote_sender_id()
-	var team = teams.get(_team_name)
+	var team = get_team(_team_name)
+	var user = get_user_by_name(_player_name)
 	if team != null:
-		remove_player_from_team(_player_info["name"])
-		team[_player_info["name"]] = _player_info
-		log_me.emit("Added player %s to team %s" % [_player_info["name"], _team_name])
+		remove_player_from_team(user)
+		team.members.append(user)
+		log_me.emit("Added user %s to team %s" % [user.user_name, team.team_name])
 	else:
-		var error_msg: String = "Error : Team %s not found while trying to add %s." % [_team_name, _player_info["name"]]
+		var error_msg: String = "Error : Team %s not found while trying to add %s." % [_team_name, user.user_name]
 		chat_module.receive_chat_message.rpc_id(sender, "[SERVER]", 1, error_msg, "MINOR_FAILURE")
 		throw_error.rpc_id(sender, error_msg)
 		throw_error(error_msg)
 		return
-	get_teams_list.rpc(teams)
+	get_team_list()
 
-func remove_player_from_team(_player_name: String, logs: bool = true):
-	for team: String in teams:
-		for player: String in teams[team]:
-			if teams[team][player]["name"] == _player_name:
-				teams[team].erase(player)
-				if logs:
-					log_me.emit("Removed player %s from team %s" % [_player_name, team])
-	get_teams_list.rpc(teams)
+func remove_player_from_team(user: ConnectedUser, logs: bool = true):
+	for team: ConnectedTeam in teams:
+		if team.members.has(user):
+			team.members.erase(user)
+			if logs:
+				log_me.emit("Removed user %s from team %s" % [user.user_name, team.team_name])
+	get_team_list()
 
 @rpc("authority", "reliable")
-func get_teams_list(_teams_list):
+func send_team_list(_teams: Dictionary):
 	pass
 
 @rpc("any_peer", "reliable")
-func send_team_list():
-	get_teams_list.rpc(teams)
+func get_team_list():
+	send_team_list.rpc(convert_teams_to_dict())
+
+func convert_teams_to_dict() -> Dictionary:
+	var teams_as_dict: Dictionary = {}
+	for team: ConnectedTeam in teams:
+		teams_as_dict[team.team_name] = team.to_dict()
+	return teams_as_dict
+
+func get_team(_team_name: String) -> ConnectedTeam:
+	for team: ConnectedTeam in teams:
+		if team.team_name == _team_name:
+			return team
+	return null
+
+func team_name_already_exist(_team_name: String) -> bool:
+	for team: ConnectedTeam in teams:
+		if team.team_name == _team_name:
+			return true
+	return false
 
 #endregion

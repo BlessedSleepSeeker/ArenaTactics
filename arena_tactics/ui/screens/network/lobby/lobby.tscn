@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcry0lwlfq1d6"]
+[gd_scene load_steps=9 format=3 uid="uid://dcry0lwlfq1d6"]
 
 [ext_resource type="Script" path="res://ui/screens/network/lobby/lobby.gd" id="1_rw0ao"]
 [ext_resource type="PackedScene" uid="uid://cyvitp4i8k7hk" path="res://ui/screens/network/lobby/teams/LobbyTeams.tscn" id="2_7mjwf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hvff8"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_n3ruq"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogokj"]
+font_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ypos"]
 bg_color = Color(0.152941, 0.427451, 0.513726, 0.462745)
@@ -52,6 +61,7 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 
 [node name="ServerConnection" type="HBoxContainer" parent="VBoxContainer/MarginContainer2"]
 layout_mode = 2
@@ -74,10 +84,10 @@ text = "Launch Game"
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
 
 [node name="ConnectedData" type="HSplitContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -87,16 +97,46 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerTitle" type="Label" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList"]
-layout_mode = 2
-text = "Teams"
-horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList"]
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LobbyTeams" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/ScrollContainer" instance=ExtResource("2_7mjwf")]
+[node name="PlayerWidg" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="PlayerTitle" type="Label" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/PlayerWidg"]
+layout_mode = 2
+text = "Players"
+label_settings = SubResource("LabelSettings_hvff8")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/PlayerWidg"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerList" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/PlayerWidg/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="TeamWidg" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TeamsTitle" type="Label" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/TeamWidg"]
+layout_mode = 2
+text = "Teams"
+label_settings = SubResource("LabelSettings_n3ruq")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/TeamWidg"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LobbyTeams" parent="VBoxContainer/MarginContainer/ConnectedData/PlayerList/VSplitContainer/TeamWidg/ScrollContainer" instance=ExtResource("2_7mjwf")]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -107,6 +147,7 @@ size_flags_horizontal = 3
 [node name="ChatTitle" type="Label" parent="VBoxContainer/MarginContainer/ConnectedData/Chat"]
 layout_mode = 2
 text = "Chat"
+label_settings = SubResource("LabelSettings_ogokj")
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/ConnectedData/Chat"]

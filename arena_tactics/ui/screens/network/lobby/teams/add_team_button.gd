@@ -8,6 +8,10 @@ signal pressed(team_name: String)
 
 func _ready():
 	btn.pressed.connect(_on_btn_pressed)
+	team_name_edit.text_submitted.connect(_on_line_submitted)
+
+func _on_line_submitted(_msg: String):
+	_on_btn_pressed()
 
 func _on_btn_pressed():
 	pressed.emit(team_name_edit.text)

@@ -4,6 +4,7 @@ class_name Lobby
 @onready var returnButton: Button = get_node("%ReturnButton")
 @onready var launchGameButton: Button = get_node("%LaunchGameButton")
 
+@onready var player_list: Control = $"%PlayerList"
 @onready var lobby_team: LobbyTeams = $"%LobbyTeams"
 
 @onready var chatContainer: VBoxContainer = get_node("%ChatContainer") 
@@ -16,10 +17,11 @@ class_name Lobby
 signal transition(new_scene: PackedScene, animation: String)
 
 func _ready():
-	lobby_team.setup(networker, networker.players)
+	lobby_team.setup(networker)
 	returnButton.pressed.connect(_on_return_button_pressed)
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
 	launchGameButton.pressed.connect(_on_launch_game_pressed)
+	chatMessageLine.text_submitted.connect(_on_chat_line_submitted)
 
 	networker.player_disconnected.connect(_on_player_disconnected)
 	networker.player_list_updated.connect(_on_player_list_updated)
@@ -27,13 +29,12 @@ func _ready():
 	_on_player_list_updated()
 
 func _on_player_list_updated():
-	pass
-	# for child in playerListContainer.get_children():
-	# 	child.queue_free()
-	# for player in networker.players:
-	# 	var playerName: Label = Label.new()
-	# 	playerName.text = "- %s (%s)" % [networker.players[player]["name"], player]
-	# 	playerListContainer.add_child(playerName)
+	for child in player_list.get_children():
+		child.queue_free()
+	for player in networker.users:
+		var playerName: Label = Label.new()
+		playerName.text = "- %s" % [player.user_name]
+		player_list.add_child(playerName)
 
 func _on_player_disconnected(_id):
 	_on_player_list_updated()
@@ -44,6 +45,9 @@ func _on_return_button_pressed():
 	var menuScene = load(lobby_connector_scene_path)
 	transition.emit(menuScene, "scene_transition")
 
+
+func _on_chat_line_submitted(_msg: String):
+	_on_chat_send_pressed()
 
 func _on_chat_send_pressed():
 	if chatMessageLine.text == "" or not networker.multiplayer.has_multiplayer_peer():

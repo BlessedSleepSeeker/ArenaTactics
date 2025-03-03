@@ -22,6 +22,8 @@
   - [26/02/25](#260225)
   - [27/02/25](#270225)
   - [28/02/25](#280225)
+  - [01/03/25](#010325)
+  - [03/03/25](#030325)
 
 ## November 24
 
@@ -146,3 +148,11 @@ Offdat
 
 - Server : logging to file
 - Client : Team UI start
+
+## 01/03/25
+
+- Client Team UI progress
+
+## 03/03/25
+
+- Server/Client user logic refactoring with ConnectedUser and ConnectedTeam

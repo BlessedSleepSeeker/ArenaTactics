@@ -4,14 +4,12 @@
 [ext_resource type="StyleBox" uid="uid://bx7n370nw0r0" path="res://ui/screens/network/lobby/teams/UIPanel.tres" id="2_cr7vf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5m4ji"]
-font_size = 50
-outline_size = 2
-outline_color = Color(0.2464, 0.25696, 0.88, 1)
+font_size = 20
 
 [node name="TeamWidget" type="MarginContainer"]
-custom_minimum_size = Vector2(300, 200)
 offset_right = 195.0
 offset_bottom = 158.0
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
