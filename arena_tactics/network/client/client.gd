@@ -7,6 +7,8 @@ signal player_list_updated(list: Array[ConnectedUser])
 signal team_list_updated(list: Array[ConnectedTeam])
 signal allowed_in_server
 
+signal go_to_css
+
 signal new_error(msg: String)
 
 const PORT = 7000
@@ -103,7 +105,7 @@ func _on_server_disconnected():
 
 @rpc("authority", "reliable")
 func launch_game():
-	pass# go to game scene
+	go_to_css.emit()
 
 @rpc("any_peer", "reliable")
 func ask_launch_game():

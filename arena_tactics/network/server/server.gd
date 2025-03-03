@@ -105,6 +105,7 @@ func ask_launch_game():
 	await get_tree().create_timer(1).timeout
 	chat_module.receive_chat_message.rpc("[SERVER]", 1, "Game starting !", "MAJOR_SUCCESS")
 	status = Status.GAME
+	launch_game.rpc()
 
 #region Users
 func _on_user_connected(_id):

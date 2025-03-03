@@ -14,6 +14,7 @@ class_name Lobby
 @onready var networker: NetworkClient = get_tree().root.get_node("Root").get_node("NetworkRoot").get_node("Networker")
 
 @export var lobby_connector_scene_path: String = "res://ui/screens/network/lobby_connector/LobbyConnector.tscn"
+@export var character_select_scene_path: String = "res://ui/characters/character_select_screen/CharacterSelectScreen.tscn"
 signal transition(new_scene: PackedScene, animation: String)
 
 func _ready():
@@ -22,6 +23,8 @@ func _ready():
 	## Leave if we go back or we are disconnected from the server for any reason.
 	returnButton.pressed.connect(_on_return_button_pressed)
 	networker.server_disconnected.connect(_on_return_button_pressed)
+	
+	networker.go_to_css.connect(go_to_css)
 
 	chatSendButton.pressed.connect(_on_chat_send_pressed)
 	chatMessageLine.text_submitted.connect(_on_chat_line_submitted)
@@ -76,6 +79,9 @@ func _on_message_received(author: String, message: String, type: String):
 	msg.text = add_type_coloring(msg_str, type)
 	chatContainer.add_child(msg)
 
+func go_to_css():
+	var scene: PackedScene = load(character_select_scene_path)
+	transition.emit(scene, "scene_transition")
 
 func _on_launch_game_pressed():
 	if networker.is_host:
