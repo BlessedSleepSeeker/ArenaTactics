@@ -23,7 +23,7 @@ func _ready():
 	connect_button.pressed.connect(_on_connect_button_pressed)
 	return_button.pressed.connect(_on_return_button_pressed)
 	networker.new_error.connect(_on_error_received)
-	networker.allowed_in_server.connect(_on_allowed_in)
+	networker.user_module.allowed_in_server.connect(_on_allowed_in)
 
 func _on_return_button_pressed() -> void:
 	networker.leave()
@@ -36,8 +36,8 @@ func _on_connect_button_pressed() -> void:
 	var _server_port = int(server_port.text)
 	var _pass = server_pass.text
 
-	networker.set_player_info({"name": _player_name, "password": _pass})
-	networker.join_game(_server_adress, _server_port)
+	networker.user_module.set_player_info({"name": _player_name, "password": _pass})
+	networker.join_server(_server_adress, _server_port)
 
 func _on_allowed_in():
 	var new_scene: PackedScene = load(lobby_scene_path)

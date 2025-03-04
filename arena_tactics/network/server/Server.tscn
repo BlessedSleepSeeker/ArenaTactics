@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqlhw860j5s8v"]
+[gd_scene load_steps=4 format=3 uid="uid://bqlhw860j5s8v"]
 
 [ext_resource type="Script" uid="uid://di17umdggkxll" path="res://network/server/server.gd" id="1_x18d6"]
 [ext_resource type="Script" uid="uid://dqldxhktbjvxq" path="res://network/server/chat_module.gd" id="2_o2r1r"]
+[ext_resource type="Script" uid="uid://72q61kgjyet6" path="res://network/server/user_module.gd" id="3_tovjw"]
 
 [node name="Networker" type="Node"]
 script = ExtResource("1_x18d6")
 
 [node name="ChatModule" type="Node" parent="."]
 script = ExtResource("2_o2r1r")
+
+[node name="UserModule" type="Node" parent="."]
+script = ExtResource("3_tovjw")

@@ -11,7 +11,7 @@ signal created_team(team_name: String)
 
 func setup(_networker: NetworkClient):
 	networker = _networker
-	networker.team_list_updated.connect(build_grid)
+	networker.user_module.team_list_updated.connect(build_grid)
 	build_grid()
 
 func build_grid():
@@ -23,7 +23,7 @@ func empty_grid():
 		child.queue_free()
 
 func fill_grid():
-	for team in networker.teams:
+	for team in networker.user_module.teams:
 		var team_widget: TeamWidget = team_widget_scene.instantiate()
 		team_widget.want_join_team.connect(_on_team_picked)
 		self.add_child(team_widget)
@@ -38,8 +38,8 @@ func create_add_team_button():
 
 func _on_team_picked(team: ConnectedTeam):
 	picked_team.emit(team)
-	networker.join_team(team)
+	networker.user_module.join_team(team)
 
 func _on_team_created(team_name: String):
 	created_team.emit(team_name)
-	networker.create_team(team_name)
+	networker.user_module.create_team(team_name)

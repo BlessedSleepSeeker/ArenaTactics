@@ -55,7 +55,7 @@ user_settings_file_path = "user://settings/game_settings.cfg"
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_yeyqi")
+&"": SubResource("AnimationLibrary_yeyqi")
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

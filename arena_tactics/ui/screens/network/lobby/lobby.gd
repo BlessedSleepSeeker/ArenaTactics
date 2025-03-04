@@ -30,8 +30,8 @@ func _ready():
 	chatMessageLine.text_submitted.connect(_on_chat_line_submitted)
 
 	networker.player_disconnected.connect(_on_player_disconnected)
-	networker.player_list_updated.connect(_on_player_list_updated)
-	networker.chatModule.chat_message_received.connect(_on_message_received)
+	networker.user_module.player_list_updated.connect(_on_player_list_updated)
+	networker.chat_module.chat_message_received.connect(_on_message_received)
 
 	_on_player_list_updated()
 	host_setup()
@@ -45,7 +45,7 @@ func host_setup() -> void:
 func _on_player_list_updated():
 	for child in player_list.get_children():
 		child.queue_free()
-	for player in networker.users:
+	for player in networker.user_module.users:
 		var playerName: Label = Label.new()
 		playerName.text = "- %s" % [player.user_name]
 		player_list.add_child(playerName)
@@ -67,7 +67,7 @@ func _on_chat_send_pressed():
 	if chatMessageLine.text == "" or not networker.multiplayer.has_multiplayer_peer():
 		return
 	var message_content = chatMessageLine.text
-	networker.chatModule.send_chat_message.rpc_id(1, message_content, "USER_MESSAGE")
+	networker.chat_module.receive_chat_message.rpc_id(1, message_content, "USER_MESSAGE")
 	chatMessageLine.text = ""
 
 
