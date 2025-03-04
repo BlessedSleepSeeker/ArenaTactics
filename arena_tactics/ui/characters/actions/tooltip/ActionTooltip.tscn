@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b02bc8kvbf22r"]
 
-[ext_resource type="Script" path="res://ui/characters/actions/tooltip/action_tooltip.gd" id="1_r82ff"]
+[ext_resource type="Script" uid="uid://bs6xx46v8yb7y" path="res://ui/characters/actions/tooltip/action_tooltip.gd" id="1_r82ff"]
 [ext_resource type="Texture2D" uid="uid://b5ribxnpndscs" path="res://gameplay/actions/movement_actions/assets/default_movement_icon_placeholder.png" id="2_2f4p7"]
-[ext_resource type="Script" path="res://ui/characters/actions/tooltip/icon_rich_text_label.gd" id="3_evdjt"]
+[ext_resource type="Script" uid="uid://iyf7kk3q3fru" path="res://ui/characters/actions/tooltip/icon_rich_text_label.gd" id="3_evdjt"]
 
 [node name="ActionTooltip" type="MarginContainer"]
 custom_minimum_size = Vector2(300, 100)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://eumbs2kuhj63"]
 
-[ext_resource type="Script" path="res://ui/screens/settings/settings_line.gd" id="1_tf1xw"]
+[ext_resource type="Script" uid="uid://bqwkd7tvdglih" path="res://ui/screens/settings/settings_line.gd" id="1_tf1xw"]
 
 [node name="SettingsLine" type="HBoxContainer"]
 anchors_preset = 10

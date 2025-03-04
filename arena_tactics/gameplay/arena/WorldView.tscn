@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3aaaue0h4kbp"]
 
-[ext_resource type="Script" path="res://gameplay/arena/world_view.gd" id="1_qqpp8"]
-[ext_resource type="Script" path="res://gameplay/arena/hex_grid_cube.gd" id="2_6pvua"]
-[ext_resource type="Script" path="res://gameplay/arena/camera/CameraMovement.gd" id="3_nwcck"]
+[ext_resource type="Script" uid="uid://csedlijf4ovyu" path="res://gameplay/arena/world_view.gd" id="1_qqpp8"]
+[ext_resource type="Script" uid="uid://bb6fpvv774rii" path="res://gameplay/arena/hex_grid_cube.gd" id="2_6pvua"]
+[ext_resource type="Script" uid="uid://xrdaiprskns1" path="res://gameplay/arena/camera/CameraMovement.gd" id="3_nwcck"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_23qwn"]
 sky_top_color = Color(0.1302, 0.71672, 0.93, 1)

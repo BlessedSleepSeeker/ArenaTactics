@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmywmdt0bmod4"]
 
-[ext_resource type="Script" path="res://autoloads/custom_root/root.gd" id="1_0ggjb"]
+[ext_resource type="Script" uid="uid://jesss50ubfj6" path="res://autoloads/custom_root/root.gd" id="1_0ggjb"]
 [ext_resource type="PackedScene" uid="uid://s46wqxnh4dnl" path="res://autoloads/settings/settings.tscn" id="2_022ww"]
 [ext_resource type="PackedScene" uid="uid://j5ybay8h1lep" path="res://autoloads/settings/server_settings/ServerSettings.tscn" id="3_tlkqu"]
 
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yeyqi"]
 _data = {
-"RESET": SubResource("Animation_43y50"),
-"scene_transition": SubResource("Animation_5nrjs")
+&"RESET": SubResource("Animation_43y50"),
+&"scene_transition": SubResource("Animation_5nrjs")
 }
 
 [node name="Root" type="Node"]

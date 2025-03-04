@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7wpfbn5bk411"]
 
-[ext_resource type="Script" path="res://ui/characters/actions/action_button.gd" id="1_cexei"]
+[ext_resource type="Script" uid="uid://cnx71urcia1gf" path="res://ui/characters/actions/action_button.gd" id="1_cexei"]
 [ext_resource type="Texture2D" uid="uid://4feo87m1vbqx" path="res://ui/characters/actions/placeholder_button_pressed.png" id="3_7dlju"]
-[ext_resource type="Script" path="res://ui/characters/actions/tooltip/apply_tooltip.gd" id="4_r2p4d"]
+[ext_resource type="Script" uid="uid://cldctclhbm0d4" path="res://ui/characters/actions/tooltip/apply_tooltip.gd" id="4_r2p4d"]
 [ext_resource type="Texture2D" uid="uid://cf3ik7nwuat22" path="res://ui/characters/actions/placeholder_button_hover.png" id="4_w0tfg"]
 
 [node name="ActionButton" type="CenterContainer"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b5vx7mnmf36g2"]
 
-[ext_resource type="Script" path="res://ui/characters/character_select_screen/3d_scene/character_select_3d.gd" id="1_7l5iv"]
-[ext_resource type="Script" path="res://gameplay/arena/hex_grid_cube.gd" id="2_gtrcv"]
+[ext_resource type="Script" uid="uid://cvjxq10s0xxmx" path="res://ui/characters/character_select_screen/3d_scene/character_select_3d.gd" id="1_7l5iv"]
+[ext_resource type="Script" uid="uid://bb6fpvv774rii" path="res://gameplay/arena/hex_grid_cube.gd" id="2_gtrcv"]
 
 [sub_resource type="Animation" id="Animation_qh7id"]
 length = 30.0
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dvc0q"]
 _data = {
-"RESET": SubResource("Animation_qh7id"),
-"hex_spin": SubResource("Animation_4kne3")
+&"RESET": SubResource("Animation_qh7id"),
+&"hex_spin": SubResource("Animation_4kne3")
 }
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ij4vb"]

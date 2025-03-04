@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3kwxhhwlgeix"]
 
-[ext_resource type="Script" path="res://ui/screens/settings/setting_tab.gd" id="1_e2f36"]
+[ext_resource type="Script" uid="uid://0w4tegeqicpm" path="res://ui/screens/settings/setting_tab.gd" id="1_e2f36"]
 
 [node name="SettingTab" type="MarginContainer"]
 anchors_preset = 15

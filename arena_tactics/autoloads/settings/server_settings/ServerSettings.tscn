@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://j5ybay8h1lep"]
 
-[ext_resource type="Script" path="res://autoloads/settings/settings.gd" id="1_1rll5"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/allow_spectators.gd" id="2_80j1j"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/game_seed.gd" id="3_rgce2"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_team_number.gd" id="4_0277t"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/generic_text_setting.gd" id="4_jss0t"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/ip_adress.gd" id="4_uqtma"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/network_port.gd" id="5_c5ota"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/spectator_limit.gd" id="5_ve3yb"]
-[ext_resource type="Script" path="res://autoloads/settings/server_settings/server_settings_scripts/max_player_per_team.gd" id="5_waa5g"]
+[ext_resource type="Script" uid="uid://7pud10826kcg" path="res://autoloads/settings/settings.gd" id="1_1rll5"]
+[ext_resource type="Script" uid="uid://domjgtqtk0wv" path="res://autoloads/settings/server_settings/server_settings_scripts/allow_spectators.gd" id="2_80j1j"]
+[ext_resource type="Script" uid="uid://didejopxy531n" path="res://autoloads/settings/server_settings/server_settings_scripts/game_seed.gd" id="3_rgce2"]
+[ext_resource type="Script" uid="uid://csjaerqihgkml" path="res://autoloads/settings/server_settings/server_settings_scripts/max_team_number.gd" id="4_0277t"]
+[ext_resource type="Script" uid="uid://bjlswkiuwxcxr" path="res://autoloads/settings/server_settings/server_settings_scripts/generic_text_setting.gd" id="4_jss0t"]
+[ext_resource type="Script" uid="uid://5v7dj5lqnxfg" path="res://autoloads/settings/server_settings/server_settings_scripts/ip_adress.gd" id="4_uqtma"]
+[ext_resource type="Script" uid="uid://8n6h2t7ftj3e" path="res://autoloads/settings/server_settings/server_settings_scripts/network_port.gd" id="5_c5ota"]
+[ext_resource type="Script" uid="uid://cx83jxcmmd5sv" path="res://autoloads/settings/server_settings/server_settings_scripts/spectator_limit.gd" id="5_ve3yb"]
+[ext_resource type="Script" uid="uid://b8kpkwsbahh5b" path="res://autoloads/settings/server_settings/server_settings_scripts/max_player_per_team.gd" id="5_waa5g"]
 
 [node name="ServerSettings" type="Node"]
 script = ExtResource("1_1rll5")

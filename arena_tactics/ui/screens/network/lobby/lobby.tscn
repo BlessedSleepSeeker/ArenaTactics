@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcry0lwlfq1d6"]
 
-[ext_resource type="Script" path="res://ui/screens/network/lobby/lobby.gd" id="1_rw0ao"]
+[ext_resource type="Script" uid="uid://bhrtg7a55q2qo" path="res://ui/screens/network/lobby/lobby.gd" id="1_rw0ao"]
 [ext_resource type="PackedScene" uid="uid://cyvitp4i8k7hk" path="res://ui/screens/network/lobby/teams/LobbyTeams.tscn" id="2_7mjwf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hvff8"]

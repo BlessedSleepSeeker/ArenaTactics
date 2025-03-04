@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dh6s2kdu6niwy"]
 
-[ext_resource type="Script" path="res://ui/screens/network/server_logs/server_logs.gd" id="1_0mdc1"]
+[ext_resource type="Script" uid="uid://doul5djxtn3g7" path="res://ui/screens/network/server_logs/server_logs.gd" id="1_0mdc1"]
 
 [node name="ServerLogs" type="Control"]
 layout_mode = 3

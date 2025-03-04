@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcw4w08xs571a"]
 
-[ext_resource type="Script" path="res://ui/screens/network/lobby/teams/team_widget.gd" id="1_4hpjv"]
+[ext_resource type="Script" uid="uid://d1d8l6hdibrjg" path="res://ui/screens/network/lobby/teams/team_widget.gd" id="1_4hpjv"]
 [ext_resource type="StyleBox" uid="uid://bx7n370nw0r0" path="res://ui/screens/network/lobby/teams/UIPanel.tres" id="2_cr7vf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5m4ji"]

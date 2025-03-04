@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://ui/themes/base_ui_theme.tres" id="1_auudq"]
-[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
+[ext_resource type="Script" uid="uid://dy0x6fb3jc3jv" path="res://ui/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
 [ext_resource type="PackedScene" uid="uid://bsbinym0w5is4" path="res://ui/characters/character_select_screen/UI/CSSHexagonGrid.tscn" id="3_1a6kn"]
-[ext_resource type="Script" path="res://ui/characters/actions/action_button_grid.gd" id="4_lux1u"]
+[ext_resource type="Script" uid="uid://7gvwwbmq5ccs" path="res://ui/characters/actions/action_button_grid.gd" id="4_lux1u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bsis1"]
 font_size = 60
@@ -96,9 +96,9 @@ length = 0.4
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o8ffg"]
 _data = {
-"RESET": SubResource("Animation_tgogt"),
-"fade_in": SubResource("Animation_8xnvm"),
-"fade_in_action_data": SubResource("Animation_jv644")
+&"RESET": SubResource("Animation_tgogt"),
+&"fade_in": SubResource("Animation_8xnvm"),
+&"fade_in_action_data": SubResource("Animation_jv644")
 }
 
 [node name="CharacterSelectUI" type="Control"]

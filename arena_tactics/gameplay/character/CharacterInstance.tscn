@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://bcvho024kiqga"]
 
-[ext_resource type="Script" path="res://gameplay/character/character_instance.gd" id="1_vgy44"]
-[ext_resource type="Script" path="res://gameplay/character/state_machine/state_machine.gd" id="2_g3qjf"]
-[ext_resource type="Script" path="res://gameplay/character/state_machine/states/idle.gd" id="3_gn8po"]
-[ext_resource type="Script" path="res://gameplay/character/state_machine/states/walk.gd" id="5_svu25"]
+[ext_resource type="Script" uid="uid://cq8u30lybk512" path="res://gameplay/character/character_instance.gd" id="1_vgy44"]
+[ext_resource type="Script" uid="uid://bjl81yuriqbdh" path="res://gameplay/character/state_machine/state_machine.gd" id="2_g3qjf"]
+[ext_resource type="Script" uid="uid://cu44wt5468u5p" path="res://gameplay/character/state_machine/states/idle.gd" id="3_gn8po"]
+[ext_resource type="Script" uid="uid://limdfqv1yvnx" path="res://gameplay/character/state_machine/states/walk.gd" id="5_svu25"]
 
 [sub_resource type="Animation" id="Animation_gsina"]
 resource_name = "fade_in"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1srf5"]
 _data = {
-"fade_in": SubResource("Animation_gsina")
+&"fade_in": SubResource("Animation_gsina")
 }
 
 [node name="CharacterInstance" type="CharacterBody3D"]

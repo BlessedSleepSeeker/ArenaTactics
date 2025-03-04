@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0v3mt77eqrb2"]
 
-[ext_resource type="Script" path="res://ui/screens/network/lobby/teams/add_team_button.gd" id="1_hl5p2"]
+[ext_resource type="Script" uid="uid://rhxarwlk1bhd" path="res://ui/screens/network/lobby/teams/add_team_button.gd" id="1_hl5p2"]
 [ext_resource type="StyleBox" uid="uid://bx7n370nw0r0" path="res://ui/screens/network/lobby/teams/UIPanel.tres" id="2_ru7ab"]
 
 [node name="AddTeamButton" type="MarginContainer"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsbinym0w5is4"]
 
-[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/css_hexagon_grid.gd" id="1_oi6d3"]
+[ext_resource type="Script" uid="uid://dsdvcat7fease" path="res://ui/characters/character_select_screen/UI/css_hexagon_grid.gd" id="1_oi6d3"]
 [ext_resource type="PackedScene" uid="uid://dertr1qpkmo2i" path="res://ui/characters/character_select_screen/UI/HexagonButton.tscn" id="2_t4ikh"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_4cux1"]

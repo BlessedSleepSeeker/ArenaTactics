@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dertr1qpkmo2i"]
 
-[ext_resource type="Script" path="res://ui/characters/character_select_screen/UI/hexagon_button.gd" id="1_7wiub"]
+[ext_resource type="Script" uid="uid://3jqf25xifglh" path="res://ui/characters/character_select_screen/UI/hexagon_button.gd" id="1_7wiub"]
 [ext_resource type="Texture2D" uid="uid://bypu4t7njx625" path="res://ui/characters/character_select_screen/UI/assets/hex_button_clicked.png" id="3_fdu04"]
 [ext_resource type="BitMap" uid="uid://dehbydr6dp22t" path="res://ui/characters/character_select_screen/UI/assets/hex_button_click_mask.png" id="3_ifoti"]
 [ext_resource type="Texture2D" uid="uid://caps7pquwv37h" path="res://ui/characters/character_select_screen/UI/assets/grass_hexagon.png" id="3_try0m"]

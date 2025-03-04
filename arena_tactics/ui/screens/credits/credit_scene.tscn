@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://vd1entiph7b0"]
 
 [ext_resource type="Theme" uid="uid://srf2bpfdjwwr" path="res://ui/themes/menu_ui_theme.tres" id="1_3cvad"]
-[ext_resource type="Script" path="res://ui/screens/credits/credit_scene.gd" id="3_fjgl6"]
+[ext_resource type="Script" uid="uid://b2t3vnokogo41" path="res://ui/screens/credits/credit_scene.gd" id="3_fjgl6"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wkm6w"]
 

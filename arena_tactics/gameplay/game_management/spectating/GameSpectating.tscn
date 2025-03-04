@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctfqdpyjct3nc"]
 
-[ext_resource type="Script" path="res://gameplay/game_management/spectating/game_spectating.gd" id="1_0uyv1"]
+[ext_resource type="Script" uid="uid://nqxvat70x205" path="res://gameplay/game_management/spectating/game_spectating.gd" id="1_0uyv1"]
 [ext_resource type="PackedScene" uid="uid://d0scscdx4lonm" path="res://ui/ServerUI.tscn" id="1_3sw70"]
 [ext_resource type="PackedScene" uid="uid://c3aaaue0h4kbp" path="res://gameplay/arena/WorldView.tscn" id="2_784fh"]
 

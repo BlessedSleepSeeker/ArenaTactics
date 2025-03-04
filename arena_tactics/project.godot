@@ -14,7 +14,7 @@ config/name="ArenaTactics"
 config/version="0.0.1"
 config/tags=PackedStringArray("hexagons", "tactical", "turn_based")
 run/main_scene="res://autoloads/custom_root/root.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]

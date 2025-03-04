@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cyvitp4i8k7hk"]
 
-[ext_resource type="Script" path="res://ui/screens/network/lobby/teams/lobby_teams.gd" id="1_hsmio"]
+[ext_resource type="Script" uid="uid://b0kwcaiyn72td" path="res://ui/screens/network/lobby/teams/lobby_teams.gd" id="1_hsmio"]
 
 [node name="LobbyTeams" type="GridContainer"]
 anchors_preset = 15

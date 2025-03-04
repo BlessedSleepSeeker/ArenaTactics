@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnrdlotjvmhjp"
+uid="uid://cwa7red8eksm"
 path.s3tc="res://.godot/imported/magus_7.png-f1cd030236ff542f12eb9405fa195d23.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "418da4b435a91b73f0c60554f1169da4"
 }
 
 [deps]

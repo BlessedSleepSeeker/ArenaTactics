@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6y1gl1eydw8j"]
 
-[ext_resource type="Script" path="res://gameplay/arena/procgen/procgen_data.gd" id="1_2721w"]
+[ext_resource type="Script" uid="uid://bc0n4jqfc2qbl" path="res://gameplay/arena/procgen/procgen_data.gd" id="1_2721w"]
 
 [node name="ProceduralGenerator" type="Node"]
 script = ExtResource("1_2721w")

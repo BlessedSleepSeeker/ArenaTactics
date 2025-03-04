@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0scscdx4lonm"]
 
-[ext_resource type="Script" path="res://ui/server_ui.gd" id="1_86eu2"]
-[ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://ui/base_ui_theme.tres" id="1_l3d55"]
+[ext_resource type="Script" uid="uid://bko0tkvnqqbl" path="res://ui/server_ui.gd" id="1_86eu2"]
+[ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://ui/themes/base_ui_theme.tres" id="1_l3d55"]
 [ext_resource type="Texture2D" uid="uid://de6pipgcs2rky" path="res://gameplay/arena/procgen/erosion/erosion.tres" id="2_c3eyd"]
 [ext_resource type="Texture2D" uid="uid://dkomdlc3vxjfk" path="res://gameplay/arena/procgen/continentalness/continentalness.tres" id="2_pctw1"]
 [ext_resource type="Texture2D" uid="uid://b2g2coc0kmovq" path="res://gameplay/arena/procgen/peaks/peaks.tres" id="4_kyqxo"]
 [ext_resource type="Texture2D" uid="uid://b2of5828deq2i" path="res://gameplay/arena/procgen/temperature/temperature.tres" id="5_5w08l"]
 [ext_resource type="Texture2D" uid="uid://dlgkg3ovi85wg" path="res://gameplay/arena/procgen/humidity/humidity.tres" id="6_rnsfq"]
-[ext_resource type="Script" path="res://ui/debug_data.gd" id="7_gtdt6"]
+[ext_resource type="Script" uid="uid://ruy6u7kq0e56" path="res://ui/debug_data.gd" id="7_gtdt6"]
 
 [node name="ServerUi" type="Control"]
 layout_mode = 3

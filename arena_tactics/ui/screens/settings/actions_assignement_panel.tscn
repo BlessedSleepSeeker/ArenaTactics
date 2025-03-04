@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://deilqxh4w887j"]
 
-[ext_resource type="Script" path="res://ui/screens/settings/actions_assignement_panel.gd" id="2_ywso3"]
+[ext_resource type="Script" uid="uid://cudu623syulgs" path="res://ui/screens/settings/actions_assignement_panel.gd" id="2_ywso3"]
 
 [node name="ActionsAssignementPanel" type="PanelContainer"]
 anchors_preset = 8

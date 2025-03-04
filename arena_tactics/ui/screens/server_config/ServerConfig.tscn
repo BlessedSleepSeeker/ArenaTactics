@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qey4naoxiapu"]
 
-[ext_resource type="Script" path="res://ui/screens/server_config/server_config.gd" id="1_qcbwi"]
+[ext_resource type="Script" uid="uid://cfppcxmsifld0" path="res://ui/screens/server_config/server_config.gd" id="1_qcbwi"]
 [ext_resource type="Theme" uid="uid://r8wkoocujs1g" path="res://ui/themes/modal_theme.tres" id="2_gg53u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2poek"]
