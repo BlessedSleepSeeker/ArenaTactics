@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dtodgpoqsjj8s"]
+[gd_scene load_steps=12 format=3 uid="uid://dtodgpoqsjj8s"]
 
 [ext_resource type="Theme" uid="uid://d3kms72g8lsqf" path="res://ui/themes/base_ui_theme.tres" id="1_auudq"]
 [ext_resource type="Script" uid="uid://dy0x6fb3jc3jv" path="res://ui/characters/character_select_screen/UI/character_select_ui.gd" id="2_hf0x0"]
 [ext_resource type="PackedScene" uid="uid://bsbinym0w5is4" path="res://ui/characters/character_select_screen/UI/CSSHexagonGrid.tscn" id="3_1a6kn"]
+[ext_resource type="PackedScene" uid="uid://c6545toxtr2th" path="res://ui/timer/ProgressiveTimer.tscn" id="3_t5xvb"]
 [ext_resource type="Script" uid="uid://7gvwwbmq5ccs" path="res://ui/characters/actions/action_button_grid.gd" id="4_lux1u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bsis1"]
@@ -122,6 +123,41 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
+[node name="Buttons" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+
+[node name="Return" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Return"
+
+[node name="Container" type="Control" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PickTimer" type="Timer" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+unique_name_in_owner = true
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[node name="ProgressiveTimer" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer" instance=ExtResource("3_t5xvb")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LockIn" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lock In"
+
 [node name="VSpliter" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -196,30 +232,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("4_lux1u")
 
-[node name="Buttons" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-
-[node name="Return" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Return"
-
-[node name="Container" type="Control" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LockIn" type="Button" parent="MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Lock In"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_o8ffg")
+&"": SubResource("AnimationLibrary_o8ffg")
 }

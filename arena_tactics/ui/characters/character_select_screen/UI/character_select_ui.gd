@@ -1,7 +1,9 @@
 extends Control
 class_name CharacterSelectUI
 
-var selected_skin: String = "default"
+## If true, the class will automatically be locked in after [member CharacterSelectScreen.selection_timer_duration] has timed out.
+@export var selection_timer: bool = true
+@export var selection_timer_duration: int = 30
 
 @onready var character_select_grid: CSSHexagonGrid = $"%CSSHexagonGrid"
 @onready var char_title: Label = $"%CharacterTitle"
@@ -9,16 +11,28 @@ var selected_skin: String = "default"
 @onready var char_description: RichTextLabel = $"%CharacterDescription"
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var action_grid: ActionButtonGrid = $"%ActionIconsGrid"
+@onready var pick_timer_ui: ProgressiveTimerUI = $"%ProgressiveTimer"
+@onready var pick_timer: Timer = $"%PickTimer"
+
 @onready var return_button: Button = $"%Return"
+@onready var lock_in_button: Button = $"%LockIn"
 
 signal class_selected(selected_class: ClassDefinition)
 signal action_selected(action: GameplayAction)
+
+signal class_locked_in(selected_class: ClassDefinition)
 
 func build() -> void:
 	character_select_grid.build_grid(ClassLoader.classes)
 	character_select_grid.class_selected.connect(select_class)
 	action_grid.action_selected.connect(_action_selected)
 	select_random_class()
+	if selection_timer:
+		pick_timer_ui.timer = pick_timer
+		pick_timer_ui.setup()
+		pick_timer_ui.show()
+	else:
+		pick_timer_ui.hide()
 
 
 func select_class(_selected_class: ClassDefinition) -> void:
@@ -64,3 +78,6 @@ func fill_data(character: CharacterInstance) -> void:
 	var actions = character.get_actions()
 	action_grid.build(actions)
 	update_selected_action(actions.pick_random(), false)
+
+func lock_in_class():
+	class_locked_in.emit()

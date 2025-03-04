@@ -17,7 +17,6 @@ script = ExtResource("1_6ygua")
 
 [node name="CharacterSelectUI" parent="CanvasLayer" instance=ExtResource("2_jg0uw")]
 unique_name_in_owner = true
-theme = null
 
 [node name="CharacterSelect3d" parent="." instance=ExtResource("3_xuvnp")]
 unique_name_in_owner = true

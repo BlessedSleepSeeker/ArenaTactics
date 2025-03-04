@@ -8,8 +8,8 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [resource]
-MarginContainer/constants/margin_bottom = 15
-MarginContainer/constants/margin_left = 15
-MarginContainer/constants/margin_right = 15
-MarginContainer/constants/margin_top = 15
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_8teyw")

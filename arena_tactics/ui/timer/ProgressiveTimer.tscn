@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6545toxtr2th"]
+
+[ext_resource type="Script" uid="uid://dng6pp8opyf2b" path="res://ui/timer/progressive_timer.gd" id="1_n54d5"]
+
+[sub_resource type="Gradient" id="Gradient_n54d5"]
+offsets = PackedFloat32Array(0.127193, 0.416667, 0.741228)
+colors = PackedColorArray(1, 0.32, 0.32, 1, 1, 0.808667, 0.18, 1, 1, 1, 1, 1)
+
+[node name="ProgressiveTimer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n54d5")
+color_ramp = SubResource("Gradient_n54d5")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00'00'"
+horizontal_alignment = 1
+vertical_alignment = 1

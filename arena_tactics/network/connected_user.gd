@@ -1,9 +1,16 @@
 extends Resource
 class_name ConnectedUser
 
+## Online Peer ID
 @export var id: int
+## User Entered Name
 @export var user_name: String
 @export var is_host: bool = false
+
+## Picked Class in the CSS
+var picked_class: ClassDefinition = null
+## Class instance once in play
+var self_character: CharacterInstance = null
 
 func _init(_user_name: String = ""):
 	user_name = _user_name
