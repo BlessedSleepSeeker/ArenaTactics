@@ -7,7 +7,7 @@ var chat_module: ClientChatModule
 var users: Array[ConnectedUser] = []
 var teams: Array[ConnectedTeam] = []
 
-var player_info: Dictionary = {"name": "Client", "password": ""}
+@export var player_info: Dictionary = {"name": "Client", "password": ""}
 
 signal player_list_updated(list: Array[ConnectedUser])
 signal team_list_updated(list: Array[ConnectedTeam])
@@ -16,6 +16,19 @@ signal allowed_in_server
 func _ready():
 	networker = owner as NetworkClient
 	chat_module = networker.chat_module
+	## randomize name for fast forward option
+	if networker.fast_forward:
+		var characters = 'abcdefghijklmnopqrstuvwxyz'
+		var new_word = generate_word(characters, 10)
+		set_player_info({"name": new_word, "password": ""})
+
+
+func generate_word(chars, length):
+	var word: String = ""
+	var n_char = len(chars)
+	for i in range(length):
+		word += chars[randi()% n_char]
+	return word
 
 #region Users
 func set_player_info(_player_info: Dictionary):

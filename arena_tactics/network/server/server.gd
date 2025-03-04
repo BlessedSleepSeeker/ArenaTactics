@@ -91,15 +91,15 @@ func ask_launch_game():
 		return
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "Game starting in 5...", "MAJOR_SUCCESS")
 	log_me.emit("Starting Game in 5...")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "4", "MAJOR_SUCCESS")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "3", "MAJOR_SUCCESS")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "2", "MAJOR_SUCCESS")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "1", "MAJOR_SUCCESS")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	chat_module.send_chat_message.rpc("[SERVER]", 1, "Game starting !", "MAJOR_SUCCESS")
 	log_me.emit("Starting Game !")
 	status = Status.GAME

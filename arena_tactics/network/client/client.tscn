@@ -6,6 +6,7 @@
 
 [node name="Networker" type="Node"]
 script = ExtResource("1_sgjdc")
+fast_forward = true
 
 [node name="ChatModule" type="Node" parent="."]
 script = ExtResource("2_u5agb")

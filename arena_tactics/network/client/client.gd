@@ -15,15 +15,20 @@ const MAX_CONNEXION = 4
 
 var is_host: bool = false
 
+@export var fast_forward: bool = false
+
 @onready var chat_module = $ChatModule
 @onready var user_module = $UserModule
 
 func _ready():
-		multiplayer.peer_connected.connect(_on_player_connected)
-		multiplayer.peer_disconnected.connect(_on_player_disconnected)
-		multiplayer.connected_to_server.connect(_on_connected_ok)
-		multiplayer.connection_failed.connect(_on_connected_fail)
-		multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.peer_connected.connect(_on_player_connected)
+	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	multiplayer.connected_to_server.connect(_on_connected_ok)
+	multiplayer.connection_failed.connect(_on_connected_fail)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+	if fast_forward:
+		join_server()
 
 
 func join_server(adress: String = DEFAULT_SERVER_IP, _port: int = PORT) -> bool:
@@ -83,6 +88,9 @@ func launch_game():
 @rpc("any_peer", "reliable")
 func ask_launch_game():
 	pass
+
+func pick_class(selected_class: ClassDefinition):
+	print_debug(selected_class.title)
 
 @rpc("authority", "reliable")
 func set_as_host():

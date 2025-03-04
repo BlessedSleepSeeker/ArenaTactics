@@ -24,6 +24,8 @@ func _ready():
 	return_button.pressed.connect(_on_return_button_pressed)
 	networker.new_error.connect(_on_error_received)
 	networker.user_module.allowed_in_server.connect(_on_allowed_in)
+	if networker.fast_forward:
+		_on_allowed_in()
 
 func _on_return_button_pressed() -> void:
 	networker.leave()

@@ -6,9 +6,12 @@ extends Control
 
 signal transition(new_scene: PackedScene, animation: String)
 
+@onready var networker: NetworkClient = get_tree().root.get_node("Root").get_node("NetworkRoot").get_node("Networker")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if networker.fast_forward:
+		_on_play_button_pressed()
 
 func _on_quit_button_pressed():
 	get_tree().quit()

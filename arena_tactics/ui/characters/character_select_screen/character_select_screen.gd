@@ -16,6 +16,8 @@ signal transition(new_scene: PackedScene, animation: String)
 
 var selected_class: ClassDefinition = null
 
+@onready var networker: NetworkClient = get_tree().root.get_node("Root").get_node("NetworkRoot").get_node("Networker")
+
 func _ready():
 	css_ui.class_selected.connect(_on_class_selected)
 	css_ui.action_selected.connect(_on_action_selected)
@@ -45,3 +47,4 @@ func _return_button_clicked():
 
 func lock_in_class():
 	class_locked_in.emit(selected_class)
+	networker.pick_class(selected_class)
