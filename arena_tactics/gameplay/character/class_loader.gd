@@ -78,6 +78,8 @@ func parse_data(class_def: ClassDefinition, file_name: String, data: Dictionary)
 		# Module loading/instancing is postponed to the actual class instancing
 		class_def.register_module(file_name, data)
 
+func get_class_by_name(_class_name: String) -> ClassDefinition:
+	return classes[_class_name]
 
 func get_class_instance_by_name(_class_name: String) -> CharacterInstance:
 	var class_def = classes[_class_name]

@@ -42,7 +42,7 @@ func calculate_damage(_target: CharacterInstance, _stats: StatisticsModule, is_b
 	return roundi(damage)
 	#var attack_damage = roundi()
 
-func apply_status(target: CharacterInstance, is_backstab: bool):
+func apply_status(_target: CharacterInstance, _is_backstab: bool):
 	pass
 
 @export var gameplay_info_string_template: String = "[u]Affecting %s[/u]\nDamage : %d to %d.\n%d % Crit x %0.2f\nBackstabbing Multiplier : %0.1f\n"

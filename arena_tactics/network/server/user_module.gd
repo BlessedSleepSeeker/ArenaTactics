@@ -184,3 +184,16 @@ func team_name_already_exist(_team_name: String) -> bool:
 			return true
 	return false
 #endregion
+
+#region CharacterSelect
+@rpc("authority", "reliable")
+func get_user_class(player_id: int, _class_name: String):
+	print_debug(player_id, _class_name)
+
+@rpc("any_peer", "reliable")
+func receive_user_class(_class_name: String):
+	var player_id: int = multiplayer.get_remote_sender_id()
+	var player: ConnectedUser = get_user_by_id(player_id)
+	var player_class: ClassDefinition = ClassLoader.get_class_by_name(_class_name)
+	player.picked_class = player_class
+#endregion

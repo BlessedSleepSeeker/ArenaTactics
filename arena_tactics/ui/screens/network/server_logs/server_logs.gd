@@ -100,3 +100,11 @@ static func strip_bbcode(line: String) -> String:
 func write_line(line: String) -> void:
 	log_file.store_line(strip_bbcode(line))
 #endregion
+
+#region Toggling
+
+func _unhandled_input(_event):
+	if Input.is_action_pressed("server_log_toggle"):
+		self.visible = !visible
+
+#endregion

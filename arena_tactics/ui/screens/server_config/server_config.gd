@@ -12,8 +12,6 @@ class_name ServerConfigUI
 @onready var save_dialog: ConfirmationDialog = $SaveDialog
 @onready var quit_dialog: ConfirmationDialog = $QuitDialog
 
-signal transition(new_scene: PackedScene, animation: String)
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for section in settings.get_sections_list():
@@ -43,4 +41,4 @@ func _on_launch_button_pressed():
 	save_dialog.show()
 
 func launch_server() -> void:
-	var launcher = ArenaServerLauncher.new(settings)
+	var _launcher = ArenaServerLauncher.new(settings)

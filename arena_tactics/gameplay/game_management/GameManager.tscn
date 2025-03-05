@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8dvfbuhkisua"]
+
+[ext_resource type="Script" uid="uid://usosnvs4tj0f" path="res://gameplay/game_management/game_manager.gd" id="1_nt8rr"]
+[ext_resource type="PackedScene" uid="uid://c3aaaue0h4kbp" path="res://gameplay/arena/WorldView.tscn" id="2_un64n"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_nt8rr")
+
+[node name="WorldView" parent="." instance=ExtResource("2_un64n")]

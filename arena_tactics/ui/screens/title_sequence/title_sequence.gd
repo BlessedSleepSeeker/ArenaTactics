@@ -7,6 +7,8 @@ extends Setting
 signal transition(new_scene: PackedScene, animation: String)
 
 func _ready():
+	if OS.has_feature("editor"):
+		transition.emit(main_menu, "")
 	subviewport_container.size = DisplayServer.window_get_size()
 	sprite.scale = Vector2(subviewport_container.size.x / 64, subviewport_container.size.y / 36)
 	sprite.play("logo")
@@ -15,5 +17,5 @@ func _ready():
 	transition.emit(main_menu, "")
 
 func _input(event):
-	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton or OS.has_feature("editor"):
+	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
 		transition.emit(main_menu, "")

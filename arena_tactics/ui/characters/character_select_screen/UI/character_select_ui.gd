@@ -20,17 +20,20 @@ class_name CharacterSelectUI
 signal class_selected(selected_class: ClassDefinition)
 signal action_selected(action: GameplayAction)
 
-signal class_locked_in(selected_class: ClassDefinition)
+signal class_locked_in
 
 func build() -> void:
 	character_select_grid.build_grid(ClassLoader.classes)
 	character_select_grid.class_selected.connect(select_class)
 	action_grid.action_selected.connect(_action_selected)
+	lock_in_button.pressed.connect(lock_in_class)
 	select_random_class()
 	if selection_timer:
+		pick_timer.start(selection_timer_duration)
 		pick_timer_ui.timer = pick_timer
 		pick_timer_ui.setup()
 		pick_timer_ui.show()
+		pick_timer.timeout.connect(lock_in_class)
 	else:
 		pick_timer_ui.hide()
 

@@ -19,10 +19,10 @@ func convert_dict_to_args(dict: Dictionary) -> PackedStringArray:
 	return args
 
 func launch_server_with_args(args: PackedStringArray) -> void:
-	var strr = OS.get_executable_path()
+	var _strr = OS.get_executable_path()
 	for a in args:
-		strr += " "
-		strr += a
+		_strr += " "
+		_strr += a
 	#print_debug(strr)
 	# var dict = OS.execute_with_pipe(OS.get_executable_path(), args)
 	# var stdio = dict["stdio"]

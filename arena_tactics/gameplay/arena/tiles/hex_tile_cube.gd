@@ -40,6 +40,10 @@ var offset_grid_coordinate: Vector2i:
 @onready var mesh_inst: MeshInstance3D = $MeshInstance3D
 @onready var collision: CollisionShape3D = $CollisionShape3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var object_spawn: Marker3D = $ObjectSpawnPoint
+@onready var raycast_spawn: Marker3D = $RayCastSpawnPoint
+
+var object_on_tile: Variant = null
 
 signal hover_enter(hex_tile: HexTileCube)
 signal hover_exit(hex_tile: HexTileCube)
@@ -76,7 +80,8 @@ func set_vertical_position():
 
 	# all flat bottom
 	self.position.y = (height / 2)
-
+	object_spawn.position.y = height / 2
+	raycast_spawn.position.y = object_spawn.position.y + 1.5
 #region HexLib
 
 @export var neighbors_vectors: Array[Vector3i] = [

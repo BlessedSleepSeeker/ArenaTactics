@@ -106,3 +106,14 @@ func link_team_id_with_users(team: ConnectedTeam):
 	for id in team.members_id:
 		team.members.append(get_user_by_id(id))
 #endregion
+
+#region CharacterSelect
+@rpc("authority", "reliable")
+func get_user_class(player_id: int, _class_name: String):
+	print_debug(player_id, _class_name)
+	player_list_updated.emit()
+
+@rpc("any_peer", "reliable")
+func receive_user_class(_class_name: String):
+	pass
+#endregion

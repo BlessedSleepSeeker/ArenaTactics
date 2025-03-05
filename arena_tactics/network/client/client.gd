@@ -90,7 +90,7 @@ func ask_launch_game():
 	pass
 
 func pick_class(selected_class: ClassDefinition):
-	print_debug(selected_class.title)
+	user_module.receive_user_class.rpc_id(1, selected_class.title)
 
 @rpc("authority", "reliable")
 func set_as_host():
